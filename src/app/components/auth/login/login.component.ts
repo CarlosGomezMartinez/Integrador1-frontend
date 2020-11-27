@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-
+import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth/auth.service';
 
@@ -17,13 +17,14 @@ export class LoginComponent implements OnInit {
   });
 
   constructor(private authSvc:AuthService, private router: Router) { }
-
+  public user$: Observable<any> = this.authSvc.afAuth.user;
   ngOnInit(): void {
   }
 
   async onGoogleLogin(){
     try {
-      this.authSvc.loginGoogle();
+      await this.authSvc.loginGoogle();
+      this.router.navigate(['/profile']);
     } catch (error) {
       console.log(error);
     }
@@ -31,7 +32,8 @@ export class LoginComponent implements OnInit {
 
   async onFacebookLogin(){
     try {
-      this.authSvc.loginFacebook();
+      await this.authSvc.loginFacebook();
+      this.router.navigate(['/profile']);
     } catch (error) {
       console.log(error);
     }
@@ -43,7 +45,7 @@ export class LoginComponent implements OnInit {
       const user = await this.authSvc.login(email, password);
       if(user && user.user.emailVerified){
         //redirect to usuario loggeado
-        this.router.navigate(['/home']);
+        this.router.navigate(['/profile']);
       } else if (user && !user.user.emailVerified){
         this.router.navigate(['/verification-email']);
       } else {

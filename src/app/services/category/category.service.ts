@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class CategoryService {
 
-  API = "dirección donde está la api backend";
+  API = "http://localhost:4001/category";
 
 
   constructor(private http: HttpClient) { }
@@ -21,8 +21,8 @@ export class CategoryService {
   save(category: any): Observable<any> {
     let result: Observable<Object>;
     console.log("borro ", category);
-    if (category['href']) {
-      result = this.http.put(category.href, category);
+    if (category['id_categoría']) {
+      result = this.http.put(category.id_categoría, category);
     } else {
       result = this.http.post(this.API, category);
     }
