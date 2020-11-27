@@ -5,18 +5,26 @@
     </button>
   
     <div class="collapse navbar-collapse" id="navbarColor01">
-      <ul class="navbar-nav mr-auto">
+      <!--<ul class="navbar-nav mr-auto">
         <li class="nav-item active">
           <a class="nav-link" routerLink="/" >Home</a>
         </li>
-      </ul>
-      <ul class="navbar-nav mx-auto" *ngIf="user$ | async as user; else login">
+      </ul>-->
+      <ul class="navbar-nav ml-auto" *ngIf="user$ | async as user; else login">
+        <li class="nav-item dropdown show">
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">Dropdown</a>
+          <div class="dropdown-menu show">
+            <a class="dropdown-item dropdown-item-dark " href="#">Gestionar categorias</a>
+            <a class="dropdown-item" href="#">Agregar movimiento</a>
+            <a class="dropdown-item" href="#">Consulta tus movimientos</a>
+          </div>
+        </li>
         <li class="nav-item" *ngIf="user">
             <a href="#" class="nav-link" (click)="onLogout()">Cerrar sesión</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link">{{ user?.email }}</a>
-          </li>
+        </li>
+        <!--<li class="nav-item">
+          <a class="nav-link">{{ user?.email }}</a>
+        </li>-->
       </ul>
       <ng-template #login>
         <ul class="navbar-nav ml-auto">        
