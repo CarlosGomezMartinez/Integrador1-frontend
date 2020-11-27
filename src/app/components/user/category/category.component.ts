@@ -7,11 +7,12 @@ import { CategoryService } from '../../../services/category/category.service';
   styleUrls: ['./category.component.scss']
 })
 export class CategoryComponent implements OnInit {
-  categories: Array<any>;
+  categories: any = [{}];
   constructor(private catSer: CategoryService) { }
 
   ngOnInit(): void {
     this.catSer.getAll().subscribe(data => {
+      console.log(data);
       this.categories = data;
     });
   }

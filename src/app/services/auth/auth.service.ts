@@ -3,7 +3,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import firebase from "firebase/app";
 import "firebase/auth";
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class AuthService {
   googleProvider = new firebase.auth.GoogleAuthProvider();
   facebookProvider = new firebase.auth.FacebookAuthProvider();

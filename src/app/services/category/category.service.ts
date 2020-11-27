@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class CategoryService {
 
   API = "http://localhost:4001/category";
@@ -18,8 +18,9 @@ export class CategoryService {
     return this.http.get(this.API + '/' + id);
   }
 
-  save(category: any): Observable<any> {
+  save(category: any, usuario: string): Observable<any> {
     let result: Observable<Object>;
+    category.usuario = usuario;
     console.log("borro ", category);
     if (category['id_categoría']) {
       result = this.http.put(category.id_categoría, category);
