@@ -10,11 +10,11 @@
                         <div>
                             <h1 class="text-center">Categorias</h1>
                         </div>
-                        <ul style="list-style-type: none" *ngIf="holas.length>0 ; else no">
-                            <li *ngFor="let hola of holas">
+                        <ul style="list-style-type: none" *ngIf="categories.length>0 ; else no">
+                            <li *ngFor="let category of categories">
                                 <div>
                                     <a style="font-size: 20px;" class="mr-5" href="#">
-                                        {{hola.id}}
+                                        {{category.nombre_categoría}}
                                     </a>
                                     
                                 </div>

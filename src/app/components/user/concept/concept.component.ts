@@ -9,7 +9,9 @@ export class ConceptComponent implements OnInit {
 
   constructor() { }
 
+  public holas = [{id: 10, nombre: 'Alejo'}, {id: 16, nombre: 'Naty'}];
   ngOnInit(): void {
+    console.log(this.holas);
   }
 
 }
