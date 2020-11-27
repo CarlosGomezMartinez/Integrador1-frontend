@@ -1,40 +1,37 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="/">Control de Gastos</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-  
-    <div class="collapse navbar-collapse" id="navbarColor01">
-      <!--<ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" routerLink="/" >Home</a>
+  <div class="navbar-nav ml-auto" *ngIf="user$ | async as user; else home">
+    <a class="navbar-brand" routerLink="/profile">Control de Gastos</a>
+  </div>
+  <ng-template #home>
+    <a class="navbar-brand" routerLink="/">Control de Gastos</a>
+  </ng-template>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarColor01">
+    <ul class="navbar-nav ml-auto" *ngIf="user$ | async as user; else login">
+      <li class="nav-item dropdown show">
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">Dropdown</a>
+        <div class="dropdown-menu bg-dark">
+          <a class="dropdown-item text-white" routerLink="/category">Gestionar categorias</a>
+          <a class="dropdown-item text-white" routerLink="/movement/add">Agregar movimiento</a>
+          <a class="dropdown-item text-white" routerLink="/movement">Consulta tus movimientos</a>
+        </div>
+      </li>
+      <li class="nav-item" *ngIf="user">
+          <a href="#" class="nav-link" (click)="onLogout()">Cerrar sesión</a>
+      </li>
+    </ul>
+    <ng-template #login>
+      <ul class="navbar-nav ml-auto">   
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/login">Iniciar sesión</a>
         </li>
-      </ul>-->
-      <ul class="navbar-nav ml-auto" *ngIf="user$ | async as user; else login">
-        <li class="nav-item dropdown show">
-          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">Dropdown</a>
-          <div class="dropdown-menu show">
-            <a class="dropdown-item dropdown-item-dark " href="#">Gestionar categorias</a>
-            <a class="dropdown-item" href="#">Agregar movimiento</a>
-            <a class="dropdown-item" href="#">Consulta tus movimientos</a>
-          </div>
+        <li class="nav-item" >
+          <a class="nav-link" routerLink="/register">Registrarse</a>
         </li>
-        <li class="nav-item" *ngIf="user">
-            <a href="#" class="nav-link" (click)="onLogout()">Cerrar sesión</a>
-        </li>
-        <!--<li class="nav-item">
-          <a class="nav-link">{{ user?.email }}</a>
-        </li>-->
-      </ul>
-      <ng-template #login>
-        <ul class="navbar-nav ml-auto">        
-          <li class="nav-item ">
-            <a class="nav-link" routerLink="/login">Iniciar sesión</a>
-          </li>
-          <li class="nav-item " >
-            <a class="nav-link" routerLink="/register">Registrarse</a>
-          </li>
-        </ul>  
-      </ng-template>
-    </div>
-  </nav>
+      </ul>  
+    </ng-template>
+  </div>
+</nav>
