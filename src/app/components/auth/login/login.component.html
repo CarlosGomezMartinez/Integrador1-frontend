@@ -1,0 +1,32 @@
+<div class="row">
+    <div class="col-md-4 mx-auto mt-5">
+        <div class="card">
+            <div class="card-body">
+                <h1 class="text-center">Iniciar sesión</h1>
+                <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+                    <div class="form-group">
+                        <!--<label for="email">Email</label>-->
+                        <input type="email" class="form-control" formControlName="email" placeholder="Correo electrónico">
+                    </div>
+                    <div class="form-group">
+                        <!--<label for="Password">Password</label>-->
+                        <input type="password" class="form-control" formControlName="password" placeholder="Contraseña">
+                    </div>
+                    <button type="submit" class="btn btn-dark btn-lg btn-block" >Ingresar</button>
+                </form>
+                <div class="form-group">
+                    <button class="btn btn-lg btn-google mt-3" (click)="onGoogleLogin()">Google</button>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-lg btn-facebook" (click)="onFacebookLogin()">Facebook</button>
+                </div>
+                <div class="form-group mt-3 text-center">
+                    <p><a [routerLink]="['/register']">¿Desea crear una cuenta?</a></p>
+                </div>
+                <div class="form-group mt-3 text-center">
+                    <p><a [routerLink]="['/forgot-password']">¿Olvidó su contraseña?</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

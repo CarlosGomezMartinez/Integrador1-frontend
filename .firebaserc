@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "login-control-gastos": {
+      "hosting": {
+        "login": [
+          "login-control-gastos"
+        ]
+      }
+    }
+  }
+}
