@@ -4,6 +4,7 @@ import { SendEmailComponent } from './components/auth/send-email/send-email.comp
 import { ProfileComponent } from './components/user/profile/profile.component';
 import { CategoryComponent } from './components/user/category/category.component';
 import { CategoryAddComponent } from './components/user/category-add/category-add.component';
+import { ConceptComponent } from './components/user/concept/concept.component';
 
 const routes: Routes = [
   {
@@ -48,6 +49,11 @@ const routes: Routes = [
   {
     path:'category/add',
     component: CategoryAddComponent,
+  },
+
+  {
+    path:'concept',
+    component: ConceptComponent,
   }
 
 ];

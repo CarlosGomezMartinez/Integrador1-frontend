@@ -14,6 +14,10 @@ import { SendEmailComponent } from './components/auth/send-email/send-email.comp
 import { ProfileComponent } from './components/user/profile/profile.component';
 import { CategoryComponent } from './components/user/category/category.component';
 import { CategoryAddComponent } from './components/user/category-add/category-add.component';
+import { ConceptComponent } from './components/user/concept/concept.component';
+import { ProductComponent } from './components/user/product/product.component';
+import { MovementComponent } from './components/user/movement/movement.component';
+import { AcquisitionPointComponent } from './components/user/acquisition-point/acquisition-point.component';
 
 
 
@@ -25,7 +29,11 @@ import { CategoryAddComponent } from './components/user/category-add/category-ad
     SendEmailComponent,
     ProfileComponent,
     CategoryComponent,
-    CategoryAddComponent, 
+    CategoryAddComponent,
+    ConceptComponent,
+    ProductComponent,
+    MovementComponent,
+    AcquisitionPointComponent, 
   ],
   imports: [    
     BrowserModule,

@@ -1,1 +1,38 @@
-<p>category works!</p>
+<div class="row">
+    <div class="col-md-6 mx-auto mt-5">
+        <div class="card">
+            <div class="card-body ">
+                <div>
+                    <h3 class="text-center">¡Realicemos juntos la gestión de nuestros gastos!</h3>
+                </div>
+                <div>
+                    <form action="">
+                        <div>
+                            <h1 class="text-center">Categorias</h1>
+                        </div>
+                        <ul style="list-style-type: none" *ngIf="categories.length>0 ; else no">
+                            <li *ngFor="let category of categories">
+                                <div>
+                                    <a style="font-size: 20px;" class="mr-5" href="#">
+                                        {{category.nombre_categoría}}
+                                    </a>
+                                    
+                                </div>
+                            </li>
+                        </ul>
+                        <ng-template #no>
+                            <div>
+                                <p>Aún no cuentas con categorías,<br>
+                                    ¿Qué tal si agregas algunas?</p>
+                            </div>
+                        </ng-template>
+                        <div class="text-center">
+                            <button class="btn btn-primary mr-3">Volver</button>
+                            <button class="btn btn-success ml-2">Agregar Categoria</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
