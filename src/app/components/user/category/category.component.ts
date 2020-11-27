@@ -7,9 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CategoryComponent implements OnInit {
 
-  constructor() { }
 
+  constructor() { }
+  public holas = [{id: 5, nombre: 'Julian'}, {id: 8, nombre: 'Carlos'}];
   ngOnInit(): void {
+    console.log(this.holas);
   }
 
 }

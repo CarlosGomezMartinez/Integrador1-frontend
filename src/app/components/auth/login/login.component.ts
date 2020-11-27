@@ -23,7 +23,8 @@ export class LoginComponent implements OnInit {
 
   async onGoogleLogin(){
     try {
-      this.authSvc.loginGoogle();
+      await this.authSvc.loginGoogle();
+      this.router.navigate(['/profile']);
     } catch (error) {
       console.log(error);
     }
@@ -32,6 +33,7 @@ export class LoginComponent implements OnInit {
   async onFacebookLogin(){
     try {
       this.authSvc.loginFacebook();
+      this.router.navigate(['/profile']);
     } catch (error) {
       console.log(error);
     }
@@ -43,7 +45,7 @@ export class LoginComponent implements OnInit {
       const user = await this.authSvc.login(email, password);
       if(user && user.user.emailVerified){
         //redirect to usuario loggeado
-        this.router.navigate(['/home']);
+        this.router.navigate(['/profile']);
       } else if (user && !user.user.emailVerified){
         this.router.navigate(['/verification-email']);
       } else {
