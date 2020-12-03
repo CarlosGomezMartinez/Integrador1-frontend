@@ -30,15 +30,6 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  async onFacebookLogin(){
-    try {
-      await this.authSvc.loginFacebook();
-      this.router.navigate(['/profile']);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
   async onLogin(){
     const {email, password} = this.loginForm.value;
     try {

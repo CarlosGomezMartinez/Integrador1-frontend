@@ -16,7 +16,6 @@
                                     <a style="font-size: 20px;" class="mr-5" href="#">
                                         {{category.nombre_categoria}}
                                     </a>
-                                    
                                 </div>
                             </li>
                         </ul>
@@ -27,8 +26,8 @@
                             </div>
                         </ng-template>
                         <div class="text-center">
-                            <button class="btn btn-primary mr-3">Volver</button>
-                            <button class="btn btn-success ml-2">Agregar Categoria</button>
+                            <button class="btn btn-primary mr-3" [routerLink]="['/profile']">Volver</button>
+                            <button class="btn btn-success ml-2" [routerLink]="['/category/add']">Agregar Categoria</button>
                         </div>
                     </form>
                 </div>

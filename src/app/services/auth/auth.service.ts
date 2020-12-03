@@ -17,14 +17,6 @@ export class AuthService {
     catch (error){ console.log(error); }
   }
 
-  async loginFacebook(){
-    try {
-      return this.afAuth.signInWithPopup(this.facebookProvider);
-    }
-    catch (error){ console.log(error); }
-  }
-
-
   async resetPassword(email: string):Promise<void> {
     try {
       return this.afAuth.sendPasswordResetEmail(email);
