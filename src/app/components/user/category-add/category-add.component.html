@@ -5,10 +5,14 @@
                 <form #categoryForm="ngForm" (ngSubmit)="save(categoryForm.value)">
                     <h1>¡Agreguemos una categoría!</h1>
                     <div class="form-group">
+<<<<<<< HEAD
                         <input type="text" class="form-control" placeholder="Nombre" required name="nombre_categoría" autofocus required>
+=======
+                        <input type="text" class="form-control" placeholder="Nombre" [(ngModel)]="category.nombre_categoria"required name="nombre_categoria" autofocus>
+>>>>>>> 9169c7b3fedd80fc5ce1015c3835e309b79a3c60
                     </div>
                     <div class="form-group">
-                        <textarea class="form-control" placeholder="Descripción" name="descripción" cols="50" rows="2"></textarea>
+                        <textarea class="form-control" placeholder="Descripción" [(ngModel)]="category.descripcion" name="descripcion" cols="50" rows="2"></textarea>
                     </div>
                     <div class="form-group">
                         <button class="btn btn-danger mr-3" routerLink="/category">

@@ -18,15 +18,10 @@ export class CategoryService {
     return this.http.get(this.API + '/' + id);
   }
 
-  save(category: any): Observable<any> {
-    let result: Observable<Object>;
-    console.log("borro ", category);
-    if (category['id_categoría']) {
-      result = this.http.put(category.id_categoría, category);
-    } else {
-      result = this.http.post(this.API, category);
-    }
-    return result;
+  save(category: any, userID: string):Observable<any>{
+    category.usuario = userID;
+    console.log(category);
+    return this.http.post(this.API, category);
   }
 
   remove(href: string) {

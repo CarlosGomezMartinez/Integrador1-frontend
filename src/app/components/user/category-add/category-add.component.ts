@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { CategoryService } from '../../../services/category/category.service';
+import { AuthService } from '../../../services/auth/auth.service';
+import firebase from "firebase/app";
+
 
 @Component({
   selector: 'app-category-add',
@@ -8,13 +13,21 @@ import { NgForm } from '@angular/forms';
 })
 export class CategoryAddComponent implements OnInit {
   category: any = {};
-  constructor() { }
+  //userID: any;
 
-  ngOnInit(): void {
-
+  constructor(
+    private catSer: CategoryService, 
+    private authSvc: AuthService
+  ) { }
+  ngOnInit():void{
   }
 
   save(form: NgForm){
-
+    var user = firebase.auth().currentUser;
+    if (user != null) {
+      this.catSer.save(form, user.uid).subscribe((data)=>{
+        console.log(data);
+      })
+    }
   }
 }

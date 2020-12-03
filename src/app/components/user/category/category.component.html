@@ -15,20 +15,24 @@
                                 <div>
                                     <a style="font-size: 20px;" class="mr-5" href="#">
                                         {{category.nombre_categoria}}
+<<<<<<< HEAD
                                     </a>                                    
+=======
+                                    </a>
+>>>>>>> 9169c7b3fedd80fc5ce1015c3835e309b79a3c60
                                 </div>
                                 <span class="border"></span>
                             </li>
                         </ul>
                         <ng-template #no>
-                            <div>
+                            <div class="text-center"> 
                                 <p>Aún no cuentas con categorías,<br>
                                     ¿Qué tal si agregas algunas?</p>
                             </div>
                         </ng-template>
                         <div class="text-center">
-                            <button class="btn btn-primary mr-3">Volver</button>
-                            <button class="btn btn-success ml-2">Agregar Categoria</button>
+                            <button class="btn btn-primary mr-3" [routerLink]="['/profile']">Volver</button>
+                            <button class="btn btn-success ml-2" [routerLink]="['/category/add']">Agregar Categoria</button>
                         </div>
                     </form>
                 </div>

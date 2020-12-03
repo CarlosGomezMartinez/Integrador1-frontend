@@ -18,25 +18,8 @@ export class LoginComponent implements OnInit {
 
   constructor(private authSvc:AuthService, private router: Router) { }
   public user$: Observable<any> = this.authSvc.afAuth.user;
+  
   ngOnInit(): void {
-  }
-
-  async onGoogleLogin(){
-    try {
-      await this.authSvc.loginGoogle();
-      this.router.navigate(['/profile']);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  async onFacebookLogin(){
-    try {
-      await this.authSvc.loginFacebook();
-      this.router.navigate(['/profile']);
-    } catch (error) {
-      console.log(error);
-    }
   }
 
   async onLogin(){

@@ -52,7 +52,7 @@ const routes: Routes = [
   },
 
   {
-    path:'concept',
+    path:'category/:nombre/concept',
     component: ConceptComponent,
   }
 
