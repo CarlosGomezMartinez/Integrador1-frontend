@@ -13,36 +13,21 @@ import firebase from "firebase/app";
 })
 export class CategoryAddComponent implements OnInit {
   category: any = {};
-  user: any={}
+  //userID: any;
 
   constructor(
     private catSer: CategoryService, 
     private authSvc: AuthService
   ) { }
-  ngOnInit(): void {
-    var user = firebase.auth().currentUser;
-
-    firebase.auth().onAuthStateChanged(function(user) {
-      if (user) {
-        // User is signed in.
-        console.log(user);
-        this.user = user;
-      } else {
-        // No user is signed in.
-        console.log("No hay nadie logueado");
-      }
-    });
+  ngOnInit():void{
   }
 
   save(form: NgForm){
-    
-    this.catSer.save(form).subscribe((data)=>{
-      console.log(data);
-    })
-    
-    /*this.catSer.save(form, this.user$).subscribe(result => {}, 
-      error => console.error(error)
-    );*/
-
+    var user = firebase.auth().currentUser;
+    if (user != null) {
+      this.catSer.save(form, user.uid).subscribe((data)=>{
+        console.log(data);
+      })
+    }
   }
 }

@@ -18,8 +18,10 @@ export class CategoryService {
     return this.http.get(this.API + '/' + id);
   }
 
-  save(category: any):Observable<any>{
-    return this.http.post(this.API,category);
+  save(category: any, userID: string):Observable<any>{
+    category.usuario = userID;
+    console.log(category);
+    return this.http.post(this.API, category);
   }
 
   remove(href: string) {
