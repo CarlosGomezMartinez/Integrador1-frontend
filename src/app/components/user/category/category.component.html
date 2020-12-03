@@ -12,16 +12,15 @@
                         </div>
                         <ul style="list-style-type: none" *ngIf="categories.length>0 ; else no">
                             <li *ngFor="let category of categories">
-                                <div>
-                                    <a style="font-size: 20px;" class="mr-5" href="#">
-                                        {{category.nombre_categoria}}
-<<<<<<< HEAD
-                                    </a>                                    
-=======
-                                    </a>
->>>>>>> 9169c7b3fedd80fc5ce1015c3835e309b79a3c60
+                                <div class="row border">
+                                    <div class="col">
+                                        <a style="font-size: 20px;" class="align-self-center float-left">
+                                            {{category.nombre_categoria}} 
+                                        </a>
+                                        <button class="btn float-right">Ver</button>
+                                    </div>
+
                                 </div>
-                                <span class="border"></span>
                             </li>
                         </ul>
                         <ng-template #no>
