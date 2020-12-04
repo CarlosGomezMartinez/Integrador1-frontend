@@ -5,7 +5,9 @@ import { ProfileComponent } from './components/user/profile/profile.component';
 import { CategoryComponent } from './components/user/category/category.component';
 import { CategoryAddComponent } from './components/user/category-add/category-add.component';
 import { ConceptComponent } from './components/user/concept/concept.component';
+import { ConceptAddComponent } from './components/user/concept-add/concept-add.component';
 import { ProductComponent } from './components/user/product/product.component';
+import { ProductAddComponent } from './components/user/product-add/product-add.component';
 import { AcquisitionPointComponent } from './components/user/acquisition-point/acquisition-point.component';
 import { MovementComponent } from './components/user/movement/movement.component';
 
@@ -59,8 +61,16 @@ const routes: Routes = [
     component: ConceptComponent,
   },
   {
+    path:'category/:id_categoria/concept/add',
+    component: ConceptAddComponent,
+  },
+  {
     path: 'category/:id_categoria/concept/:id_concepto/product',
     component: ProductComponent,
+  },
+  {
+    path: 'category/:id_categoria/concept/:id_concepto/product/add',
+    component: ProductAddComponent,
   },
   {
     path: 'acquisition-point',

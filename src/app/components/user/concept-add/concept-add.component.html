@@ -1,0 +1,25 @@
+<div class="row">
+    <div class="col-md-6 mx-auto mt-5">
+        <div class="card">
+            <div class="card-body text-center">
+                <form #categoryForm="ngForm" (ngSubmit)="save(categoryForm.value)">
+                    <h1>¡Agreguemos un concepto!</h1>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Nombre" required name="nombre_categoria" autofocus>
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-control" placeholder="Descripción" name="descripcion" cols="50" rows="2"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-danger mr-3" routerLink="/category">
+                            Volver
+                        </button>
+                        <button class="btn btn-success ml-3" type ="submit">
+                            Guardar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

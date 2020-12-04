@@ -18,6 +18,8 @@ import { ConceptComponent } from './components/user/concept/concept.component';
 import { ProductComponent } from './components/user/product/product.component';
 import { MovementComponent } from './components/user/movement/movement.component';
 import { AcquisitionPointComponent } from './components/user/acquisition-point/acquisition-point.component';
+import { ConceptAddComponent } from './components/user/concept-add/concept-add.component';
+import { ProductAddComponent } from './components/user/product-add/product-add.component';
 
 
 
@@ -33,7 +35,9 @@ import { AcquisitionPointComponent } from './components/user/acquisition-point/a
     ConceptComponent,
     ProductComponent,
     MovementComponent,
-    AcquisitionPointComponent, 
+    AcquisitionPointComponent,
+    ConceptAddComponent,
+    ProductAddComponent, 
   ],
   imports: [    
     BrowserModule,
