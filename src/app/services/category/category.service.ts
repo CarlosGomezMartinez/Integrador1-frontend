@@ -27,7 +27,7 @@ export class CategoryService {
     return this.http.put(this.API+'/'+userID, category);
   }
 
-  remove(href: string) {
-    return this.http.delete(href);
+  remove(id_categoria: string) {
+    return this.http.delete(this.API+'/'+id_categoria);
   }
 }

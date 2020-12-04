@@ -23,7 +23,7 @@
                                         <a style="font-size: 20px; padding: 8px" class="align-self-center float-left">
                                             {{category.nombre_categoria}} 
                                         </a>
-                                        <button class="btn btn-danger float-right" >Eliminar</button>
+                                        <button class="btn btn-danger float-right" (click)="remove(category.id_categoria)">Eliminar</button>
                                         <button class="btn float-right" [routerLink]="['/category/'+category.id_categoria+'/concept']">Ver</button>
                                     </div>
                                 </div>

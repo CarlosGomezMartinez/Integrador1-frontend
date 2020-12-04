@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CategoryService } from '../../../services/category/category.service';
 
 @Component({
@@ -10,6 +11,7 @@ export class CategoryComponent implements OnInit {
   categories: any = [{}];
   constructor(
     private catSer: CategoryService,
+    private router: Router
   ) { }
   
   ngOnInit(): void {
@@ -19,4 +21,11 @@ export class CategoryComponent implements OnInit {
     });
   }
 
+  remove(id: string){
+    console.log(id)
+    this.catSer.remove(id).subscribe(data =>{
+      window.location.reload();
+      console.log(data);
+    });
+  }
 }
