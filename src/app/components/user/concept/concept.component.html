@@ -23,11 +23,13 @@
                                 <h1 class="text-center">Conceptos</h1>
                             </div>
                             <ul class="text-center" style="list-style-type: none;"  *ngIf="holas.length>0 ; else no">
-                                <label class="align-self-center float-left">
-                                    Buscar concepto
-                                </label>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" formControlName="name" placeholder="Nombre del concepto">
+
+                                <div class="input-group mb-4">
+                                    <input id="placaId" type="text" class="form-control" placeholder="Buscar concepto" >
+                                   <div class="input-group-append">
+                                     <button class="btn btn-sm" type="button">Buscar</button>
+                                   </div>
+
                                 </div>
                                 <li  *ngFor="let hola of holas" >
                                     <div class="row border">
