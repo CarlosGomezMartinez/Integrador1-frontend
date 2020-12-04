@@ -1,1 +1,59 @@
-<p>product works!</p>
+<div class="row">
+    <div class="col-md-6 mx-auto mt-5">
+        <div class="card">
+            <div class="card-body ">
+                <div>
+                    <h3 class="text-center">¡Modifica los conceptos o gestiona sus productos!</h3>
+                </div>
+                <div>
+                    <form >
+                        <!--<div class="border">
+                            <div class="form-group">
+                                <input type="text" class="form-control" formControlName="name" placeholder="Nombre del concepto" [(ngModel)]="category.nombre_categoria">
+                            </div>
+                            <div class="form-group">
+                                <textarea class= "form-control" name="description" rows="4" cols="50" placeholder="Descripción del concepto" [(ngModel)]="category.descripcion"></textarea>
+                            </div>
+                            <div class="text-center">
+                                <button class="btn btn-success mx-auto mb-3">Actualizar</button>
+                            </div>
+                        </div>-->
+                        <div class="border">
+                            <div>
+                                <h1 class="text-center">Productos</h1>
+                            </div>
+                            <ul class="text-center" style="list-style-type: none;"  *ngIf="products.length>0 ; else no">
+                                <div class="input-group mb-4">
+                                    <input type="text" class="form-control" placeholder="Buscar producto" >
+                                   <div class="input-group-append">
+                                     <button class="btn btn-sm" type="button">Buscar</button>
+                                   </div>
+                                </div>
+                                <li  *ngFor="let product of products" >
+                                    <div class="row border">
+                                        <div class="col">
+                                            <a style="font-size: 20px; padding: 8px" class="align-self-center float-left">
+                                                {{concept.nombre_concepto}}
+                                            </a>
+                                            <button class="btn float-right">Ver</button>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <ng-template #no>
+                                <div>
+                                    <p style="font-size: 15px; padding: 8px" class="align-self-center text-center">Aún no cuentas con productos para tus conceptos,<br>
+                                        ¿Qué tal si agregas algunos?</p>
+                                </div>
+                            </ng-template>
+                            <div class="text-center">
+                                <button class="btn btn-primary mr-3 mb-3" [routerLink]="['/category']">Volver</button>
+                                <button class="btn btn-success ml-2 mb-3">Agregar Producto</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
