@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { ConceptService } from '../../../services/concept/concept.service'
+import { CategoryService } from '../../../services/category/category.service'
 
 @Component({
   selector: 'app-concept',
@@ -6,12 +9,24 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./concept.component.scss']
 })
 export class ConceptComponent implements OnInit {
+  category: any;
+  concepts: any;
 
-  constructor() { }
+  constructor(
+    private route: ActivatedRoute,
+    private cateSrv: CategoryService,
+    private concSrv: ConceptService
+  ) { }
 
-  public holas = [{id: 10, nombre: 'Alejo'}, {id: 16, nombre: 'Naty'}];
   ngOnInit(): void {
-    console.log(this.holas);
+    this.route.params.subscribe((dato)=>{
+      this.cateSrv.get(dato.id_categoria).subscribe((categoria)=>{
+        this.category = categoria;
+        this.concSrv.get(dato.id_categoria).subscribe((conceptos)=>{
+          this.concepts = conceptos;
+        })
+      })
+    });
   }
 
 }
