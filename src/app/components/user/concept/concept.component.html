@@ -9,10 +9,10 @@
                     <form >
                         <div class="border">
                             <div class="form-group">
-                                <input type="text" class="form-control" formControlName="name" placeholder="Nombre de la categoria">
+                                <input type="text" class="form-control" formControlName="name" placeholder="Nombre de la categoria" [(ngModel)]="category.nombre_categoria">
                             </div>
                             <div class="form-group">
-                                <textarea class= "form-control" name="description" rows="4" cols="50" placeholder="Descripción de la categoria"></textarea>
+                                <textarea class= "form-control" name="description" rows="4" cols="50" placeholder="Descripción de la categoria" [(ngModel)]="category.descripcion"></textarea>
                             </div>
                             <div class="text-center">
                                 <button class="btn btn-success mx-auto mb-3">Actualizar</button>
@@ -22,7 +22,7 @@
                             <div>
                                 <h1 class="text-center">Conceptos</h1>
                             </div>
-                            <ul class="text-center" style="list-style-type: none;"  *ngIf="holas.length>0 ; else no">
+                            <ul class="text-center" style="list-style-type: none;"  *ngIf="concepts.length>0 ; else no">
 
                                 <div class="input-group mb-4">
                                     <input id="placaId" type="text" class="form-control" placeholder="Buscar concepto" >
@@ -31,11 +31,11 @@
                                    </div>
 
                                 </div>
-                                <li  *ngFor="let hola of holas" >
+                                <li  *ngFor="let concept of concepts" >
                                     <div class="row border">
                                         <div class="col">
                                             <a style="font-size: 20px; padding: 8px" class="align-self-center float-left">
-                                                {{hola.id}}
+                                                {{concept.nombre_concepto}}
                                             </a>
                                             <button class="btn float-right">Ver</button>
                                         </div>
