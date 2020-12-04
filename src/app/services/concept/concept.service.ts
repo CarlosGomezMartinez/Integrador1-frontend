@@ -18,10 +18,10 @@ export class ConceptService {
     return this.http.get(this.API + '/' + id);
   }
 
-  save(category: any, userID: string):Observable<any>{
-    category.usuario = userID;
-    console.log(category);
-    return this.http.post(this.API, category);
+  save(concept: any, userID: string):Observable<any>{
+    concept.usuario = userID;
+    console.log(concept);
+    return this.http.post(this.API, concept);
   }
 
   remove(href: string) {
