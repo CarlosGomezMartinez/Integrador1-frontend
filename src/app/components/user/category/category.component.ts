@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { CategoryService } from '../../../services/category/category.service';
 
 @Component({
@@ -11,7 +10,6 @@ export class CategoryComponent implements OnInit {
   categories: any = [{}];
   constructor(
     private catSer: CategoryService,
-    private router: Router
   ) { }
   
   ngOnInit(): void {

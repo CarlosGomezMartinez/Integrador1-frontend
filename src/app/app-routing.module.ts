@@ -55,11 +55,11 @@ const routes: Routes = [
   },
 
   {
-    path:'category/:nombre/concept',
+    path:'category/:id_categoria/concept',
     component: ConceptComponent,
   },
   {
-    path: 'category/:nombre/concept/:nombre/product',
+    path: 'category/:id_categoria/concept/:id_concepto/product',
     component: ProductComponent,
   },
   {
