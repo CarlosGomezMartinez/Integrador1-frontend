@@ -5,6 +5,9 @@ import { ProfileComponent } from './components/user/profile/profile.component';
 import { CategoryComponent } from './components/user/category/category.component';
 import { CategoryAddComponent } from './components/user/category-add/category-add.component';
 import { ConceptComponent } from './components/user/concept/concept.component';
+import { ProductComponent } from './components/user/product/product.component';
+import { AcquisitionPointComponent } from './components/user/acquisition-point/acquisition-point.component';
+import { MovementComponent } from './components/user/movement/movement.component';
 
 const routes: Routes = [
   {
@@ -54,6 +57,18 @@ const routes: Routes = [
   {
     path:'category/:nombre/concept',
     component: ConceptComponent,
+  },
+  {
+    path: 'category/:nombre/concept/:nombre/product',
+    component: ProductComponent,
+  },
+  {
+    path: 'acquisition-point',
+    component:AcquisitionPointComponent,
+  },
+  {
+    path: 'movement',
+    component: MovementComponent,
   }
 
 ];
