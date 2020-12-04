@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ConceptService } from '../../../services/concept/concept.service';
-import { AuthService } from '../../../services/auth/auth.service';
+
 import firebase from "firebase/app";
 
 
@@ -13,18 +14,26 @@ import firebase from "firebase/app";
 })
 export class ConceptAddComponent implements OnInit {
   concept: any = {};
-  //userID: any;
+  sub: Subscription;
+  id_categoria: any;
 
   constructor(
-    private concSrv: ConceptService
+    private concSrv: ConceptService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router
   ) { }
-  ngOnInit():void{
+
+  ngOnInit(){
+    this.sub = this.activatedRoute.params.subscribe(params =>{
+      this.id_categoria = params.id_categoria;
+    });
   }
 
   save(form: NgForm){
+    console.log("form ",form)
     var user = firebase.auth().currentUser;
     if (user != null) {
-      this.concSrv.save(form, user.uid).subscribe((data)=>{
+      this.concSrv.save(form, user.uid, this.id_categoria).subscribe((data)=>{
         console.log(data);
       })
     }

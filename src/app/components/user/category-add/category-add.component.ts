@@ -23,6 +23,7 @@ export class CategoryAddComponent implements OnInit {
   }
 
   save(form: NgForm){
+    console.log(this.category)
     var user = firebase.auth().currentUser;
     if (user != null) {
       this.catSer.save(form, user.uid).subscribe((data)=>{
