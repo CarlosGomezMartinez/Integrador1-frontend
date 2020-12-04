@@ -6,19 +6,15 @@
                     <h3 class="text-center">¡Modifica la categoria o gestiona sus conceptos!</h3>
                 </div>
                 <div>
-                    <form >
-                        <!--<div class="border">
-                            <div class="form-group">
-                                <input type="text" class="form-control" formControlName="name" placeholder="Nombre de la categoria" [(ngModel)]="category.nombre_categoria">
-                            </div>
-                            <div class="form-group">
-                                <textarea class= "form-control" name="description" rows="4" cols="50" placeholder="Descripción de la categoria" [(ngModel)]="category.descripcion"></textarea>
-                            </div>
+                    <form #updateForm="ngForm" (ngSubmit)="update(updateForm.value)">
+                        <div>
+                            <input type="text" name="nombre_categoria" class="form-control" placeholder="Nombre de la categoria" [(ngModel)]="category.nombre_categoria">
+                            <textarea class= "form-control" name="descripcion" rows="4" cols="50" placeholder="Descripción de la categoria" [(ngModel)]="category.descripcion"></textarea>
                             <div class="text-center">
-                                <button class="btn btn-success mx-auto mb-3">Actualizar</button>
+                                <button type="submit" class="btn btn-success mx-auto mb-3">Actualizar</button>
                             </div>
-                        </div>-->
-                        <div class="border">
+                        </div>
+                        <div>
                             <div>
                                 <h1 class="text-center">Conceptos</h1>
                             </div>

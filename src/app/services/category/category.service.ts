@@ -20,8 +20,11 @@ export class CategoryService {
 
   save(category: any, userID: string):Observable<any>{
     category.usuario = userID;
-    console.log(category);
     return this.http.post(this.API, category);
+  }
+
+  update(category: any, userID: any):Observable<any>{
+    return this.http.put(this.API+'/'+userID, category);
   }
 
   remove(href: string) {
