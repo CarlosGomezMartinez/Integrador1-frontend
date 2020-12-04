@@ -7,7 +7,7 @@
                 </div>
                 <div>
                     <form >
-                        <div class="border">
+                        <!--<div class="border">
                             <div class="form-group">
                                 <input type="text" class="form-control" formControlName="name" placeholder="Nombre de la categoria" [(ngModel)]="category.nombre_categoria">
                             </div>
@@ -17,19 +17,17 @@
                             <div class="text-center">
                                 <button class="btn btn-success mx-auto mb-3">Actualizar</button>
                             </div>
-                        </div>
+                        </div>-->
                         <div class="border">
                             <div>
                                 <h1 class="text-center">Conceptos</h1>
                             </div>
                             <ul class="text-center" style="list-style-type: none;"  *ngIf="concepts.length>0 ; else no">
-
                                 <div class="input-group mb-4">
-                                    <input id="placaId" type="text" class="form-control" placeholder="Buscar concepto" >
+                                    <input type="text" class="form-control" placeholder="Buscar concepto" >
                                    <div class="input-group-append">
                                      <button class="btn btn-sm" type="button">Buscar</button>
                                    </div>
-
                                 </div>
                                 <li  *ngFor="let concept of concepts" >
                                     <div class="row border">
@@ -49,8 +47,8 @@
                                 </div>
                             </ng-template>
                             <div class="text-center">
-                                <button class="btn btn-primary mr-3" [routerLink]="['/category']">Volver</button>
-                                <button class="btn btn-success ml-2">Agregar Concepto</button>
+                                <button class="btn btn-primary mr-3 mb-3" [routerLink]="['/category']">Volver</button>
+                                <button class="btn btn-success ml-2 mb-3" [routerLink]="['/category/'+category.id_categoria+'/concept/add']">Agregar Concepto</button>
                             </div>
                         </div>
                     </form>
