@@ -6,40 +6,33 @@
                     <h3 class="text-center">¡Realicemos juntos la gestión de nuestros gastos!</h3>
                 </div>
                 <div>
-                    <form action="">
+                    <table class="table table-striped" *ngIf="categories.length>0 ; else noCategories">
                         <div>
-                            <h1 class="text-center">Categorias</h1>
+                            <h1 class="text-center">Categorías</h1>
                         </div>
-                        <ul style="list-style-type: none" *ngIf="categories.length>0 ; else no">
-                            <div class="input-group mb-4">
-                                <input type="text" class="form-control" placeholder="Buscar concepto" >
-                               <div class="input-group-append">
-                                 <button class="btn btn-sm" type="button">Buscar</button>
-                               </div>
-                            </div>
-                            <li *ngFor="let category of categories">
-                                <div class="row border">
-                                    <div class="col">
-                                        <a style="font-size: 20px; padding: 8px" class="align-self-center float-left">
-                                            {{category.nombre_categoria}} 
-                                        </a>
-                                        <button class="btn btn-danger float-right" (click)="remove(category.id_categoria)">Eliminar</button>
-                                        <button class="btn float-right" [routerLink]="['/category/'+category.id_categoria+'/concept']">Ver</button>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                        <ng-template #no>
-                            <div class="text-center"> 
-                                <p>Aún no cuentas con categorías,<br>
-                                    ¿Qué tal si agregas algunas?</p>
-                            </div>
-                        </ng-template>
-                        <div class="text-center">
-                            <button class="btn btn-primary mr-3" [routerLink]="['/profile']">Volver</button>
-                            <button class="btn btn-success ml-2" [routerLink]="['/category/add']">Agregar Categoria</button>
+                        <input type="text" class="form-control" placeholder="Buscar Categoría..." [(ngModel)]="filtro">
+                        <br>
+                        <tbody>
+                            <tr *ngFor="let category of categories | filter: filtro">
+                                <td><p style="font-size: 20px" class="align-self-center float-left">
+                                    {{category.nombre_categoria}} 
+                                </p>
+                                <button class="btn btn-danger float-right" (click)="remove(category.id_categoria)">Eliminar</button>
+                                <button class="btn float-right" [routerLink]="['/category/'+category.id_categoria+'/concept']">Ver</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <ng-template #noCategories>
+                        <div class="text-center"> 
+                            <p>Aún no cuentas con categorías,<br>
+                                ¿Qué tal si agregas algunas?</p>
                         </div>
-                    </form>
+                    </ng-template>
+                    <div class="text-center">
+                        <button class="btn btn-primary mr-3" [routerLink]="['/profile']">Volver</button>
+                        <button class="btn btn-success ml-2" [routerLink]="['/category/add']">Agregar Categoría</button>
+                    </div>
                 </div>
             </div>
         </div>

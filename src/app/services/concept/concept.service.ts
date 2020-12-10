@@ -25,7 +25,7 @@ export class ConceptService {
     return this.http.post(this.API, concept);
   }
 
-  remove(href: string) {
-    return this.http.delete(href);
+  remove(id_categoria: string) {
+    return this.http.delete(this.API+'/'+id_categoria);
   }
 }

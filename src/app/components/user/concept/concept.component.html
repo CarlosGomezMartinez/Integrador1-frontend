@@ -3,51 +3,58 @@
         <div class="card">
             <div class="card-body ">
                 <div>
-                    <h3 class="text-center">¡Modifica la categoria o gestiona sus conceptos!</h3>
+                    <h3 class="text-center">Puedes modificar la categoría y gestionar sus conceptos</h3>
                 </div>
                 <div>
                     <form #updateForm="ngForm" (ngSubmit)="update(updateForm.value)">
                         <div>
-                            <input type="text" name="nombre_categoria" class="form-control" placeholder="Nombre de la categoria" [(ngModel)]="category.nombre_categoria">
-                            <textarea class= "form-control" name="descripcion" rows="4" cols="50" placeholder="Descripción de la categoria" [(ngModel)]="category.descripcion"></textarea>
+                            <br>
+                            <br>
+                            <div>
+                                <label for=""><strong>Nombre de categoría</strong></label>
+                                <input type="text" name="nombre_categoria" class="form-control" placeholder="Nombre de la categoria" [(ngModel)]="category.nombre_categoria">
+                            </div>
+                            <br>
+                            <div>
+                                <label for=""><strong>Descripción</strong></label>
+                                <textarea class= "form-control" name="descripcion" rows="1" cols="50" placeholder="Descripción de la categoria" [(ngModel)]="category.descripcion"></textarea>
+                            </div>
+                            <br>
                             <div class="text-center">
                                 <button type="submit" class="btn btn-success mx-auto mb-3">Actualizar</button>
                             </div>
                         </div>
-                        <div>
+                    </form>
+                    <br>
+                    <div>
+                        <table class="table table-striped" *ngIf="concepts.length>0 ; else noConcepts">
                             <div>
                                 <h1 class="text-center">Conceptos</h1>
                             </div>
-                            <ul class="text-center" style="list-style-type: none;"  *ngIf="concepts.length>0 ; else no">
-                                <div class="input-group mb-4">
-                                    <input type="text" class="form-control" placeholder="Buscar concepto" >
-                                   <div class="input-group-append">
-                                     <button class="btn btn-sm" type="button">Buscar</button>
-                                   </div>
-                                </div>
-                                <li  *ngFor="let concept of concepts" >
-                                    <div class="row border">
-                                        <div class="col">
-                                            <a style="font-size: 20px; padding: 8px" class="align-self-center float-left">
-                                                {{concept.nombre_concepto}}
-                                            </a>
-                                            <button class="btn float-right">Ver</button>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                            <ng-template #no>
-                                <div>
-                                    <p style="font-size: 15px; padding: 8px" class="align-self-center text-center">Aún no cuentas con conceptos para tus categorías,<br>
-                                        ¿Qué tal si agregas algunas?</p>
-                                </div>
-                            </ng-template>
-                            <div class="text-center">
-                                <button class="btn btn-primary mr-3 mb-3" [routerLink]="['/category']">Volver</button>
-                                <button class="btn btn-success ml-2 mb-3" [routerLink]="['/category/'+category.id_categoria+'/concept/add']">Agregar Concepto</button>
+                            <input type="text" class="form-control" placeholder="Buscar Concepto..." [(ngModel)]="filtro">
+                            <br>
+                            <tbody>
+                                <tr *ngFor="let concept of concepts | filter: filtro">
+                                    <td><p style="font-size: 20px" class="align-self-center float-left">
+                                        {{concept.nombre_concepto}} 
+                                    </p>
+                                    <button class="btn btn-danger float-right" (click)="remove(concept.id_concepto)">Eliminar</button>
+                                    <button class="btn float-right" [routerLink]="['/category/'+category.id_categoria+'/concept/:id_concepto/product']">Ver</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <ng-template #noConcepts>
+                            <div>
+                                <p style="font-size: 15px; padding: 8px" class="align-self-center text-center">Aún no cuentas con conceptos para esta categoría,<br>
+                                    ¿Qué tal si agregas algunos?</p>
                             </div>
+                        </ng-template>
+                        <div class="text-center">
+                            <button class="btn btn-primary mr-3 mb-3" [routerLink]="['/category']">Volver</button>
+                            <button class="btn btn-success ml-2 mb-3" [routerLink]="['/category/'+category.id_categoria+'/concept/add']">Agregar Concepto</button>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>

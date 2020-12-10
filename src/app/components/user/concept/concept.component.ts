@@ -12,6 +12,7 @@ import { NgForm } from '@angular/forms';
 export class ConceptComponent implements OnInit {
   category: any = {};
   concepts: any = [{}];
+  filtro:string;
 
   constructor(
     private route: ActivatedRoute,
@@ -38,6 +39,14 @@ export class ConceptComponent implements OnInit {
     this.cateSrv.update(form,this.category.id_categoria).subscribe(respuesta=>{
       alert(respuesta);
     })
+  }
+
+  remove(id: string){
+    console.log(id)
+    this.concSrv.remove(id).subscribe(data =>{
+      window.location.reload();
+      console.log(data);
+    });
   }
 
 }
