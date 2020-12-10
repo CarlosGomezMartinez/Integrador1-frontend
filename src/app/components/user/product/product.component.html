@@ -7,17 +7,15 @@
                 </div>
                 <div>
                     <form >
-                        <!--<div class="border">
-                            <div class="form-group">
-                                <input type="text" class="form-control" formControlName="name" placeholder="Nombre del concepto" [(ngModel)]="category.nombre_categoria">
-                            </div>
-                            <div class="form-group">
-                                <textarea class= "form-control" name="description" rows="4" cols="50" placeholder="Descripción del concepto" [(ngModel)]="category.descripcion"></textarea>
-                            </div>
+                        <div>
+                            <label for="" class="mt-4"><strong>Nombre del concepto</strong></label>
+                                <input type="text" class="form-control" name="nombre_concepto" placeholder="Nombre del concepto" [(ngModel)]="concept.nombre_concepto">
+                                <label for="" class="mt-4"><strong>Descripción del concepto</strong></label>
+                                <textarea class= "form-control" name="description" rows="1" cols="50" placeholder="Descripción del concepto" [(ngModel)]="concept.descripcion"></textarea>
                             <div class="text-center">
-                                <button class="btn btn-success mx-auto mb-3">Actualizar</button>
+                                <button class="btn btn-success mx-auto mb-3 mt-3">Actualizar</button>
                             </div>
-                        </div>-->
+                        </div>
                         <div class="border">
                             <div>
                                 <h1 class="text-center">Productos</h1>
@@ -35,7 +33,7 @@
                                             <a style="font-size: 20px; padding: 8px" class="align-self-center float-left">
                                                 {{concept.nombre_concepto}}
                                             </a>
-                                            <button class="btn float-right">Ver</button>
+                                            <button class="btn float-right" [routerLink]="['category/'+category.id_categoria+'/concept/'+concept.id_concepto+'/product/'+product.id_producto_servicio+]">Ver</button>
                                         </div>
                                     </div>
                                 </li>

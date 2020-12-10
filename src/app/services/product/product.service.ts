@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({providedIn: 'root'})
-export class CategoryService {
+export class ProductService {
 
   API = "http://localhost:4001/category";
 

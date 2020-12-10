@@ -21,6 +21,7 @@ import { MovementComponent } from './components/user/movement/movement.component
 import { AcquisitionPointComponent } from './components/user/acquisition-point/acquisition-point.component';
 import { ConceptAddComponent } from './components/user/concept-add/concept-add.component';
 import { ProductAddComponent } from './components/user/product-add/product-add.component';
+import { ProductEditComponent } from './components/user/product-edit/product-edit.component';
 
 
 
@@ -38,7 +39,8 @@ import { ProductAddComponent } from './components/user/product-add/product-add.c
     MovementComponent,
     AcquisitionPointComponent,
     ConceptAddComponent,
-    ProductAddComponent, 
+    ProductAddComponent,
+    ProductEditComponent, 
   ],
   imports: [    
     BrowserModule,

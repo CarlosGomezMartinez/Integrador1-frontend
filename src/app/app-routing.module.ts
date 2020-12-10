@@ -10,6 +10,7 @@ import { ProductComponent } from './components/user/product/product.component';
 import { ProductAddComponent } from './components/user/product-add/product-add.component';
 import { AcquisitionPointComponent } from './components/user/acquisition-point/acquisition-point.component';
 import { MovementComponent } from './components/user/movement/movement.component';
+import { ProductEditComponent } from './components/user/product-edit/product-edit.component';
 
 const routes: Routes = [
   {
@@ -79,8 +80,11 @@ const routes: Routes = [
   {
     path: 'movement',
     component: MovementComponent,
+  },
+  {
+    path: 'category/:id_categoria/concept/:id_concepto/product/:id_producto',
+    component: ProductEditComponent,
   }
-
 ];
 
 @NgModule({
