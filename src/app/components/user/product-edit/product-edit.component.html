@@ -1,1 +1,29 @@
-<p>product-edit works!</p>
+<div class="row">
+    <div class="col-md-6 mx-auto mt-5">
+        <div class="card">
+            <div class="card-body ">
+                <form #productForm="ngForm" (ngSubmit)="update(productForm.value)">
+                    <h1>¡Actualiza tu producto si es necesario!</h1>
+                    <div>
+                        <label for="" class="mt-4"><strong>Nombre del producto</strong></label>
+                        <input type="text" class="form-control" name="nombre_producto_servicio" placeholder="Nombre del producto" [(ngModel)]="products.nombre_producto_servicio">
+                        <div>
+                            <label for="" class="mt-4"><strong>Unidad de medida del producto</strong></label>
+                            <input type="text" class="form-control" placeholder="Medida" required name="unidad" [(ngModel)]="products.unidad" autofocus>
+                        </div>
+                        <label for="" class="mt-4"><strong>Descripción del producto</strong></label>
+                        <textarea class= "form-control mb-3" name="descripcion" rows="1" cols="50" placeholder="Descripción del producto" [(ngModel)]="products.descripcion"></textarea>
+                        <div class="form-group text-center">
+                            <button class="btn btn-danger mr-3" [routerLink]="['/category/'+id_categoria+'/concept/'+id_concepto+'/product']">
+                                Volver
+                            </button>
+                            <button class="btn btn-success ml-3" type ="submit">
+                                Actualizar
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

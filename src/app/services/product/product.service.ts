@@ -29,4 +29,8 @@ export class ProductService {
   remove(id_product: string) {
     return this.http.delete(this.API+ '/' + id_product);
   }
+
+  update(product: any, prodID: any):Observable<any>{
+    return this.http.put(this.API+'/'+prodID, product);
+  }
 }

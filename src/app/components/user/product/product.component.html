@@ -9,11 +9,13 @@
                     <form #updateForm="ngForm" (ngSubmit)="update(updateForm.value)">
                         <div>
                             <label for="" class="mt-4"><strong>Nombre del concepto</strong></label>
-                                <input type="text" class="form-control" name="nombre_concepto" placeholder="Nombre del concepto" [(ngModel)]="concept.nombre_concepto">
-                                <label for="" class="mt-4"><strong>Descripción del concepto</strong></label>
-                                <textarea class= "form-control" name="descripcion" rows="1" cols="50" placeholder="Descripción del concepto" [(ngModel)]="concept.descripcion"></textarea>
-                            <div class="text-center">
-                                <button type="submit" class="btn btn-success mx-auto mb-3 mt-3">Actualizar</button>
+                            <input type="text" class="form-control" name="nombre_concepto" placeholder="Nombre del concepto" [(ngModel)]="concept.nombre_concepto">
+                            <label for="" class="mt-4"><strong>Descripción del concepto</strong></label>
+                            <textarea class= "form-control mb-3" name="descripcion" rows="1" cols="50" placeholder="Descripción del concepto" [(ngModel)]="concept.descripcion"></textarea>
+                            <div class="form-group text-center">
+                                <button class="btn btn-success ml-3" type ="submit">
+                                    Actualizar
+                                </button>
                             </div>
                         </div>
                     </form>
