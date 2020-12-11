@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { AcquisitionPointService } from '../../../services/acquisition-point/acquisition-point.service';
 import firebase from "firebase/app";
 
@@ -14,7 +13,6 @@ export class AcquisitionPointComponent implements OnInit {
   categoriesFound: any = [{}];
 
   constructor(
-    private router: Router,
     private acqSrv: AcquisitionPointService
   ) 
   { }
