@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="navbar-nav ml-auto" *ngIf="user$ | async as user; else home">
+  <div class="navbar-nav" *ngIf="user$ | async as user; else home">
     <a class="navbar-brand" routerLink="/profile">Control de Gastos</a>
   </div>
   <ng-template #home>
@@ -13,7 +13,7 @@
     <ul class="navbar-nav ml-auto" *ngIf="user$ | async as user; else login">
       <li class="nav-item dropdown show">
         <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">Gestionar</a>
-        <div class="dropdown-menu bg-dark">
+        <div class="dropdown-menu dropdown-menu-right bg-dark">
           <a class="dropdown-item text-white" routerLink="/category">Gestionar categorias</a>
           <a class="dropdown-item text-white" routerLink="/acquisition-point">Gestionar puntos de adquisición</a>
           <a class="dropdown-item text-white" routerLink="/movement/add">Agregar movimiento</a>
