@@ -22,6 +22,8 @@ import { AcquisitionPointComponent } from './components/user/acquisition-point/a
 import { ConceptAddComponent } from './components/user/concept-add/concept-add.component';
 import { ProductAddComponent } from './components/user/product-add/product-add.component';
 import { ProductEditComponent } from './components/user/product-edit/product-edit.component';
+import { AcquisitionPointAddComponent } from './components/user/acquisition-point-add/acquisition-point-add.component';
+import { AcquisitionPointEditComponent } from './components/user/acquisition-point-edit/acquisition-point-edit.component';
 
 
 
@@ -40,7 +42,9 @@ import { ProductEditComponent } from './components/user/product-edit/product-edi
     AcquisitionPointComponent,
     ConceptAddComponent,
     ProductAddComponent,
-    ProductEditComponent, 
+    ProductEditComponent,
+    AcquisitionPointAddComponent,
+    AcquisitionPointEditComponent, 
   ],
   imports: [    
     BrowserModule,

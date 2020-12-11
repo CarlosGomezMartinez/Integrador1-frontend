@@ -11,6 +11,8 @@ import { ProductAddComponent } from './components/user/product-add/product-add.c
 import { AcquisitionPointComponent } from './components/user/acquisition-point/acquisition-point.component';
 import { MovementComponent } from './components/user/movement/movement.component';
 import { ProductEditComponent } from './components/user/product-edit/product-edit.component';
+import { AcquisitionPointAddComponent } from './components/user/acquisition-point-add/acquisition-point-add.component';
+import { AcquisitionPointEditComponent } from './components/user/acquisition-point-edit/acquisition-point-edit.component';
 
 const routes: Routes = [
   {
@@ -76,6 +78,14 @@ const routes: Routes = [
   {
     path: 'acquisition-point',
     component:AcquisitionPointComponent,
+  },
+  {
+    path: 'acquisition-point/add',
+    component: AcquisitionPointAddComponent,
+  },
+  {
+    path: 'acquisition-point/:id_punto',
+    component: AcquisitionPointEditComponent,
   },
   {
     path: 'movement',

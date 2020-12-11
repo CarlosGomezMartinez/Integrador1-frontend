@@ -3,28 +3,28 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({providedIn: 'root'})
-export class CategoryService {
+export class AcquisitionPointService {
 
-  API = "http://localhost:4001/category";
+  API = "http://localhost:4001/point";
 
 
   constructor(private http: HttpClient) { }
 
-  getAll(): Observable<any> {
-    return this.http.get(this.API);
+  getAll(userID: string): Observable<any> {
+    return this.http.get(this.API+'/all/'+userID);
   }
 
   get(id: string) {
     return this.http.get(this.API + '/' + id);
   }
 
-  save(category: any, userID: string):Observable<any>{
-    category.usuario = userID;
-    console.log(category);
-    return this.http.post(this.API, category);
+  save(acquisitionPoint: any, userID: string):Observable<any>{
+    acquisitionPoint.usuario = userID;
+    console.log(acquisitionPoint);
+    return this.http.post(this.API, acquisitionPoint);
   }
 
-  remove(href: string) {
-    return this.http.delete(href);
+  remove(id_punto: string) {
+    return this.http.delete(this.API+'/'+id_punto);
   }
 }

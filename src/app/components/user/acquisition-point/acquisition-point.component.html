@@ -1,1 +1,40 @@
-<p>acquisition-point works!</p>
+<div class="row">
+    <div class="col-md-6 mx-auto mt-5">
+        <div class="card">
+            <div class="card-body ">
+                <div>
+                    <h3 class="text-center">¡Realicemos juntos la gestión de nuestros gastos!</h3>
+                </div>
+                <div>
+                    <table class="table table-striped" *ngIf="acquisitionPoints.length>0 ; else noPoint">
+                        <div>
+                            <h1 class="text-center">Puntos de Adquisición</h1>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Buscar punto de acquisición..." [(ngModel)]="filtro">
+                        <br>
+                        <tbody>
+                            <tr *ngFor="let point of acquisitionPoints | filter: filtro">
+                                <td><p style="font-size: 20px" class="align-self-center float-left">
+                                    {{point.nombre_punto}} 
+                                </p>
+                                <button class="btn btn-danger float-right" (click)="remove(point.id_punto)">Eliminar</button>
+                                <button class="btn float-right" [routerLink]="['/acquisition-point/'+point.id_punto]">Ver</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <ng-template #noPoint>
+                        <div class="text-center"> 
+                            <p>Aún no cuentas con puntos de adquisición,<br>
+                                ¿Qué tal si agregas algunos?</p>
+                        </div>
+                    </ng-template>
+                    <div class="text-center">
+                        <button class="btn btn-primary mr-3" [routerLink]="['/profile']">Volver</button>
+                        <button class="btn btn-success ml-2" [routerLink]="['/acquisition-point/add']">Agregar punto de adquisición</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

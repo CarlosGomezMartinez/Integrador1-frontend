@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CategoryService } from '../../../services/category/category.service';
+import firebase from "firebase/app";
 
 @Component({
   selector: 'app-category',
@@ -18,44 +19,20 @@ export class CategoryComponent implements OnInit {
   ) { }
   
   ngOnInit(): void {
-    this.catSer.getAll().subscribe(data => {
+    var user = firebase.auth().currentUser;
+    this.catSer.getAll(user.uid).subscribe(data => {
       console.log(data);
       this.categories = data;
     });
   }
 
   remove(id: string){
-    console.log(id)
     this.catSer.remove(id).subscribe(data =>{
-      window.location.reload();
+      var index = this.categories.indexOf(this.categories.filter(data => data.id_categoria == id)[0]);
+      this.categories.splice(index, 1);
+      this.router.navigate(['/category']);
       console.log(data);
     });
   }
 
-  searchCategory(){
-    this.categoriesFound = [];
-    let nameCategory = (<HTMLInputElement> document.getElementById('buscar')).value.toLowerCase();
-    let found = false;
-    for(let category of this.categories){
-      if (category.nombre_categoria.toLowerCase() == nameCategory){
-        found = true;
-        this.categoriesFound.push(category);
-      }
-    }
-    if(found){
-      //alert("encontrado");
-    }
-    else{
-      alert("No se encontró ninguna categoría con ese nombre");
-    }
-    location.reload();
-  }
-
-  inputEmpty(){
-    let nameCategory = (<HTMLInputElement> document.getElementById('buscar')).value;
-    if(nameCategory == ""){
-      return true;
-    }
-    return false;
-  }
 }

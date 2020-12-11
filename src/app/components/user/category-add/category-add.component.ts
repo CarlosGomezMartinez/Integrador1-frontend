@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Observable } from 'rxjs';
 import { CategoryService } from '../../../services/category/category.service';
-import { AuthService } from '../../../services/auth/auth.service';
 import firebase from "firebase/app";
 
 
@@ -13,11 +11,9 @@ import firebase from "firebase/app";
 })
 export class CategoryAddComponent implements OnInit {
   category: any = {};
-  //userID: any;
 
   constructor(
-    private catSer: CategoryService, 
-    private authSvc: AuthService
+    private catSer: CategoryService
   ) { }
   ngOnInit():void{
   }

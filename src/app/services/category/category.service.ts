@@ -10,8 +10,8 @@ export class CategoryService {
 
   constructor(private http: HttpClient) { }
 
-  getAll(): Observable<any> {
-    return this.http.get(this.API);
+  getAll(userID: string): Observable<any> {
+    return this.http.get(this.API+'/all/'+userID);
   }
 
   get(id: string) {
