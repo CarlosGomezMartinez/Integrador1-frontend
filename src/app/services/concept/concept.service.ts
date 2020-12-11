@@ -28,4 +28,8 @@ export class ConceptService {
   remove(id_categoria: string) {
     return this.http.delete(this.API+'/'+id_categoria);
   }
+
+  update(concept: any, concID: any):Observable<any>{
+    return this.http.put(this.API+'/'+concID, concept);
+  }
 }

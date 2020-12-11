@@ -2,23 +2,26 @@
     <div class="col-md-6 mx-auto mt-5">
         <div class="card">
             <div class="card-body text-center">
-                <!--<form #productForm="ngForm" (ngSubmit)="save(productForm.value)">
+                <form #productForm="ngForm" (ngSubmit)="save(productForm.value)">
                     <h1>¡Agreguemos un producto!</h1>
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Nombre" required name="nombre_producto" autofocus>
+                        <input type="text" class="form-control" placeholder="Nombre" required name="nombre_producto_servicio" [(ngModel)]="products.nombre_producto_servicio" autofocus>
                     </div>
                     <div class="form-group">
-                        <textarea class="form-control" placeholder="Descripción" name="descripcion" cols="50" rows="2"></textarea>
+                        <input type="text" class="form-control" placeholder="Medida" required name="unidad" [(ngModel)]="products.unidad" autofocus>
                     </div>
                     <div class="form-group">
-                        <button class="btn btn-danger mr-3" >
+                        <textarea class="form-control" placeholder="Descripción" name="descripcion" cols="50" rows="2" [(ngModel)]="products.descripcion"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-danger mr-3" [routerLink]="['/category/'+id_categoria+'/concept/'+id_concepto+'/product']">
                             Volver
                         </button>
                         <button class="btn btn-success ml-3" type ="submit">
                             Guardar
                         </button>
                     </div>
-                </form>-->
+                </form>
             </div>
         </div>
     </div>

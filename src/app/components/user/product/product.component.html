@@ -6,50 +6,49 @@
                     <h3 class="text-center">¡Modifica los conceptos o gestiona sus productos!</h3>
                 </div>
                 <div>
-                    <form >
+                    <form #updateForm="ngForm" (ngSubmit)="update(updateForm.value)">
                         <div>
                             <label for="" class="mt-4"><strong>Nombre del concepto</strong></label>
                                 <input type="text" class="form-control" name="nombre_concepto" placeholder="Nombre del concepto" [(ngModel)]="concept.nombre_concepto">
                                 <label for="" class="mt-4"><strong>Descripción del concepto</strong></label>
-                                <textarea class= "form-control" name="description" rows="1" cols="50" placeholder="Descripción del concepto" [(ngModel)]="concept.descripcion"></textarea>
+                                <textarea class= "form-control" name="descripcion" rows="1" cols="50" placeholder="Descripción del concepto" [(ngModel)]="concept.descripcion"></textarea>
                             <div class="text-center">
-                                <button class="btn btn-success mx-auto mb-3 mt-3">Actualizar</button>
+                                <button type="submit" class="btn btn-success mx-auto mb-3 mt-3">Actualizar</button>
                             </div>
                         </div>
-                        <div class="border">
-                            <div>
-                                <h1 class="text-center">Productos</h1>
-                            </div>
-                            <ul class="text-center" style="list-style-type: none;"  *ngIf="products.length>0 ; else no">
-                                <div class="input-group mb-4">
-                                    <input type="text" class="form-control" placeholder="Buscar producto" >
-                                   <div class="input-group-append">
-                                     <button class="btn btn-sm" type="button">Buscar</button>
-                                   </div>
+                    </form>
+                    <br>
+
+                        <div>
+                            <table class="table table-striped" *ngIf="products.length>0 ; else noProducts">
+                                <div>
+                                    <h1 class="text-center">Productos</h1>
                                 </div>
-                                <li  *ngFor="let product of products" >
-                                    <div class="row border">
-                                        <div class="col">
-                                            <a style="font-size: 20px; padding: 8px" class="align-self-center float-left">
-                                                {{concept.nombre_concepto}}
-                                            </a>
-                                            <!--<button class="btn float-right" [routerLink]="['category/'+category.id_categoria+'/concept/'+concept.id_concepto+'/product/'+product.id_producto_servicio+]">Ver</button>-->
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                            <ng-template #no>
+                                <input type="text" class="form-control" placeholder="Buscar Producto..." [(ngModel)]="filtro">
+                                <br>
+                                <tbody>
+                                    <tr *ngFor="let product of products | filter: filtro">
+                                        <td><p style="font-size: 20px" class="align-self-center float-left">
+                                            {{product.nombre_producto_servicio}} 
+                                        </p>
+                                        <button class="btn btn-danger float-right" (click)="remove(product.id_producto_servicio)">Eliminar</button>
+                                        <button class="btn float-right" [routerLink]="['/category/' + id_categoria + '/concept/' + concept.id_concepto + '/product/' + product.id_producto_servicio]">Ver</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <ng-template #noProducts>
                                 <div>
                                     <p style="font-size: 15px; padding: 8px" class="align-self-center text-center">Aún no cuentas con productos para tus conceptos,<br>
                                         ¿Qué tal si agregas algunos?</p>
                                 </div>
                             </ng-template>
                             <div class="text-center">
-                                <button class="btn btn-primary mr-3 mb-3" [routerLink]="['/category']">Volver</button>
-                                <!--<button class="btn btn-success ml-2 mb-3" [routerLink]="['category/'+category.id_categoria+'/concept/'+concept.id_concepto+'/product/add']">Agregar Producto</button>-->
+                                <button class="btn btn-primary mr-3 mb-3" [routerLink]="['/category/'+id_categoria+'/concept/']">Volver</button>
+                                <button class="btn btn-success ml-2 mb-3" [routerLink]="['/category/'+id_categoria+'/concept/'+concept.id_concepto+'/product/add']">Agregar Producto</button>
                             </div>
                         </div>
-                    </form>
+
                 </div>
             </div>
         </div>
