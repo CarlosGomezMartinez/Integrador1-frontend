@@ -30,7 +30,6 @@ export class CategoryComponent implements OnInit {
     this.catSer.remove(id).subscribe(data =>{
       var index = this.categories.indexOf(this.categories.filter(data => data.id_categoria == id)[0]);
       this.categories.splice(index, 1);
-      this.router.navigate(['/category']);
       console.log(data);
     });
   }
