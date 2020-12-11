@@ -33,7 +33,6 @@ export class AcquisitionPointComponent implements OnInit {
     this.acqSrv.remove(id).subscribe(data =>{
       let index = this.acquisitionPoints.indexOf(this.acquisitionPoints.filter(data => data.id_punto == id)[0])
       this.acquisitionPoints.splice(index,1);
-      this.router.navigate(['/acquisition-point']);
       console.log(data);
     });
   }

@@ -24,6 +24,10 @@ export class AcquisitionPointService {
     return this.http.post(this.API, acquisitionPoint);
   }
 
+  update(point: any, pointID: any):Observable<any>{
+    return this.http.put(this.API+'/'+ pointID, point);
+  }
+
   remove(id_punto: string) {
     return this.http.delete(this.API+'/'+id_punto);
   }

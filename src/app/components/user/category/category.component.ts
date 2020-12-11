@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { CategoryService } from '../../../services/category/category.service';
 import firebase from "firebase/app";
 
@@ -14,8 +13,7 @@ export class CategoryComponent implements OnInit {
   categoriesFound: any = [{}];
 
   constructor(
-    private catSer: CategoryService,
-    private router: Router
+    private catSer: CategoryService
   ) { }
   
   ngOnInit(): void {
