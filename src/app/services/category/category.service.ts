@@ -23,8 +23,8 @@ export class CategoryService {
     return this.http.post(this.API, category);
   }
 
-  update(category: any, userID: any):Observable<any>{
-    return this.http.put(this.API+'/'+userID, category);
+  update(category: any, cateID: any):Observable<any>{
+    return this.http.put(this.API+'/'+ cateID, category);
   }
 
   remove(id_categoria: string) {

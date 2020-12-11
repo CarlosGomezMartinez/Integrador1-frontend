@@ -39,7 +39,7 @@
                                         {{concept.nombre_concepto}} 
                                     </p>
                                     <button class="btn btn-danger float-right" (click)="remove(concept.id_concepto)">Eliminar</button>
-                                    <button class="btn float-right" [routerLink]="['/category/'+category.id_categoria+'/concept/:id_concepto/product']">Ver</button>
+                                    <button class="btn float-right" [routerLink]="['/category/'+category.id_categoria+'/concept/'+concept.id_concepto+'/product']">Ver</button>
                                     </td>
                                 </tr>
                             </tbody>

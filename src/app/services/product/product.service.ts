@@ -5,26 +5,28 @@ import { Observable } from 'rxjs';
 @Injectable({providedIn: 'root'})
 export class ProductService {
 
-  API = "http://localhost:4001/category";
+  API = "http://localhost:4001/product";
 
 
   constructor(private http: HttpClient) { }
 
-  getAll(): Observable<any> {
-    return this.http.get(this.API);
+  getAll(id_concepto: string): Observable<any> {
+    return this.http.get(this.API + '/all/' + id_concepto);
   }
 
   get(id: string) {
     return this.http.get(this.API + '/' + id);
   }
 
-  save(category: any, userID: string):Observable<any>{
-    category.usuario = userID;
-    console.log(category);
-    return this.http.post(this.API, category);
+  save(product: any, userID: string, cateID: string, concID: string):Observable<any>{
+    product.usuario = userID;
+    product.id_concepto = concID;
+    product.id_categoria = cateID;
+    console.log(product);
+    return this.http.post(this.API, product);
   }
 
-  remove(href: string) {
-    return this.http.delete(href);
+  remove(id_product: string) {
+    return this.http.delete(this.API+ '/' + id_product);
   }
 }
