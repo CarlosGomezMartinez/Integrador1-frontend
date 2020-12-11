@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { CategoryService } from '../../../services/category/category.service';
 import firebase from "firebase/app";
 
@@ -14,8 +13,7 @@ export class CategoryComponent implements OnInit {
   categoriesFound: any = [{}];
 
   constructor(
-    private catSer: CategoryService,
-    private router: Router
+    private catSer: CategoryService
   ) { }
   
   ngOnInit(): void {
@@ -30,7 +28,6 @@ export class CategoryComponent implements OnInit {
     this.catSer.remove(id).subscribe(data =>{
       var index = this.categories.indexOf(this.categories.filter(data => data.id_categoria == id)[0]);
       this.categories.splice(index, 1);
-      this.router.navigate(['/category']);
       console.log(data);
     });
   }

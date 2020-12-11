@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { ConceptService } from '../../../services/concept/concept.service';
 import { ProductService } from '../../../services/product/product.service';
 import firebase from "firebase/app";
 
@@ -20,7 +19,6 @@ export class ProductAddComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private concSrv: ConceptService,
     private prodSrv: ProductService
   ) { }
 

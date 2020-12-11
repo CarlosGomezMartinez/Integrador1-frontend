@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { AcquisitionPointService } from '../../../services/acquisition-point/acquisition-point.service';
 import firebase from "firebase/app";
 
@@ -14,7 +13,6 @@ export class AcquisitionPointComponent implements OnInit {
   categoriesFound: any = [{}];
 
   constructor(
-    private router: Router,
     private acqSrv: AcquisitionPointService
   ) 
   { }
@@ -33,7 +31,6 @@ export class AcquisitionPointComponent implements OnInit {
     this.acqSrv.remove(id).subscribe(data =>{
       let index = this.acquisitionPoints.indexOf(this.acquisitionPoints.filter(data => data.id_punto == id)[0])
       this.acquisitionPoints.splice(index,1);
-      this.router.navigate(['/acquisition-point']);
       console.log(data);
     });
   }
