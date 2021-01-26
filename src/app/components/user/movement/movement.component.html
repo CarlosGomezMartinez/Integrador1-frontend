@@ -4,6 +4,7 @@
             <div class="card-body">
                 <form [formGroup]="contactForm" (ngSubmit)="submit()">
                     <h5 class="text-center">¡Realicemos los diferentes movimientos que necesites!</h5>
+                    <br>
                     <div class="row">
                         <div class="form-group col-md-5">
                             <select class="custom-select" formControlName="category">
@@ -18,19 +19,48 @@
                             </select>
                         </div>
                     </div>
-                    <!--<div class="form-group">
-                        <button class="btn btn-success" (click) ="addDetail()">
-                            Agregar detalle
-                        </button>
-                        <button class="btn btn-primary ml-5" (click)="clearFields()">
-                            Limpiar campos
-                        </button>
+                    <div class="row">
+                        <div class="form-group col-md-5">
+                            <select class="custom-select" formControlName="product">
+                                <option [ngValue]="null" disabled>Buscar Producto</option>
+                                <option *ngFor="let product of products" [ngValue]="product.id_producto_servicio">{{product.nombre_producto_servicio}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-5">
+                            <select class="custom-select" formControlName="point">
+                                <option [ngValue]="null" disabled>Buscar Lugar de adquisición</option>
+                                <option *ngFor="let point of points" [ngValue]="point.id_punto">{{point.nombre_punto}}</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="h-divider">
+                    <div class="row">
+                        <div class="form-group col-md-5">
+                            <input type="text" class="form-control" placeholder="Valor unitario">
+                        </div>
+                        <div class="form-group col-md-5">
+                            <input type="text" class="form-control" placeholder="Cantidad del producto en 'Unidad de medida'">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-5">
+                            <select class="custom-select" formControlName="movement">
+                                <option [ngValue]="null" disabled>Tipo de movimiento</option>
+                                <option *ngFor="let movement of movements" [ngValue]="movement.consecutivo">{{movement.consecutivo}}</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="form-group">
+                        <button class="btn btn-primary ml-5">
+                            Limpiar campos
+                        </button>
+                        <button class="btn btn-success ml-5">
+                            Agregar movimiento
+                        </button>
+                    </div>
+                    <br>
+                    <!--<div class="form-group">
                         <br>
-                        <h5 class="text-center">3. Registro de detalles de la reparación</h5>
+                        <h5 class="text-center">Lista de movimientos agregados hasta ahora</h5>
                         <table class="table table-striped table-bordered">
                             <thead>
                                 <tr>
@@ -61,6 +91,15 @@
                             </button>
                         </div>
                     </div>-->
+                    <div class="form-group">
+                        <button class="btn btn-danger ml-5">
+                            Descartar y volver
+                        </button>
+                        <button class="btn btn-success ml-5">
+                            Guardar movimientos
+                        </button>
+                    </div>
+                    <br>
                 </form>
             </div>
         </div>
