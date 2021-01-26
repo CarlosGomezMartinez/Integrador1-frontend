@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import firebase from "firebase/app";
 import { CategoryService } from '../../../services/category/category.service';
 import { ConceptService } from '../../../services/concept/concept.service';
@@ -26,10 +26,19 @@ export class MovementComponent implements OnInit {
   categories: any;
   concepts: any;
   products: any;
-  adquisitionPoints: any;
+  points: any;
 
   selectedCategory = null;
   selectedConcept = null;
+
+  titles = ['ID', 'Nombre', 'Descripción', 'Cantidad', 'Valor unitario', 'Valor total', 'Descartar'];
+  id = 0;
+  details: any = [];
+  objectKeys = Object.keys;
+
+  @ViewChild('category') inputCategory;
+  @ViewChild('concept') inputConcept;
+  @ViewChild('valor') inputValor;
 
   constructor(
     private fb:FormBuilder,
@@ -37,7 +46,7 @@ export class MovementComponent implements OnInit {
     private conSvc: ConceptService,
     private proSvc: ProductService,
     private acqSvc: AcquisitionPointService
-  ) { 
+  ) {
   }
 
   ngOnInit(): void {
@@ -51,7 +60,7 @@ export class MovementComponent implements OnInit {
           this.proSvc.getAllByUser(user.uid).subscribe((products)=>{
             this.products = products;
             this.acqSvc.getAll(user.uid).subscribe((points)=>{
-              this.adquisitionPoints = points;
+              this.points = points;
             })
           });
         });
@@ -61,12 +70,15 @@ export class MovementComponent implements OnInit {
       category: [null],
       concept: [null],
       product: [null],
-      adquisitionPoints: [null]
+      point: [null],
+      movement: [null]
     });
   }
 
   selectCategory(idCategory: string){
-    
+    console.log("hola")
+    this.selectedCategory = idCategory;
+    this.inputConcept.nativeElement.disabled = true;
   }
 
   selectConcept(idConcept: string){

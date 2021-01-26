@@ -7,15 +7,15 @@
                     <br>
                     <div class="row">
                         <div class="form-group col-md-5">
-                            <select class="custom-select" formControlName="category">
+                            <select class="custom-select" formControlName="category" #category>
                                 <option [ngValue]="null" disabled>Buscar Categoría</option>
-                                <option *ngFor="let category of categories" [ngValue]="category.id_categoria" (click)="selectCategory(category.id_categoria)">{{category.nombre_categoria}}</option>
+                                <option *ngFor="let category of categories" [ngValue]="category.id_categoria" >{{category.nombre_categoria}}</option>
                             </select>
                         </div>
                         <div class="form-group col-md-5">
-                            <select class="custom-select" formControlName="concept" disabled>
+                            <select class="custom-select" formControlName="concept" #concept>
                                 <option [ngValue]="null" disabled>Buscar Concepto</option>
-                                <option *ngFor="let concept of concepts | filter: {id_category: selectedCategory}" [ngValue]="concept.id_concept">{{concept.nombre_concepto}}</option>
+                                <option *ngFor="let concept of concepts" [ngValue]="concept.id_concept">{{concept.nombre_concepto}}</option>
                             </select>
                         </div>
                     </div>
@@ -35,17 +35,18 @@
                     </div>
                     <div class="row">
                         <div class="form-group col-md-5">
-                            <input type="text" class="form-control" placeholder="Valor unitario">
+                            <input type="text" name="valor" class="form-control" placeholder="Valor unitario" #valor>
                         </div>
                         <div class="form-group col-md-5">
-                            <input type="text" class="form-control" placeholder="Cantidad del producto en 'Unidad de medida'">
+                            <input type="text" class="form-control" placeholder="Cantidad del producto en 'Unidad de medida'" disabled>
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-md-5">
                             <select class="custom-select" formControlName="movement">
                                 <option [ngValue]="null" disabled>Tipo de movimiento</option>
-                                <option *ngFor="let movement of movements" [ngValue]="movement.consecutivo">{{movement.consecutivo}}</option>
+                                <option>adquirido</option>
+                                <option>estimado</option>
                             </select>
                         </div>
                     </div>
