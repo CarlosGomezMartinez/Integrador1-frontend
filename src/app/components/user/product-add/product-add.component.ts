@@ -16,6 +16,7 @@ export class ProductAddComponent implements OnInit {
   sub: Subscription;
   concept: any = {};
   products: any = [{}];
+  public user = JSON.parse(localStorage.getItem('user'))[0];
 
   constructor(
     private route: ActivatedRoute,
@@ -30,13 +31,10 @@ export class ProductAddComponent implements OnInit {
   }
 
   save(form: NgForm){
-    console.log("form ",form)
-    var user = firebase.auth().currentUser;
-    if (user != null) {
-      this.prodSrv.save(form, user.uid, this.id_categoria, this.id_concepto).subscribe((data)=>{
+    if (this.user != null) {
+      this.prodSrv.save(form, this.user.uid, this.id_categoria, this.id_concepto).subscribe((data)=>{
         console.log(data);
       })
     }
   }
-
 }

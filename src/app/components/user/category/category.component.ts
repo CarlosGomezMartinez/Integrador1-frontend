@@ -11,15 +11,14 @@ export class CategoryComponent implements OnInit {
   categories: any = [{}];
   filtro: string;
   categoriesFound: any = [{}];
+  public user = JSON.parse(localStorage.getItem('user'))[0];
 
   constructor(
     private catSer: CategoryService
   ) { }
   
   ngOnInit(): void {
-    var user = firebase.auth().currentUser;
-    this.catSer.getAll(user.uid).subscribe(data => {
-      console.log(data);
+    this.catSer.getAll(this.user.uid).subscribe(data => {
       this.categories = data;
     });
   }

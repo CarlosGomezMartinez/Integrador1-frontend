@@ -10,6 +10,8 @@ import firebase from "firebase/app";
 })
 export class AcquisitionPointAddComponent implements OnInit {
   point: any = {};
+  public user = JSON.parse(localStorage.getItem('user'))[0];
+
   constructor(
     private acqSrv: AcquisitionPointService
   ) { }
@@ -18,10 +20,8 @@ export class AcquisitionPointAddComponent implements OnInit {
   }
 
   save(form: NgForm){
-    console.log(this.point)
-    var user = firebase.auth().currentUser;
-    if (user != null) {
-      this.acqSrv.save(form, user.uid).subscribe((data)=>{
+    if (this.user != null) {
+      this.acqSrv.save(form, this.user.uid).subscribe((data)=>{
         console.log(data);
       })
     }

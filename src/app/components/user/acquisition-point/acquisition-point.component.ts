@@ -11,6 +11,7 @@ export class AcquisitionPointComponent implements OnInit {
   acquisitionPoints: any = [{}];
   filtro: string;
   categoriesFound: any = [{}];
+  public user = JSON.parse(localStorage.getItem('user'))[0];
 
   constructor(
     private acqSrv: AcquisitionPointService
@@ -18,16 +19,12 @@ export class AcquisitionPointComponent implements OnInit {
   { }
 
   ngOnInit(): void {
-    let user = firebase.auth().currentUser;
-    console.log("usuario: ", user);
-    this.acqSrv.getAll(user.uid).subscribe((data)=>{
+    this.acqSrv.getAll(this.user.uid).subscribe((data)=>{
       this.acquisitionPoints = data;
-      console.log("puntos: ", data)
     })
   }
 
   remove(id: string){
-    console.log(id)
     this.acqSrv.remove(id).subscribe(data =>{
       let index = this.acquisitionPoints.indexOf(this.acquisitionPoints.filter(data => data.id_punto == id)[0])
       this.acquisitionPoints.splice(index,1);

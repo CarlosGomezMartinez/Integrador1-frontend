@@ -25,25 +25,12 @@ export class ProductEditComponent implements OnInit {
       this.id_categoria = params.id_categoria;
       this.id_concepto = params.id_concepto;
       this.prodSrv.get(params.id_producto).subscribe((product) =>{
-        console.log(product)
         this.products = product;
       })
     });
-    /*this.route.params.subscribe((dato)=>{
-      this.cateSrv.get(dato.id_categoria).subscribe((categoria)=>{
-        console.log("categoria: ", categoria);
-        this.category = categoria;
-        this.concSrv.getAll(dato.id_categoria).subscribe((conceptos)=>{
-          console.log("conceptos: ", conceptos);
-          this.concepts = conceptos;
-        })
-      })
-    });*/
   }
 
   update(form: NgForm){
-    console.log("Producto: ", this.products);
-    console.log("form: ", form);
     console.log(this.products.id_producto_servicio)
     this.prodSrv.update(form, this.products.id_producto_servicio).subscribe(respuesta=>{
       alert(respuesta);

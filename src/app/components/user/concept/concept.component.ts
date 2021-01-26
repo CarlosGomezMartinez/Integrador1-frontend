@@ -34,15 +34,12 @@ export class ConceptComponent implements OnInit {
   }
 
   update(form: NgForm){
-    console.log("categoria: ", this.category);
-    console.log("form: ", form);
     this.cateSrv.update(form,this.category.id_categoria).subscribe(respuesta=>{
       alert(respuesta);
     })
   }
 
   remove(id: string){
-    console.log(id)
     this.concSrv.remove(id).subscribe(data =>{
       window.location.reload();
       console.log(data);

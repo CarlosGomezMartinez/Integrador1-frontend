@@ -13,8 +13,9 @@ import { AcquisitionPointService } from '../../../services/acquisition-point/acq
 })
 export class MovementComponent implements OnInit {
 
-  contactForm:FormGroup;
- 
+  public user = JSON.parse(localStorage.getItem('user'))[0];
+
+  movementForm:FormGroup;
   /*categories = [
     { id_categoria: 1, nombre_categoria: "United States" },
     { id_categoria: 2, nombre_categoria: "Australia" },
@@ -31,14 +32,10 @@ export class MovementComponent implements OnInit {
   selectedCategory = null;
   selectedConcept = null;
 
-  titles = ['ID', 'Nombre', 'Descripción', 'Cantidad', 'Valor unitario', 'Valor total', 'Descartar'];
+  titles = ['Categoría', 'Concepto', 'Producto', 'Cantidad', 'Valor unitario', 'Costo total', 'Tipo movimiento'];
   id = 0;
-  details: any = [];
+  movements: any = [];
   objectKeys = Object.keys;
-
-  @ViewChild('category') inputCategory;
-  @ViewChild('concept') inputConcept;
-  @ViewChild('valor') inputValor;
 
   constructor(
     private fb:FormBuilder,
@@ -50,48 +47,68 @@ export class MovementComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    var user = firebase.auth().currentUser;
-    console.log("user: ",user);
-    if (user){
-      this.catSvc.getAll(user.uid).subscribe((categories)=>{
+    if (this.user){
+      this.catSvc.getAll(this.user.uid).subscribe((categories)=>{
         this.categories = categories;
-        this.conSvc.getAllByUser(user.uid).subscribe((concepts)=>{
+        this.conSvc.getAllByUser(this.user.uid).subscribe((concepts)=>{
           this.concepts = concepts;
-          this.proSvc.getAllByUser(user.uid).subscribe((products)=>{
+          console.log("concepts: ",concepts);
+          this.proSvc.getAllByUser(this.user.uid).subscribe((products)=>{
             this.products = products;
-            this.acqSvc.getAll(user.uid).subscribe((points)=>{
+            console.log("products: ",products);
+            this.acqSvc.getAll(this.user.uid).subscribe((points)=>{
               this.points = points;
             })
           });
         });
       });
     };
-    this.contactForm = this.fb.group({
-      category: [null],
-      concept: [null],
-      product: [null],
-      point: [null],
-      movement: [null]
+    this.movementForm = this.fb.group({
+      category: [null, Validators.required],
+      concept: [{value: null, disabled:true}, Validators.required],
+      product: [{value: null, disabled:true}, Validators.required],
+      point: [null, Validators.required],
+      movementType: [null, Validators.required],
+      value: [null, Validators.required],
+      amount: [null, Validators.required]
     });
-  }
 
-  selectCategory(idCategory: string){
-    console.log("hola")
-    this.selectedCategory = idCategory;
-    this.inputConcept.nativeElement.disabled = true;
-  }
+    this.movementForm.get('category').valueChanges.subscribe((value)=>{
+      if(value){
+        this.movementForm.get('concept').enable();
+        this.selectedCategory = value;
+      }
+      else{
+        this.movementForm.get('concept').disable();
+      }
+    });
 
-  selectConcept(idConcept: string){
-
-  }
-
-  selectedProduct(idProduct: string){
-
+    this.movementForm.get('concept').valueChanges.subscribe((valor)=>{
+      if(valor){
+        this.movementForm.get('product').enable();
+        this.selectedConcept = valor;
+      }
+      else{
+        this.movementForm.get('product').disable();
+      }
+    });
   }
 
   submit() {
     console.log("Form Submitted")
-    console.log(this.contactForm.value)
+    console.log(this.movementForm.value)
+  }
+
+  addMovement(){
+
+  }
+
+  removeMovement(){
+
+  }
+
+  saveMovements(){
+
   }
 
 }

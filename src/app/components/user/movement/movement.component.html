@@ -2,20 +2,20 @@
     <div class="col-md-10 mx-auto mt-5">
         <div class="card">
             <div class="card-body">
-                <form [formGroup]="contactForm" (ngSubmit)="submit()">
+                <form [formGroup]="movementForm" (ngSubmit)="addMovement()">
                     <h5 class="text-center">¡Realicemos los diferentes movimientos que necesites!</h5>
                     <br>
                     <div class="row">
                         <div class="form-group col-md-5">
-                            <select class="custom-select" formControlName="category" #category>
+                            <select class="custom-select" formControlName="category">
                                 <option [ngValue]="null" disabled>Buscar Categoría</option>
                                 <option *ngFor="let category of categories" [ngValue]="category.id_categoria" >{{category.nombre_categoria}}</option>
                             </select>
                         </div>
                         <div class="form-group col-md-5">
-                            <select class="custom-select" formControlName="concept" #concept>
+                            <select class="custom-select" formControlName="concept">
                                 <option [ngValue]="null" disabled>Buscar Concepto</option>
-                                <option *ngFor="let concept of concepts" [ngValue]="concept.id_concept">{{concept.nombre_concepto}}</option>
+                                <option *ngFor="let concept of concepts" [ngValue]="concept.id_concepto">{{concept.nombre_concepto}}</option>
                             </select>
                         </div>
                     </div>
@@ -35,18 +35,18 @@
                     </div>
                     <div class="row">
                         <div class="form-group col-md-5">
-                            <input type="text" name="valor" class="form-control" placeholder="Valor unitario" #valor>
+                            <input type="text" name="valor" class="form-control" formControlName="value" placeholder="Valor unitario">
                         </div>
                         <div class="form-group col-md-5">
-                            <input type="text" class="form-control" placeholder="Cantidad del producto en 'Unidad de medida'" disabled>
+                            <input type="text" class="form-control" formControlName="amount" placeholder="Cantidad del producto">
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-md-5">
-                            <select class="custom-select" formControlName="movement">
+                            <select class="custom-select" formControlName="movementType">
                                 <option [ngValue]="null" disabled>Tipo de movimiento</option>
-                                <option>adquirido</option>
-                                <option>estimado</option>
+                                <option>Adquirido</option>
+                                <option>Estimado</option>
                             </select>
                         </div>
                     </div>
@@ -54,12 +54,13 @@
                         <button class="btn btn-primary ml-5">
                             Limpiar campos
                         </button>
-                        <button class="btn btn-success ml-5">
+                        <button class="btn btn-success ml-5" type="submit">
                             Agregar movimiento
                         </button>
                     </div>
                     <br>
-                    <!--<div class="form-group">
+
+                    <div class="form-group">
                         <br>
                         <h5 class="text-center">Lista de movimientos agregados hasta ahora</h5>
                         <table class="table table-striped table-bordered">
@@ -71,36 +72,27 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let detail of details">
-                                    <td *ngFor="let key of objectKeys(detail)">
-                                        <label id="{{detail[key]}}">{{detail[key]}} </label>
+                                <tr *ngFor="let movement of movements">
+                                    <td *ngFor="let key of objectKeys(movement)">
+                                        <label id="{{movement[key]}}">{{movement[key]}} </label>
                                     </td>
                                     <td>
-                                        <button class="btn btn-danger btn-sm mx-auto" (click) = "removeDetail(detail.id)">
+                                        <button class="btn btn-danger btn-sm mx-auto" (click)="removeMovement(movement.id)">
                                             Eliminar
                                         </button>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
-                        <div>
-                            <button class="btn btn-danger" routerLink="/tasks">
-                                Descartar todo y volver
-                            </button>
-                            <button class="btn btn-success ml-5" (click)="saveDetails()">
-                                Guardar detalles de reparación
-                            </button>
-                        </div>
-                    </div>-->
+                    </div>
                     <div class="form-group">
-                        <button class="btn btn-danger ml-5">
+                        <button class="btn btn-danger ml-5" routerLink="/profile">
                             Descartar y volver
                         </button>
-                        <button class="btn btn-success ml-5">
+                        <button class="btn btn-success ml-5" (click)="saveMovements()">
                             Guardar movimientos
                         </button>
                     </div>
-                    <br>
                 </form>
             </div>
         </div>

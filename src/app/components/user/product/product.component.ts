@@ -32,6 +32,7 @@ export class ProductComponent implements OnInit {
       })
     })
   }
+
   remove(id: string){
     console.log(id)
     this.prodSrv.remove(id).subscribe(data =>{
@@ -41,8 +42,6 @@ export class ProductComponent implements OnInit {
   }
 
   update(form: NgForm){
-    console.log("concepto: ", this.concept);
-    console.log("form: ", form);
     this.concSrv.update(form, this.concept.id_concepto).subscribe(respuesta=>{
       console.log(this.concept)
       alert(respuesta);

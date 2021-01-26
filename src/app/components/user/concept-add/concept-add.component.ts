@@ -16,6 +16,7 @@ export class ConceptAddComponent implements OnInit {
   concept: any = {};
   sub: Subscription;
   id_categoria: any;
+  public user = JSON.parse(localStorage.getItem('user'))[0];
 
   constructor(
     private concSrv: ConceptService,
@@ -29,10 +30,8 @@ export class ConceptAddComponent implements OnInit {
   }
 
   save(form: NgForm){
-    console.log("form ",form)
-    var user = firebase.auth().currentUser;
-    if (user != null) {
-      this.concSrv.save(form, user.uid, this.id_categoria).subscribe((data)=>{
+    if (this.user != null) {
+      this.concSrv.save(form, this.user.uid, this.id_categoria).subscribe((data)=>{
         console.log(data);
       })
     }

@@ -11,18 +11,18 @@ import firebase from "firebase/app";
 })
 export class CategoryAddComponent implements OnInit {
   category: any = {};
+  public user = JSON.parse(localStorage.getItem('user'))[0];
 
   constructor(
     private catSer: CategoryService
   ) { }
+  
   ngOnInit():void{
   }
 
   save(form: NgForm){
-    console.log(this.category)
-    var user = firebase.auth().currentUser;
-    if (user != null) {
-      this.catSer.save(form, user.uid).subscribe((data)=>{
+    if (this.user != null) {
+      this.catSer.save(form, this.user.uid).subscribe((data)=>{
         console.log(data);
       })
     }

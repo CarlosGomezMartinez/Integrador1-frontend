@@ -16,10 +16,10 @@ export class NavbarComponent {
   async onLogout(){
     try {
       await this.authSvc.logout();
+      localStorage.clear();
       this.router.navigate(['/login']);
     } catch (error) {
       console.log(error);
     }
   }
-
 }

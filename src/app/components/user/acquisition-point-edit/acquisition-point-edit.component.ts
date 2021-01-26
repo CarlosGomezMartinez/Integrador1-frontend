@@ -24,8 +24,6 @@ export class AcquisitionPointEditComponent implements OnInit {
   }
 
   update(form: NgForm){
-    console.log("categoria: ", this.point);
-    console.log("form: ", form);
     this.acqSrv.update(form,this.point.id_punto).subscribe(respuesta=>{
       alert(respuesta);
     })
