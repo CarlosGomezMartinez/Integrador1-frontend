@@ -11,7 +11,11 @@ export class ConceptService {
   constructor(private http: HttpClient) { }
 
   getAll(id_categoria: string): Observable<any> {
-    return this.http.get(this.API+ '/all/'+id_categoria);
+    return this.http.get(this.API+'/all/'+id_categoria);
+  }
+
+  getAllByUser(userID: string): Observable<any> {
+    return this.http.get(this.API+'/allbyuser/'+userID);
   }
 
   get(id: string) {

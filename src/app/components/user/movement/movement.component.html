@@ -8,13 +8,13 @@
                         <div class="form-group col-md-5">
                             <select class="custom-select" formControlName="category">
                                 <option [ngValue]="null" disabled>Buscar Categoría</option>
-                                <option *ngFor="let category of categories" [ngValue]="category.id_categoria">{{category.nombre_categoria}}</option>
+                                <option *ngFor="let category of categories" [ngValue]="category.id_categoria" (click)="selectCategory(category.id_categoria)">{{category.nombre_categoria}}</option>
                             </select>
                         </div>
                         <div class="form-group col-md-5">
-                            <select class="custom-select" formControlName="concept">
-                                <option [ngValue]="null" disabled>Buscar Categoría</option>
-                                <option *ngFor="let category of categories" [ngValue]="category.id_categoria">{{category.nombre_categoria}}</option>
+                            <select class="custom-select" formControlName="concept" disabled>
+                                <option [ngValue]="null" disabled>Buscar Concepto</option>
+                                <option *ngFor="let concept of concepts | filter: {id_category: selectedCategory}" [ngValue]="concept.id_concept">{{concept.nombre_concepto}}</option>
                             </select>
                         </div>
                     </div>

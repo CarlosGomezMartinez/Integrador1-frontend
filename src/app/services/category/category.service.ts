@@ -14,6 +14,10 @@ export class CategoryService {
     return this.http.get(this.API+'/all/'+userID);
   }
 
+  getAllByUser(userID: string): Observable<any> {
+    return this.http.get(this.API+'/allbyuser/'+userID);
+  }
+
   get(id: string) {
     return this.http.get(this.API + '/' + id);
   }

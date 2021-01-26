@@ -18,7 +18,7 @@
                                     {{category.nombre_categoria}} 
                                 </p>
                                 <button class="btn btn-danger float-right" (click)="remove(category.id_categoria)">Eliminar</button>
-                                <button class="btn float-right" [routerLink]="['/category/'+category.id_categoria+'/concept']">Ver</button>
+                                <button class="btn btn-info float-right mr-3" [routerLink]="['/category/'+category.id_categoria+'/concept']">Ver</button>
                                 </td>
                             </tr>
                         </tbody>
