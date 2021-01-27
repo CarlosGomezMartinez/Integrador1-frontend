@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoryService } from '../../../services/category/category.service';
-import firebase from "firebase/app";
 
 @Component({
   selector: 'app-category',

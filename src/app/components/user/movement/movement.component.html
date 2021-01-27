@@ -15,7 +15,7 @@
                         <div class="form-group col-md-6">
                             <select class="custom-select" formControlName="concept">
                                 <option [ngValue]="null" disabled>Buscar Concepto</option>
-                                <option *ngFor="let concept of concepts" [ngValue]="{id_concepto:concept.id_concepto, nombre_concepto:concept.nombre_concepto}">{{concept.nombre_concepto}}</option>
+                                <option *ngFor="let concept of conceptFiltered" [ngValue]="{id_concepto:concept.id_concepto, nombre_concepto:concept.nombre_concepto}">{{concept.nombre_concepto}}</option>
                             </select>
                         </div>
                     </div>
@@ -23,7 +23,7 @@
                         <div class="form-group col-md-6">
                             <select class="custom-select" formControlName="product">
                                 <option [ngValue]="null" disabled>Buscar Producto</option>
-                                <option *ngFor="let product of products" [ngValue]="{id_producto:product.id_producto_servicio, nombre_producto:product.nombre_producto_servicio}">{{product.nombre_producto_servicio}}</option>
+                                <option *ngFor="let product of productFiltered" [ngValue]="{id_producto:product.id_producto_servicio, nombre_producto:product.nombre_producto_servicio}">{{product.nombre_producto_servicio}}</option>
                             </select>
                         </div>
                         <div class="form-group col-md-6">

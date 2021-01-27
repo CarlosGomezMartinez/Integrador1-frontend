@@ -22,8 +22,8 @@ export class MovementComponent implements OnInit {
   products: any;
   points: any;
 
-  selectedCategory = null;
-  selectedConcept = null;
+  conceptFiltered:any;
+  productFiltered:any;
 
   titles = ['ID','Categoría', 'Concepto', 'Producto', 'Cantidad', 'Valor unitario', 'Costo total', 'Tipo movimiento', 'Punto Adquisición', 'Descartar'];
   id = 0;
@@ -69,7 +69,7 @@ export class MovementComponent implements OnInit {
     this.movementForm.get('category').valueChanges.subscribe((value)=>{
       if(value){
         this.movementForm.get('concept').enable();
-        this.selectedCategory = value;
+        this.conceptFiltered = this.concepts.filter((c)=>c.id_categoria === value.id_categoria);
       }
       else{
         this.movementForm.get('concept').disable();
@@ -79,7 +79,7 @@ export class MovementComponent implements OnInit {
     this.movementForm.get('concept').valueChanges.subscribe((valor)=>{
       if(valor){
         this.movementForm.get('product').enable();
-        this.selectedConcept = valor;
+        this.productFiltered = this.products.filter((c)=>c.id_concepto === valor.id_concepto);
       }
       else{
         this.movementForm.get('product').disable();
