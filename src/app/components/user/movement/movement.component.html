@@ -1,48 +1,48 @@
 <div class="row">
-    <div class="col-md-10 mx-auto mt-5">
+    <div class="col-md-12 mx-auto mt-5">
         <div class="card">
             <div class="card-body">
-                <form [formGroup]="movementForm" (ngSubmit)="addMovement()">
+                <form [formGroup]="movementForm" (ngSubmit)="addMovement(movementForm.value)">
                     <h5 class="text-center">¡Realicemos los diferentes movimientos que necesites!</h5>
                     <br>
                     <div class="row">
-                        <div class="form-group col-md-5">
+                        <div class="form-group col-md-6">
                             <select class="custom-select" formControlName="category">
                                 <option [ngValue]="null" disabled>Buscar Categoría</option>
-                                <option *ngFor="let category of categories" [ngValue]="category.id_categoria" >{{category.nombre_categoria}}</option>
+                                <option *ngFor="let category of categories" [ngValue]="{id_categoria:category.id_categoria,nombre_categoria: category.nombre_categoria}" required>{{category.nombre_categoria}}</option>
                             </select>
                         </div>
-                        <div class="form-group col-md-5">
+                        <div class="form-group col-md-6">
                             <select class="custom-select" formControlName="concept">
                                 <option [ngValue]="null" disabled>Buscar Concepto</option>
-                                <option *ngFor="let concept of concepts" [ngValue]="concept.id_concepto">{{concept.nombre_concepto}}</option>
+                                <option *ngFor="let concept of concepts" [ngValue]="{id_concepto:concept.id_concepto, nombre_concepto:concept.nombre_concepto}">{{concept.nombre_concepto}}</option>
                             </select>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-md-5">
+                        <div class="form-group col-md-6">
                             <select class="custom-select" formControlName="product">
                                 <option [ngValue]="null" disabled>Buscar Producto</option>
-                                <option *ngFor="let product of products" [ngValue]="product.id_producto_servicio">{{product.nombre_producto_servicio}}</option>
+                                <option *ngFor="let product of products" [ngValue]="{id_producto:product.id_producto_servicio, nombre_producto:product.nombre_producto_servicio}">{{product.nombre_producto_servicio}}</option>
                             </select>
                         </div>
-                        <div class="form-group col-md-5">
+                        <div class="form-group col-md-6">
                             <select class="custom-select" formControlName="point">
                                 <option [ngValue]="null" disabled>Buscar Lugar de adquisición</option>
-                                <option *ngFor="let point of points" [ngValue]="point.id_punto">{{point.nombre_punto}}</option>
+                                <option *ngFor="let point of points" [ngValue]="{id_punto:point.id_punto, nombre_punto:point.nombre_punto}">{{point.nombre_punto}}</option>
                             </select>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-md-5">
+                        <div class="form-group col-md-6">
                             <input type="text" name="valor" class="form-control" formControlName="value" placeholder="Valor unitario">
                         </div>
-                        <div class="form-group col-md-5">
+                        <div class="form-group col-md-6">
                             <input type="text" class="form-control" formControlName="amount" placeholder="Cantidad del producto">
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-md-5">
+                        <div class="form-group col-md-6">
                             <select class="custom-select" formControlName="movementType">
                                 <option [ngValue]="null" disabled>Tipo de movimiento</option>
                                 <option>Adquirido</option>
@@ -85,15 +85,15 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="form-group">
-                        <button class="btn btn-danger ml-5" routerLink="/profile">
-                            Descartar y volver
-                        </button>
-                        <button class="btn btn-success ml-5" (click)="saveMovements()">
-                            Guardar movimientos
-                        </button>
-                    </div>
                 </form>
+                <div class="form-group">
+                    <button class="btn btn-danger ml-5" routerLink="/profile">
+                        Descartar y volver
+                    </button>
+                    <button class="btn btn-success ml-5" (click)="saveMovements()">
+                        Guardar movimientos
+                    </button>
+                </div>
             </div>
         </div>
     </div>

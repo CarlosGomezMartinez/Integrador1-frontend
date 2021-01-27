@@ -24,6 +24,7 @@ import { ProductAddComponent } from './components/user/product-add/product-add.c
 import { ProductEditComponent } from './components/user/product-edit/product-edit.component';
 import { AcquisitionPointAddComponent } from './components/user/acquisition-point-add/acquisition-point-add.component';
 import { AcquisitionPointEditComponent } from './components/user/acquisition-point-edit/acquisition-point-edit.component';
+import { ReportComponent } from './components/user/report/report.component';
 
 
 
@@ -44,7 +45,8 @@ import { AcquisitionPointEditComponent } from './components/user/acquisition-poi
     ProductAddComponent,
     ProductEditComponent,
     AcquisitionPointAddComponent,
-    AcquisitionPointEditComponent, 
+    AcquisitionPointEditComponent,
+    ReportComponent, 
   ],
   imports: [    
     BrowserModule,

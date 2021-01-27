@@ -14,13 +14,19 @@ export class MovementService {
     return this.http.get(this.API+"/allbyuser/"+userID);
   }
 
+  getByDate(objeto: any): Observable<any> {
+    return this.http.post(this.API+"/allbydate", objeto);
+  }
+
+  getJoin(element: any){
+    return this.http.post(this.API+"/join", element);
+  }
+
   get(id: string) {
     return this.http.get(this.API + '/' + id);
   }
 
-  save(movement: any, userID: string):Observable<any>{
-    movement.usuario = userID;
-    console.log(movement);
+  save(movement: any):Observable<any>{
     return this.http.post(this.API, movement);
   }
 

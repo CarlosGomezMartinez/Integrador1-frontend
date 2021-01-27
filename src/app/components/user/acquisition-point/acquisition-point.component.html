@@ -18,7 +18,7 @@
                                     {{point.nombre_punto}} 
                                 </p>
                                 <button class="btn btn-danger float-right" (click)="remove(point.id_punto)">Eliminar</button>
-                                <button class="btn float-right" [routerLink]="['/acquisition-point/'+point.id_punto]">Ver</button>
+                                <button class="btn btn-info float-right mr-3" [routerLink]="['/acquisition-point/'+point.id_punto]">Ver</button>
                                 </td>
                             </tr>
                         </tbody>

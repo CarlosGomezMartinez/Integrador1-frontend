@@ -13,6 +13,7 @@ import { MovementComponent } from './components/user/movement/movement.component
 import { ProductEditComponent } from './components/user/product-edit/product-edit.component';
 import { AcquisitionPointAddComponent } from './components/user/acquisition-point-add/acquisition-point-add.component';
 import { AcquisitionPointEditComponent } from './components/user/acquisition-point-edit/acquisition-point-edit.component';
+import { ReportComponent } from './components/user/report/report.component';
 
 const routes: Routes = [
   {
@@ -90,6 +91,10 @@ const routes: Routes = [
   {
     path: 'movement',
     component: MovementComponent,
+  },
+  {
+    path: 'report',
+    component: ReportComponent
   },
   {
     path: 'category/:id_categoria/concept/:id_concepto/product/:id_producto',

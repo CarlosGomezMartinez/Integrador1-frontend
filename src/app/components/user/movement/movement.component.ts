@@ -1,10 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import firebase from "firebase/app";
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CategoryService } from '../../../services/category/category.service';
 import { ConceptService } from '../../../services/concept/concept.service';
 import { ProductService } from '../../../services/product/product.service';
 import { AcquisitionPointService } from '../../../services/acquisition-point/acquisition-point.service';
+import { MovementService } from '../../../services/movement/movement.service';
 
 @Component({
   selector: 'app-movement',
@@ -16,13 +16,6 @@ export class MovementComponent implements OnInit {
   public user = JSON.parse(localStorage.getItem('user'))[0];
 
   movementForm:FormGroup;
-  /*categories = [
-    { id_categoria: 1, nombre_categoria: "United States" },
-    { id_categoria: 2, nombre_categoria: "Australia" },
-    { id_categoria: 3, nombre_categoria: "Canada" },
-    { id_categoria: 4, nombre_categoria: "Brazil" },
-    { id_categoria: 5, nombre_categoria: "England" }
-  ];*/
 
   categories: any;
   concepts: any;
@@ -32,9 +25,10 @@ export class MovementComponent implements OnInit {
   selectedCategory = null;
   selectedConcept = null;
 
-  titles = ['Categoría', 'Concepto', 'Producto', 'Cantidad', 'Valor unitario', 'Costo total', 'Tipo movimiento'];
+  titles = ['ID','Categoría', 'Concepto', 'Producto', 'Cantidad', 'Valor unitario', 'Costo total', 'Tipo movimiento', 'Punto Adquisición', 'Descartar'];
   id = 0;
   movements: any = [];
+  backMovements: any = [];
   objectKeys = Object.keys;
 
   constructor(
@@ -42,7 +36,8 @@ export class MovementComponent implements OnInit {
     private catSvc: CategoryService,
     private conSvc: ConceptService,
     private proSvc: ProductService,
-    private acqSvc: AcquisitionPointService
+    private acqSvc: AcquisitionPointService,
+    private movSvc: MovementService
   ) {
   }
 
@@ -52,10 +47,8 @@ export class MovementComponent implements OnInit {
         this.categories = categories;
         this.conSvc.getAllByUser(this.user.uid).subscribe((concepts)=>{
           this.concepts = concepts;
-          console.log("concepts: ",concepts);
           this.proSvc.getAllByUser(this.user.uid).subscribe((products)=>{
             this.products = products;
-            console.log("products: ",products);
             this.acqSvc.getAll(this.user.uid).subscribe((points)=>{
               this.points = points;
             })
@@ -67,10 +60,10 @@ export class MovementComponent implements OnInit {
       category: [null, Validators.required],
       concept: [{value: null, disabled:true}, Validators.required],
       product: [{value: null, disabled:true}, Validators.required],
-      point: [null, Validators.required],
+      point: [, Validators.required],
       movementType: [null, Validators.required],
-      value: [null, Validators.required],
-      amount: [null, Validators.required]
+      value: ['', Validators.required],
+      amount: ['', Validators.required]
     });
 
     this.movementForm.get('category').valueChanges.subscribe((value)=>{
@@ -94,21 +87,52 @@ export class MovementComponent implements OnInit {
     });
   }
 
-  submit() {
-    console.log("Form Submitted")
-    console.log(this.movementForm.value)
+  addMovement(form: any){
+    let frontElements={
+      id: this.id,
+      category:form.category.nombre_categoria,
+      concept:form.concept.nombre_concepto,
+      product:form.product.nombre_producto,
+      amount:form.amount,
+      unitValue:form.value,
+      totalAmount:form.amount * form.value,
+      movementType:form.movementType,
+      point:form.point.nombre_punto
+    }
+    this.id++;
+    this.movements.push(frontElements);
+
+    let backElements={
+      id_punto:form.point.id_punto,
+      id_producto_servicio:form.product.id_producto,
+      id_concepto:form.concept.id_concepto,
+      id_categoria:form.category.id_categoria,
+      usuario: this.user.uid,
+      cantidad: form.amount,
+      valor_unitario:form.value,
+      tipo_movimiento:form.movementType
+    }
+    this.backMovements.push(backElements);
   }
 
-  addMovement(){
-
-  }
-
-  removeMovement(){
-
+  removeMovement(ref){
+    let deleteElement;
+    this.backMovements
+    for(let key of Object.keys(this.movements)){
+      if(this.movements[key].id==ref){
+        deleteElement = key;
+      }
+    }
+    this.backMovements.splice(parseInt(deleteElement), 1);
+    this.movements.splice(parseInt(deleteElement), 1);
   }
 
   saveMovements(){
-
+    for(let movement of this.backMovements){
+      this.movSvc.save(movement).subscribe((result)=>{
+        console.log(result);
+      })
+    }
   }
 
 }

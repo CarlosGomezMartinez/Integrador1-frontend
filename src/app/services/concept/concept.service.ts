@@ -25,7 +25,6 @@ export class ConceptService {
   save(concept: any, userID: string, category: string):Observable<any>{
     concept.usuario = userID;
     concept.id_categoria = category;
-    console.log(concept);
     return this.http.post(this.API, concept);
   }
 
