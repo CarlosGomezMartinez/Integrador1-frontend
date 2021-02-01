@@ -91,9 +91,36 @@
                     <button class="btn btn-primary ml-5" routerLink="/profile">
                         <i class="fas fa-arrow-left"></i> Descartar y volver
                     </button>
-                    <button class="btn btn-success ml-5" (click)="saveMovements()">
+                    <button class="btn btn-success ml-5" (click)="saveMovements()" data-toggle="modal" data-target="#modalMovements">
                         <i class="far fa-save"></i> Guardar movimientos
                     </button>
+                </div>
+                <div class="modal fade" id="modalMovements" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title text-center" id="exampleModalLabel"> <strong>Movimientos</strong></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+                        <div class="modal-body">
+                            <p *ngIf="noSavedElements == null">
+                                No habían movimientos para guardar.
+                            </p>
+                            <p *ngIf="noSavedElements == 0">
+                                Todos los movimientos fueron guardados exitosamente.
+                            </p>
+                            <p *ngIf="noSavedElements > 0">
+                                No se pudieron guardar {{noSavedElements}} movimientos
+                            </p>
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                        </div>
+                    </div>
+                    </div>
                 </div>
             </div>
         </div>

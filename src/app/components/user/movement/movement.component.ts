@@ -34,6 +34,8 @@ export class MovementComponent implements OnInit {
   backMovements: any = [];
   objectKeys = Object.keys;
 
+  noSavedElements = null;
+
   constructor(
     private fb:FormBuilder,
     private catSvc: CategoryService,
@@ -103,8 +105,8 @@ export class MovementComponent implements OnInit {
   }
 
   addMovement(form: any){
-    try
-    {let frontElements={
+    try{
+      let frontElements = {
       id: this.id,
       category:form.category.nombre_categoria,
       concept:form.concept.nombre_concepto,
@@ -118,7 +120,7 @@ export class MovementComponent implements OnInit {
     this.id++;
     this.movements.push(frontElements);
 
-    let backElements={
+    let backElements = {
       id_punto:form.point.id_punto,
       id_producto_servicio:form.product.id_producto,
       id_concepto:form.concept.id_concepto,
@@ -147,11 +149,21 @@ export class MovementComponent implements OnInit {
   }
 
   saveMovements(){
+    let noSavedMovements = 0;
+    let iterations = false;
     for(let movement of this.backMovements){
+      iterations = true;
       this.movSvc.save(movement).subscribe((result)=>{
-        console.log(result);
+        if(result != true){
+          noSavedMovements++;
+        }
       })
     }
+    if(iterations){
+      this.noSavedElements = noSavedMovements++;
+    }
+    else{
+      this.noSavedElements = null;
+    }
   }
-
 }
