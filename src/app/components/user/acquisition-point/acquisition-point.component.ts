@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AcquisitionPointService } from '../../../services/acquisition-point/acquisition-point.service';
 import firebase from "firebase/app";
+import { Router } from '@angular/router';
+import { AuthService } from '@app/services/auth/auth.service';
 
 @Component({
   selector: 'app-acquisition-point',
@@ -11,24 +13,37 @@ export class AcquisitionPointComponent implements OnInit {
   acquisitionPoints: any = [{}];
   filtro: string;
   categoriesFound: any = [{}];
-  public user = JSON.parse(localStorage.getItem('user'))[0];
+  titles = ['Concepto', 'Ver/editar', 'Eliminar'];
+  user: any;
 
   constructor(
-    private acqSrv: AcquisitionPointService
+    private acqSrv: AcquisitionPointService,
+    private authSvc:AuthService, 
+    private router: Router
   ) 
   { }
 
   ngOnInit(): void {
-    this.acqSrv.getAll(this.user.uid).subscribe((data)=>{
-      this.acquisitionPoints = data;
-    })
+    if(!this.authSvc.userAuthenticated()){
+      this.router.navigate(['login'])
+    }
+    else{
+      this.user = JSON.parse(localStorage.getItem('user'))[0];
+      this.acqSrv.getAll(this.user.uid).subscribe((data)=>{
+        this.acquisitionPoints = data;
+      })
+    }
   }
 
   remove(id: string){
-    this.acqSrv.remove(id).subscribe(data =>{
-      let index = this.acquisitionPoints.indexOf(this.acquisitionPoints.filter(data => data.id_punto == id)[0])
-      this.acquisitionPoints.splice(index,1);
-      console.log(data);
+    this.acqSrv.remove(id).subscribe((data) =>{
+      if(data == true){
+        let index = this.acquisitionPoints.indexOf(this.acquisitionPoints.filter(data => data.id_punto == id)[0])
+        this.acquisitionPoints.splice(index,1);
+      }
+      else{
+        console.log(data);
+      }
     });
   }
 }

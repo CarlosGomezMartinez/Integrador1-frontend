@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from '@app/services/auth/auth.service';
 import { MovementService } from '../../../services/movement/movement.service';
 
 @Component({
@@ -8,7 +10,7 @@ import { MovementService } from '../../../services/movement/movement.service';
   styleUrls: ['./report.component.scss']
 })
 export class ReportComponent implements OnInit {
-  public user = JSON.parse(localStorage.getItem('user'))[0];
+  user:any;
   timeForm: FormGroup;
 
   titles = ['Fecha','Categoría', 'Concepto', 'Producto', 'Cantidad', 'Valor unitario', 'Tipo movimiento', 'Punto Adquisición'];
@@ -18,14 +20,22 @@ export class ReportComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private movSvc: MovementService
+    private movSvc: MovementService,
+    private authSvc:AuthService, 
+    private router: Router
   ) { }
 
   ngOnInit(): void {
-    this.timeForm = this.fb.group({
-      start:[null, Validators.required],
-      finish: [null, Validators.required]
-    })
+    if(!this.authSvc.userAuthenticated()){
+      this.router.navigate(['login'])
+    }
+    else{
+      this.user = JSON.parse(localStorage.getItem('user'))[0];
+      this.timeForm = this.fb.group({
+        start:[null, Validators.required],
+        finish: [null, Validators.required]
+      })
+    }
   }
 
   search(form: any){
@@ -42,5 +52,4 @@ export class ReportComponent implements OnInit {
       this.movements = movements;
     })
   }
-
 }

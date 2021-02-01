@@ -5,24 +5,37 @@
                 <div>
                     <h3 class="text-center">¡Realicemos juntos la gestión de nuestros gastos!</h3>
                 </div>
+                <br>
                 <div>
-                    <table class="table table-striped" *ngIf="categories.length>0 ; else noCategories">
-                        <div>
-                            <h1 class="text-center">Categorías</h1>
-                        </div>
+                    <h4 class="text-center">Categorías</h4>
+                </div>
+                <div>
+                    <div *ngIf="categories.length>0 ; else noCategories">
                         <input type="text" class="form-control" placeholder="Buscar Categoría..." [(ngModel)]="filtro">
-                        <br>
-                        <tbody>
-                            <tr *ngFor="let category of categories | filter: filtro">
-                                <td><p style="font-size: 20px" class="align-self-center float-left">
-                                    {{category.nombre_categoria}} 
-                                </p>
-                                <button class="btn btn-danger float-right" (click)="remove(category.id_categoria)">Eliminar</button>
-                                <button class="btn btn-info float-right mr-3" [routerLink]="['/category/'+category.id_categoria+'/concept']">Ver</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col" *ngFor="let title of titles">
+                                    {{title}}
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let category of categories | filter: filtro">
+                                    <td><p style="font-size: 20px" class="align-self-center float-left">
+                                        {{category.nombre_categoria}} 
+                                    </p>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-info" [routerLink]="['/category/'+category.id_categoria+'/concept']"><i class="far fa-edit"></i></button>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-danger" (click)="remove(category.id_categoria)"><i class="far fa-trash-alt"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                     <ng-template #noCategories>
                         <div class="text-center"> 
                             <p>Aún no cuentas con categorías,<br>
@@ -30,8 +43,8 @@
                         </div>
                     </ng-template>
                     <div class="text-center">
-                        <button class="btn btn-primary mr-3" [routerLink]="['/profile']">Volver</button>
-                        <button class="btn btn-success ml-2" [routerLink]="['/category/add']">Agregar Categoría</button>
+                        <button class="btn btn-primary mr-3" [routerLink]="['/profile']"><i class="fas fa-arrow-left"></i> Volver</button>
+                        <button class="btn btn-success ml-2" [routerLink]="['/category/add']"><i class="fas fa-plus-square"></i> Agregar Nueva Categoría</button>
                     </div>
                 </div>
             </div>

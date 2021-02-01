@@ -11,9 +11,15 @@ import { Router } from '@angular/router';
 export class ForgotPasswordComponent implements OnInit {
   userEmail = new FormControl('');
 
-  constructor(private authSvc:AuthService, private router:Router) { }
+  constructor(
+    private authSvc:AuthService, 
+    private router:Router
+    ) { }
 
   ngOnInit(): void {
+    if(this.authSvc.userAuthenticated()){
+      this.router.navigate(['profile'])
+    }
   }
 
   async onReset(){

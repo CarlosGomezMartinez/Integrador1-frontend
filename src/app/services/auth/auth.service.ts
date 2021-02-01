@@ -56,4 +56,11 @@ export class AuthService {
     }
   }
 
+  userAuthenticated(){
+    try{
+      return JSON.parse(localStorage.getItem('user'))[0];
+    }catch (error){
+      return null;
+    }
+  }
 }

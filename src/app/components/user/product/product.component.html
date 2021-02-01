@@ -3,7 +3,7 @@
         <div class="card">
             <div class="card-body ">
                 <div>
-                    <h3 class="text-center">¡Modifica los conceptos o gestiona sus productos!</h3>
+                    <h3 class="text-center">Puedes modificar el concepto y gestionar sus productos</h3>
                 </div>
                 <div>
                     <form #updateForm="ngForm" (ngSubmit)="update(updateForm.value)">
@@ -14,43 +14,66 @@
                             <textarea class= "form-control mb-3" name="descripcion" rows="1" cols="50" placeholder="Descripción del concepto" [(ngModel)]="concept.descripcion"></textarea>
                             <div class="form-group text-center">
                                 <button class="btn btn-success ml-3" type ="submit">
-                                    Actualizar
+                                    <i class="fas fa-wrench"></i> Actualizar
                                 </button>
                             </div>
                         </div>
                     </form>
+                    <div *ngIf="successMessage" class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong>¡Actualizado!</strong> Concepto actualizado exitosamente.
+                        <button (click)="closeAlert('success')" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div *ngIf="dangerMessage" class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <strong>¡Ha ocurrido un problema!</strong> Asegúrate de al menos ingresar el nombre del concepto.
+                        <button (click)="closeAlert('danger')" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
                     <br>
-
-                        <div>
-                            <table class="table table-striped" *ngIf="products.length>0 ; else noProducts">
-                                <div>
-                                    <h1 class="text-center">Productos</h1>
-                                </div>
-                                <input type="text" class="form-control" placeholder="Buscar Producto..." [(ngModel)]="filtro">
-                                <br>
+                    <div>
+                        <div *ngIf="products.length>0 ; else noProducts">
+                            <div>
+                                <h1 class="text-center">Productos</h1>
+                            </div>
+                            <input type="text" class="form-control" placeholder="Buscar Producto..." [(ngModel)]="filtro">
+                            <br>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" *ngFor="let title of titles">
+                                        {{title}}
+                                        </th>
+                                    </tr>
+                                </thead>
                                 <tbody>
                                     <tr *ngFor="let product of products | filter: filtro">
                                         <td><p style="font-size: 20px" class="align-self-center float-left">
                                             {{product.nombre_producto_servicio}} 
                                         </p>
-                                        <button class="btn btn-danger float-right" (click)="remove(product.id_producto_servicio)">Eliminar</button>
-                                        <button class="btn btn-info float-right mr-3" [routerLink]="['/category/' + id_categoria + '/concept/' + concept.id_concepto + '/product/' + product.id_producto_servicio]">Ver</button>
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-info" [routerLink]="['/category/' + id_categoria + '/concept/' + concept.id_concepto + '/product/' + product.id_producto_servicio]"><i class="far fa-edit"></i></button>
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-danger" (click)="remove(product.id_producto_servicio)"><i class="far fa-trash-alt"></i></button>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
-                            <ng-template #noProducts>
-                                <div>
-                                    <p style="font-size: 15px; padding: 8px" class="align-self-center text-center">Aún no cuentas con productos para tus conceptos,<br>
-                                        ¿Qué tal si agregas algunos?</p>
-                                </div>
-                            </ng-template>
-                            <div class="text-center">
-                                <button class="btn btn-primary mr-3 mb-3" [routerLink]="['/category/'+id_categoria+'/concept/']">Volver</button>
-                                <button class="btn btn-success ml-2 mb-3" [routerLink]="['/category/'+id_categoria+'/concept/'+concept.id_concepto+'/product/add']">Agregar Producto</button>
-                            </div>
                         </div>
-
+                        <ng-template #noProducts>
+                            <div>
+                                <p style="font-size: 15px; padding: 8px" class="align-self-center text-center">Aún no cuentas con productos para tus conceptos,<br>
+                                    ¿Qué tal si agregas algunos?</p>
+                            </div>
+                        </ng-template>
+                        <div class="text-center">
+                            <button class="btn btn-primary mr-3 mb-3" [routerLink]="['/category/'+id_categoria+'/concept/']"><i class="fas fa-arrow-left"></i> Volver</button>
+                            <button class="btn btn-success ml-2 mb-3" [routerLink]="['/category/'+id_categoria+'/concept/'+concept.id_concepto+'/product/add']"><i class="fas fa-plus-square"></i> Agregar Nuevo Producto</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

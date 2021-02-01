@@ -15,9 +15,15 @@ export class RegisterComponent implements OnInit {
     password: new FormControl(''),
   });
 
-  constructor(private authSvc: AuthService, private router:Router) { }
+  constructor(
+    private authSvc: AuthService, 
+    private router:Router
+    ) { }
 
   ngOnInit(): void {
+    if(this.authSvc.userAuthenticated()){
+      this.router.navigate(['profile'])
+    }
   }
 
   async onRegister(){

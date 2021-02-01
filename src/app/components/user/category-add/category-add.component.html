@@ -4,6 +4,7 @@
             <div class="card-body text-center">
                 <form #categoryForm="ngForm" (ngSubmit)="save(categoryForm.value)">
                     <h1>¡Agreguemos una categoría!</h1>
+                    <br>
                     <div class="form-group">
                         <input type="text" class="form-control" placeholder="Nombre" [(ngModel)]="category.nombre_categoria"required name="nombre_categoria" autofocus>
                     </div>
@@ -11,14 +12,26 @@
                         <textarea class="form-control" placeholder="Descripción" [(ngModel)]="category.descripcion" name="descripcion" cols="50" rows="2"></textarea>
                     </div>
                     <div class="form-group">
-                        <button class="btn btn-danger mr-3" routerLink="/category">
-                            Volver
+                        <button class="btn btn-primary mr-3" routerLink="/category">
+                            <i class="fas fa-long-arrow-alt-left"></i> Volver
                         </button>
                         <button class="btn btn-success ml-3" type ="submit">
-                            Guardar
+                            <i class="fa fa-save"></i> Guardar
                         </button>
                     </div>
                 </form>
+                <div *ngIf="successMessage" class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>¡Guardado!</strong> Categoría guardada exitosamente.
+                    <button (click)="closeAlert('success')" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div *ngIf="dangerMessage" class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>¡Ha ocurrido un problema!</strong> Asegúrate de al menos ingresar el nombre de la categoría.
+                    <button (click)="closeAlert('danger')" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
             </div>
         </div>
     </div>

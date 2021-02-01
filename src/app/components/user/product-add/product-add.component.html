@@ -4,6 +4,7 @@
             <div class="card-body text-center">
                 <form #productForm="ngForm" (ngSubmit)="save(productForm.value)">
                     <h1>¡Agreguemos un producto!</h1>
+                    <br>
                     <div class="form-group">
                         <input type="text" class="form-control" placeholder="Nombre" required name="nombre_producto_servicio" [(ngModel)]="products.nombre_producto_servicio" autofocus>
                     </div>
@@ -14,14 +15,26 @@
                         <textarea class="form-control" placeholder="Descripción" name="descripcion" cols="50" rows="2" [(ngModel)]="products.descripcion"></textarea>
                     </div>
                     <div class="form-group">
-                        <button class="btn btn-danger mr-3" [routerLink]="['/category/'+id_categoria+'/concept/'+id_concepto+'/product']">
-                            Volver
+                        <button class="btn btn-primary mr-3" [routerLink]="['/category/'+id_categoria+'/concept/'+id_concepto+'/product']">
+                            <i class="fas fa-arrow-left"></i> Volver
                         </button>
                         <button class="btn btn-success ml-3" type ="submit">
-                            Guardar
+                            <i class="far fa-save"></i> Guardar
                         </button>
                     </div>
                 </form>
+                <div *ngIf="successMessage" class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>¡Guardado!</strong> Producto guardado exitosamente.
+                    <button (click)="closeAlert('success')" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div *ngIf="dangerMessage" class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>¡Ha ocurrido un problema!</strong> Asegúrate de al menos ingresar el nombre del producto y la unidad de medida.
+                    <button (click)="closeAlert('danger')" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
             </div>
         </div>
     </div>

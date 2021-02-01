@@ -14,15 +14,27 @@
                         <label for="" class="mt-4"><strong>Descripción del producto</strong></label>
                         <textarea class= "form-control mb-3" name="descripcion" rows="1" cols="50" placeholder="Descripción del producto" [(ngModel)]="products.descripcion"></textarea>
                         <div class="form-group text-center">
-                            <button class="btn btn-danger mr-3" [routerLink]="['/category/'+id_categoria+'/concept/'+id_concepto+'/product']">
-                                Volver
+                            <button class="btn btn-primary mr-3" [routerLink]="['/category/'+id_categoria+'/concept/'+id_concepto+'/product']">
+                                <i class="fas fa-arrow-left"></i> Volver
                             </button>
                             <button class="btn btn-success ml-3" type ="submit">
-                                Actualizar
+                                <i class="fas fa-wrench"></i> Actualizar
                             </button>
                         </div>
                     </div>
                 </form>
+                <div *ngIf="successMessage" class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>¡Actualizado!</strong> Producto actualizado exitosamente.
+                    <button (click)="closeAlert('success')" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div *ngIf="dangerMessage" class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>¡Ha ocurrido un problema!</strong> Asegúrate de al menos ingresar el nombre del producto y la unidad de medida.
+                    <button (click)="closeAlert('danger')" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
             </div>
         </div>
     </div>

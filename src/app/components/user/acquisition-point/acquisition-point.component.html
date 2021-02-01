@@ -3,26 +3,40 @@
         <div class="card">
             <div class="card-body ">
                 <div>
-                    <h3 class="text-center">¡Realicemos juntos la gestión de nuestros gastos!</h3>
+                    <h3 class="text-center">Puedes gestionar los puntos de adquisición</h3>
                 </div>
+                <br>
                 <div>
-                    <table class="table table-striped" *ngIf="acquisitionPoints.length>0 ; else noPoint">
-                        <div>
-                            <h1 class="text-center">Puntos de Adquisición</h1>
-                        </div>
+                    <div>
+                        <h1 class="text-center">Puntos de Adquisición</h1>
+                    </div>
+                    <div *ngIf="acquisitionPoints.length>0 ; else noPoint">
                         <input type="text" class="form-control" placeholder="Buscar punto de acquisición..." [(ngModel)]="filtro">
                         <br>
-                        <tbody>
-                            <tr *ngFor="let point of acquisitionPoints | filter: filtro">
-                                <td><p style="font-size: 20px" class="align-self-center float-left">
-                                    {{point.nombre_punto}} 
-                                </p>
-                                <button class="btn btn-danger float-right" (click)="remove(point.id_punto)">Eliminar</button>
-                                <button class="btn btn-info float-right mr-3" [routerLink]="['/acquisition-point/'+point.id_punto]">Ver</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col" *ngFor="let title of titles">
+                                    {{title}}
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let point of acquisitionPoints | filter: filtro">
+                                    <td><p style="font-size: 20px" class="align-self-center float-left">
+                                        {{point.nombre_punto}} 
+                                    </p>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-info float-right mr-3" [routerLink]="['/acquisition-point/'+point.id_punto]"><i class="far fa-edit"></i></button>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-danger float-right" (click)="remove(point.id_punto)"><i class="far fa-trash-alt"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                     <ng-template #noPoint>
                         <div class="text-center"> 
                             <p>Aún no cuentas con puntos de adquisición,<br>
@@ -30,8 +44,8 @@
                         </div>
                     </ng-template>
                     <div class="text-center">
-                        <button class="btn btn-primary mr-3" [routerLink]="['/profile']">Volver</button>
-                        <button class="btn btn-success ml-2" [routerLink]="['/acquisition-point/add']">Agregar punto de adquisición</button>
+                        <button class="btn btn-primary mr-3" [routerLink]="['/profile']"><i class="fas fa-arrow-left"></i> Volver</button>
+                        <button class="btn btn-success ml-2" [routerLink]="['/acquisition-point/add']"><i class="fas fa-plus-square"></i> Agregar Punto de Adquisición</button>
                     </div>
                 </div>
             </div>

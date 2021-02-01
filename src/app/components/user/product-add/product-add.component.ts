@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '@app/services/auth/auth.service';
 import { Subscription } from 'rxjs';
 import { ProductService } from '../../../services/product/product.service';
-import firebase from "firebase/app";
 
 @Component({
   selector: 'app-product-add',
@@ -16,25 +16,53 @@ export class ProductAddComponent implements OnInit {
   sub: Subscription;
   concept: any = {};
   products: any = [{}];
-  public user = JSON.parse(localStorage.getItem('user'))[0];
+  successMessage: boolean = false;
+  dangerMessage: boolean = false;
+  user:any;
 
   constructor(
     private route: ActivatedRoute,
-    private prodSrv: ProductService
+    private prodSrv: ProductService,
+    private authSvc:AuthService, 
+    private router: Router
   ) { }
 
   ngOnInit(): void {
-    this.sub = this.route.params.subscribe(params =>{
-      this.id_categoria = params.id_categoria;
-      this.id_concepto = params.id_concepto;
-    });
+    if(!this.authSvc.userAuthenticated()){
+      this.router.navigate(['login'])
+    }
+    else {
+      this.user = JSON.parse(localStorage.getItem('user'))[0];
+      this.sub = this.route.params.subscribe(params =>{
+        this.id_categoria = params.id_categoria;
+        this.id_concepto = params.id_concepto;
+      });
+    }
   }
 
   save(form: NgForm){
-    if (this.user != null) {
-      this.prodSrv.save(form, this.user.uid, this.id_categoria, this.id_concepto).subscribe((data)=>{
-        console.log(data);
-      })
+    if(this.successMessage){
+      this.successMessage = false;
     }
+    if(this.dangerMessage){
+      this.dangerMessage = false;
+    }
+    this.prodSrv.save(form, this.user.uid, this.id_categoria, this.id_concepto).subscribe((response)=>{
+      if(response == true){
+        this.successMessage = true;
+      }
+      else{
+        this.dangerMessage = true;
+      }
+    })
+  }
+
+  closeAlert(alert:string){
+    if(alert == 'success'){
+      this.successMessage = false;
+    }
+    else{
+      this.dangerMessage = false;
+      }
   }
 }

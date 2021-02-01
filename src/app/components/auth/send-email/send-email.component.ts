@@ -10,7 +10,9 @@ import { AuthService } from '../../../services/auth/auth.service';
 })
 export class SendEmailComponent  {
   public user$: Observable<any> = this.authSvc.afAuth.user;
-  constructor(private authSvc: AuthService) { }
+  constructor(
+    private authSvc: AuthService
+    ) { }
 
   onSendEmail(): void {
     this.authSvc.sendVerificationEmail();

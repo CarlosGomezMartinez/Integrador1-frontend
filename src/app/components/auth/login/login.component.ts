@@ -17,10 +17,16 @@ export class LoginComponent implements OnInit {
     password: new FormControl(''),
   });
 
-  constructor(private authSvc:AuthService, private router: Router) { }
+  constructor(
+    private authSvc:AuthService, 
+    private router: Router
+    ) { }
   public user$: Observable<any> = this.authSvc.afAuth.user;
   
   ngOnInit(): void {
+    if(this.authSvc.userAuthenticated()){
+      this.router.navigate(['profile'])
+    }
   }
 
   async onLogin(){

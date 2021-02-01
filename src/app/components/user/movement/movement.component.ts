@@ -5,6 +5,8 @@ import { ConceptService } from '../../../services/concept/concept.service';
 import { ProductService } from '../../../services/product/product.service';
 import { AcquisitionPointService } from '../../../services/acquisition-point/acquisition-point.service';
 import { MovementService } from '../../../services/movement/movement.service';
+import { Router } from '@angular/router';
+import { AuthService } from '@app/services/auth/auth.service';
 
 @Component({
   selector: 'app-movement',
@@ -13,7 +15,7 @@ import { MovementService } from '../../../services/movement/movement.service';
 })
 export class MovementComponent implements OnInit {
 
-  public user = JSON.parse(localStorage.getItem('user'))[0];
+  user:any;
 
   movementForm:FormGroup;
 
@@ -24,6 +26,7 @@ export class MovementComponent implements OnInit {
 
   conceptFiltered:any;
   productFiltered:any;
+  unit:any;
 
   titles = ['ID','Categoría', 'Concepto', 'Producto', 'Cantidad', 'Valor unitario', 'Costo total', 'Tipo movimiento', 'Punto Adquisición', 'Descartar'];
   id = 0;
@@ -37,12 +40,17 @@ export class MovementComponent implements OnInit {
     private conSvc: ConceptService,
     private proSvc: ProductService,
     private acqSvc: AcquisitionPointService,
-    private movSvc: MovementService
-  ) {
-  }
+    private movSvc: MovementService,
+    private authSvc:AuthService, 
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
-    if (this.user){
+    if(!this.authSvc.userAuthenticated()){
+      this.router.navigate(['login'])
+    }
+    else{
+      this.user = JSON.parse(localStorage.getItem('user'))[0];
       this.catSvc.getAll(this.user.uid).subscribe((categories)=>{
         this.categories = categories;
         this.conSvc.getAllByUser(this.user.uid).subscribe((concepts)=>{
@@ -55,12 +63,13 @@ export class MovementComponent implements OnInit {
           });
         });
       });
-    };
+    }
+
     this.movementForm = this.fb.group({
       category: [null, Validators.required],
       concept: [{value: null, disabled:true}, Validators.required],
       product: [{value: null, disabled:true}, Validators.required],
-      point: [, Validators.required],
+      point: [null, Validators.required],
       movementType: [null, Validators.required],
       value: ['', Validators.required],
       amount: ['', Validators.required]
@@ -85,10 +94,17 @@ export class MovementComponent implements OnInit {
         this.movementForm.get('product').disable();
       }
     });
+
+    this.movementForm.get('product').valueChanges.subscribe((value)=>{
+      if(value){
+        this.unit = value.unidad;
+      }
+    })
   }
 
   addMovement(form: any){
-    let frontElements={
+    try
+    {let frontElements={
       id: this.id,
       category:form.category.nombre_categoria,
       concept:form.concept.nombre_concepto,
@@ -113,6 +129,9 @@ export class MovementComponent implements OnInit {
       tipo_movimiento:form.movementType
     }
     this.backMovements.push(backElements);
+    }catch (error){
+      console.log("No fue posible agregar la información");
+    }
   }
 
   removeMovement(ref){
