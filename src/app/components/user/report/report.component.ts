@@ -45,9 +45,14 @@ export class ReportComponent implements OnInit {
       finish: form.finish
     }
     this.movSvc.getByDate(objeto).subscribe((movements)=>{
-      console.log("movimientos: ",movements);
+      console.log("movimientos: ", movements);
       for(let i=0; i < movements.length; i++){
-        movements[i].fecha = movements[i].fecha.slice(0, 10);
+        if(movements[i]==undefined){
+          movements.splice(i, 1);
+        }
+        else{
+          movements[i].fecha = movements[i].fecha.slice(0, 10);
+        }
       }
       this.movements = movements;
     })
