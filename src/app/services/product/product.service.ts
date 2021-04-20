@@ -5,9 +5,9 @@ import { Observable } from 'rxjs';
 @Injectable({providedIn: 'root'})
 export class ProductService {
 
-  API = "http://localhost:4001/product";
+  // API = "http://localhost:4001/product";
 
-
+  API = "https://app-integrador1-backend.herokuapp.com/product";
   constructor(private http: HttpClient) { }
 
   getAll(id_concepto: string): Observable<any> {

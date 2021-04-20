@@ -5,9 +5,10 @@ import { Observable } from 'rxjs';
 @Injectable({providedIn: 'root'})
 export class AcquisitionPointService {
 
-  API = "http://localhost:4001/point";
+  // API = "http://localhost:4001/point";
 
-
+  API = "https://app-integrador1-backend.herokuapp.com/point";
+  
   constructor(private http: HttpClient) { }
 
   getAll(userID: string): Observable<any> {
