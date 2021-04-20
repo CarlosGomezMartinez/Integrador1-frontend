@@ -26,9 +26,6 @@ import { AcquisitionPointAddComponent } from './components/user/acquisition-poin
 import { AcquisitionPointEditComponent } from './components/user/acquisition-point-edit/acquisition-point-edit.component';
 import { ReportComponent } from './components/user/report/report.component';
 
-
-
-
 @NgModule({
   declarations: [
     NavbarComponent,
