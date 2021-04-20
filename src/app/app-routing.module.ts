@@ -18,14 +18,14 @@ import { ReportComponent } from './components/user/report/report.component';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/home',
+    redirectTo: '/login',
     pathMatch: 'full',
   },
 
-  { 
-    path: 'home', 
-    loadChildren: () => import('./components/home/home.module').then(m => m.HomeModule) 
-  }, 
+  // { 
+  //   path: 'home', 
+  //   loadChildren: () => import('./components/home/home.module').then(m => m.HomeModule) 
+  // }, 
 
   { 
     path: 'login', 
