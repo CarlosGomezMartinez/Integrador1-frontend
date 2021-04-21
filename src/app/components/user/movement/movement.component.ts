@@ -23,6 +23,7 @@ export class MovementComponent implements OnInit {
   concepts: any;
   products: any;
   points: any;
+  date = new Date();
 
   conceptFiltered:any;
   productFiltered:any;
@@ -75,7 +76,7 @@ export class MovementComponent implements OnInit {
       movementType: [null, Validators.required],
       value: ['', Validators.required],
       amount: ['', Validators.required],
-      date:[null, Validators.required]
+      date:[this.date, Validators.required]
     });
 
     this.movementForm.get('category').valueChanges.subscribe((value)=>{
