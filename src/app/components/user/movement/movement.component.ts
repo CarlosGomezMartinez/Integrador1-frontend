@@ -28,7 +28,7 @@ export class MovementComponent implements OnInit {
   productFiltered:any;
   unit:any;
 
-  titles = ['ID','Categoría', 'Concepto', 'Producto', 'Cantidad', 'Valor unitario', 'Costo total', 'Tipo movimiento', 'Punto Adquisición', 'Descartar'];
+  titles = ['ID','Categoría', 'Concepto', 'Producto', 'Cantidad', 'Valor unitario', 'Costo total', 'Tipo movimiento', 'Punto Adquisición', 'Fecha', 'Descartar'];
   id = 0;
   movements: any = [];
   backMovements: any = [];
@@ -74,7 +74,8 @@ export class MovementComponent implements OnInit {
       point: [null, Validators.required],
       movementType: [null, Validators.required],
       value: ['', Validators.required],
-      amount: ['', Validators.required]
+      amount: ['', Validators.required],
+      date:[null, Validators.required]
     });
 
     this.movementForm.get('category').valueChanges.subscribe((value)=>{
@@ -115,7 +116,8 @@ export class MovementComponent implements OnInit {
       unitValue:form.value,
       totalAmount:form.amount * form.value,
       movementType:form.movementType,
-      point:form.point.nombre_punto
+      point:form.point.nombre_punto,
+      date:form.date
     }
     this.id++;
     this.movements.push(frontElements);
@@ -128,7 +130,8 @@ export class MovementComponent implements OnInit {
       usuario: this.user.uid,
       cantidad: form.amount,
       valor_unitario:form.value,
-      tipo_movimiento:form.movementType
+      tipo_movimiento:form.movementType,
+      fecha:form.date
     }
     this.backMovements.push(backElements);
     }catch (error){
