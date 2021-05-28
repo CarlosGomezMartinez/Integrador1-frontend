@@ -11,7 +11,7 @@ export class MovementService {
   constructor(private http: HttpClient) { }
 
   getAll(userID: string): Observable<any> {
-    return this.http.get(this.API+"/allbyuser/"+userID);
+    return this.http.get(this.API +"/allbyuser/"+userID);
   }
 
   getByDate(objeto: any): Observable<any> {
