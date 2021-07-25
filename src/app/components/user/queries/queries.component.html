@@ -1,1 +1,178 @@
-<p>queries works!</p>
+<div class="row">
+    <div class="col-md-12 mx-auto mt-5">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="text-center">En este espacio podrás realizar la consulta que necesites para obtener un informe</h2>
+                <br>
+                <form [formGroup]="queriesForm">
+                    <h5 >A contiuación selecciona el tipo de consulta que deseas realizar:</h5>
+                    <br>
+                    <div class="ml-5">
+                        <div>
+                            <input type="radio" formControlName="consultaTipo" value="consultaTipo" style="margin:.4rem">
+                            <label for="uno">Cuál categoría, concepto o producto desea conocer sus movimientos.</label>
+                        </div>
+                        <br>
+                        <div class="ml-5">
+                            <div class="form-group col-md-3">
+                                <select class="custom-select" formControlName="selection0">
+                                    <option [ngValue]="null">Seleccione una opción</option>      
+                                    <option value="category">Categoría</option>   
+                                    <option value="concept">Concepto</option>  
+                                    <option value="product">Producto</option>                   
+                                </select>
+                            </div>
+                            <br>
+                            <div>
+                                <div *ngIf = "selection0 == 'category'" class="form-group col-md-4">
+                                    <select class="custom-select" formControlName="category">
+                                        <option [ngValue]="null" >Buscar Categoría</option>
+                                        <option *ngFor="let category of categories" [ngValue]="{id_categoria:category.id_categoria,nombre_categoria: category.nombre_categoria}" required>{{category.nombre_categoria}}</option>
+                                    </select>
+                                </div>
+                                <div *ngIf = "selection0 == 'concept'" class="form-group col-md-4">
+                                    <select class="custom-select" formControlName="concept">
+                                        <option [ngValue]="null">Buscar Concepto</option>
+                                        <option *ngFor="let concept of concepts" [ngValue]="{id_concepto:concept.id_concepto, nombre_concepto:concept.nombre_concepto}">{{concept.nombre_concepto}}</option>
+                                    </select>
+                                </div>
+                                <div *ngIf = "selection0 == 'product'"class="form-group col-md-4">
+                                    <select class="custom-select" formControlName="product">
+                                        <option [ngValue]="null">Buscar Producto</option>
+                                        <option *ngFor="let product of products" [ngValue]="{id_producto:product.id_producto_servicio, nombre_producto:product.nombre_producto_servicio,unidad:product.unidad}">{{product.nombre_producto_servicio}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="ml-5">
+                        <div>
+                            <input type="radio" formControlName="consultaPunto" value="consultaPunto" style="margin:.4rem">
+                            <label for="dos">El punto de compra de la categoría, concepto o producto.</label>
+                        </div>
+                        <br>
+                        <div class="ml-5">
+                            <div class="form-group col-md-6">
+                                <select class="custom-select" formControlName="point">
+                                    <option [ngValue]="null" disabled>Buscar Lugar de adquisición</option>
+                                    <option *ngFor="let point of points" [ngValue]="{id_punto:point.id_punto, nombre_punto:point.nombre_punto}">{{point.nombre_punto}}</option>
+                                </select>
+                            </div>
+                            <br>
+                            <div class="form-group col-md-3">
+                                <select class="custom-select" formControlName="selection1">
+                                    <option [ngValue]="null">Seleccione una opción</option>      
+                                    <option value="category">Categoría</option>   
+                                    <option value="concept">Concepto</option>  
+                                    <option value="product">Producto</option>                   
+                                </select>
+                            </div>
+                            <br>
+                            <div>
+                                <div *ngIf = "selection1 == 'category'" class="form-group col-md-4">
+                                    <select class="custom-select" formControlName="category">
+                                        <option [ngValue]="null" >Buscar Categoría</option>
+                                        <option *ngFor="let category of categories" [ngValue]="{id_categoria:category.id_categoria,nombre_categoria: category.nombre_categoria}" required>{{category.nombre_categoria}}</option>
+                                    </select>
+                                </div>
+                                <div *ngIf = "selection1 == 'concept'" class="form-group col-md-4">
+                                    <select class="custom-select" formControlName="concept">
+                                        <option [ngValue]="null">Buscar Concepto</option>
+                                        <option *ngFor="let concept of concepts" [ngValue]="{id_concepto:concept.id_concepto, nombre_concepto:concept.nombre_concepto}">{{concept.nombre_concepto}}</option>
+                                    </select>
+                                </div>
+                                <div *ngIf = "selection1 == 'product'"class="form-group col-md-4">
+                                    <select class="custom-select" formControlName="product">
+                                        <option [ngValue]="null">Buscar Producto</option>
+                                        <option *ngFor="let product of products" [ngValue]="{id_producto:product.id_producto_servicio, nombre_producto:product.nombre_producto_servicio,unidad:product.unidad}">{{product.nombre_producto_servicio}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="ml-5">
+                        <div>
+                            <input type="radio" formControlName="consultaFecha" value="consultaFecha" style="margin:.4rem">
+                            <label for="tres">El rango de fechas entre las que desee ver los movimientos.</label>
+                        </div>
+                        <br>
+                        <div class="ml-5">
+                            <div>
+                                <label for="start">Desde: </label>
+                                <input type="date" formControlName="startDate" min="2021-01-01" max="2100-01-01" style="margin:.4rem">
+                            </div>
+                            <div>
+                                <label for="finish">Hasta: </label>
+                                <input type="date" formControlName="finishDate" min="2021-01-01" max="2100-01-01" style="margin:.6rem">
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <h5>A contiuación selecciona las opciones adicionales que desee ver en el informe según la consulta anterior:</h5>
+                    <br>
+                    <div class="ml-5">
+                        <div>
+                            <div>
+                                <input type="checkbox" id="rango" name="rango" style="margin:.4rem">
+                                <label for="rango">El rango de las fechas entre las que desee ver los movimientos anteriormente seleccionados.</label>
+                            </div>
+                            <br>
+                            <div>
+                                <div class="ml-5">
+                                    <label for="start">Desde: </label>
+                                    <input type="date" formControlName="startOptDate" min="2021-01-01" max="2100-01-01" style="margin:.4rem">
+                                </div>
+                                <div class="ml-5">
+                                    <label for="finish">Hasta: </label>
+                                    <input type="date" class="md-form md-outline input-with-post-icon datepicker" formControlName="finishOptDate" min="2021-01-01" max="2100-01-01" style="margin:.6rem">
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div>
+                            <input type="checkbox" id="totalMes" name="TotalMes" style="margin:.4rem">
+                            <label for="totalMes">Totalizar, por mes, el costo de los movimientos listados.</label>
+                        </div>
+                        <br>
+                        <div>
+                            <input type="checkbox" id="costoTotal" name="costoTotal" style="margin:.4rem">
+                            <label for="costoTotal">Producir el costo total de los movimientos listados.</label>
+                        </div>
+                        <br>
+                        <div>
+                            <input type="checkbox" id="variacion" name="variacion" style="margin:.4rem">
+                            <label for="variacion">Mostrar la variación de los precios, con su porcentaje, en el periodo descrito.</label>
+                        </div>
+                    </div>
+                    <br>              
+                    <div>
+                        <div>
+                            <button class="btn btn-danger ml-5" routerLink="/profile" style="margin:.4rem">
+                                <i class="fas fa-arrow-left"></i> Volver
+                            </button>
+
+                            <button class="btn btn-success" type="submit" style="margin:.4rem">
+                                Crear informe<i class="fas fa-file ml-2"></i> 
+                            </button>
+                        </div>
+                    </div>
+
+                </form>
+                <!-- <div *ngIf="successMessage" class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>¡Excelente!</strong> Tu consulta se procesó de forma exitosa.
+                    <button (click)="closeAlert('success')" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div *ngIf="dangerMessage" class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>¡Ha ocurrido un problema!</strong> Asegúrate de que los campos requeridos se encuentren diligenciados.
+                    <button (click)="closeAlert('danger')" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</div>

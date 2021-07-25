@@ -14,6 +14,7 @@ import { ProductEditComponent } from './components/user/product-edit/product-edi
 import { AcquisitionPointAddComponent } from './components/user/acquisition-point-add/acquisition-point-add.component';
 import { AcquisitionPointEditComponent } from './components/user/acquisition-point-edit/acquisition-point-edit.component';
 import { ReportComponent } from './components/user/report/report.component';
+import { QueriesComponent } from './components/user/queries/queries.component';
 
 const routes: Routes = [
   {
@@ -94,6 +95,10 @@ const routes: Routes = [
   {
     path: 'category/:id_categoria/concept/:id_concepto/product/:id_producto',
     component: ProductEditComponent,
+  },
+  {
+    path: 'queries',
+    component: QueriesComponent,
   }
 ];
 
