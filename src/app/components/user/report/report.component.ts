@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '@app/services/auth/auth.service';
 import { MovementService } from '../../../services/movement/movement.service';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'app-report',
@@ -10,17 +12,23 @@ import { MovementService } from '../../../services/movement/movement.service';
   styleUrls: ['./report.component.scss']
 })
 export class ReportComponent implements OnInit {
+  actualDate = (new Date(Date.now())).toString().slice(3,24);
+  listedMovements = "la categoría " + "casa";
+  principalTitles = ['Fecha','Categoría', 'Concepto', 'Producto', 'Cantidad', 'Valor unitario', 'Tipo movimiento', 'Punto Adquisición'];
+  costoPorMes = true;
+  costTitles = ['Mes/Año', 'Costo Total'];
+  totalCost = "COP " + 1234567;
+  
+
+  @ViewChild('htmlData')htmlData:ElementRef;
   user:any;
   timeForm: FormGroup;
-
-  titles = ['Fecha','Categoría', 'Concepto', 'Producto', 'Cantidad', 'Valor unitario', 'Tipo movimiento', 'Punto Adquisición'];
 
   movements: any = [];
   objectKeys = Object.keys;
 
   constructor(
     private fb: FormBuilder,
-    private movSvc: MovementService,
     private authSvc:AuthService, 
     private router: Router
   ) { }
@@ -38,23 +46,19 @@ export class ReportComponent implements OnInit {
     }
   }
 
-  search(form: any){
-    let objeto = {
-      userID: this.user.uid,
-      start: form.start,
-      finish: form.finish
-    }
-    this.movSvc.getByDate(objeto).subscribe((movements)=>{
-      console.log("movimientos: ", movements);
-      for(let i=0; i < movements.length; i++){
-        if(movements[i]==undefined){
-          movements.splice(i, 1);
-        }
-        else{
-          movements[i].fecha = movements[i].fecha.slice(0, 10);
-        }
-      }
-      this.movements = movements;
-    })
+  public PDFGenerate():void{
+    let DATA = document.getElementById('htmlData');
+
+    html2canvas(DATA).then(canvas => {
+      let fileWidth = 208;
+      let fileHeight = canvas.height * fileWidth / canvas.width;
+      
+      const FILEURI = canvas.toDataURL('image/png')
+      let PDF = new jsPDF('p', 'mm', 'a4');
+      let position = 0;
+      PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight)
+
+      PDF.save('Informe '+this.actualDate+'.pdf');
+    });
   }
 }

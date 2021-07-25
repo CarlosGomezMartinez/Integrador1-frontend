@@ -1,6 +1,74 @@
 <div class="row">
     <div class="col-md-12 mx-auto mt-5">
         <div class="card">
+            <div class="card-body" id="htmlData">
+                <h3 class="text-center card-title">En este espacio encontrarás el informe generado</h3>
+                <br>
+                <span>Informe generado el: <b>{{actualDate}}</b></span>
+                
+                <br>
+                <div>
+                    <h4 class ="text-center">{{listedMovements}}</h4>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr class="table-dark">
+                                    <th scope="col" *ngFor="let title of principalTitles">
+                                        {{title}}
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let movement of movements">
+                                    <td *ngFor="let key of objectKeys(movement)">
+                                        <label id="{{movement[key]}}">{{movement[key]}} </label>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div>
+                    <p>El costo por mes de los movimientos fue el siguiente:</p>
+                    <div class="table-responsive col-md-4">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr class="table-dark">
+                                    <th scope="col" *ngFor="let title of costTitles">
+                                        {{title}}
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let movement of movements">
+                                    <td *ngFor="let key of objectKeys(movement)">
+                                        <label id="{{movement[key]}}">{{movement[key]}} </label>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div>
+                    <span>El costo total de todos los movimientos fue de <b>{{totalCost}}</b></span>
+                </div>
+                <br>
+            </div>
+            <div class="mb-4">
+                <button class="btn btn-danger ml-5" routerLink="#">
+                    <i class="fas fa-arrow-left"></i> Volver
+                </button>
+                <button class="btn btn-success ml-3 mb" (click)="PDFGenerate()">
+                    Descargar PDF <i class="far fa-save"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <div class="row">
+    <div class="col-md-12 mx-auto mt-5">
+        <div class="card">
             <div class="card-body">
                 <form [formGroup]="timeForm" (ngSubmit)="search(timeForm.value)">
                     <h3 class="text-center">¡Consulta tus movimientos realizados por rango de tiempo!</h3>
@@ -48,4 +116,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
