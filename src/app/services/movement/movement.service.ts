@@ -5,8 +5,8 @@ import { Observable } from 'rxjs';
 @Injectable({providedIn: 'root'})
 export class MovementService {
 
-  // API = "http://localhost:4001/movement";
-  API = "https://app-integrador1-backend.herokuapp.com/movement";
+  API = "http://localhost:4001/movement";
+  //API = "https://app-integrador1-backend.herokuapp.com/movement";
 
   constructor(private http: HttpClient) { }
 

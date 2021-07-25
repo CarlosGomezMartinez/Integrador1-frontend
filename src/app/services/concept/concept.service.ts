@@ -5,8 +5,8 @@ import { Observable } from 'rxjs';
 @Injectable({providedIn: 'root'})
 export class ConceptService {
 
-  // API = "http://localhost:4001/concept";
-  API = "https://app-integrador1-backend.herokuapp.com/concept";
+  API = "http://localhost:4001/concept";
+  //API = "https://app-integrador1-backend.herokuapp.com/concept";
 
   constructor(private http: HttpClient) { }
 
