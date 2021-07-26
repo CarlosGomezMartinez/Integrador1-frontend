@@ -35,23 +35,23 @@ export class QueriesComponent implements OnInit {
 
   selection0: any;
   selection1: any;
-  categoria1: any;
+/*   categoria1: any;
   concepto1: any;
   producto1: any;
   categoria2: any;
   concepto2: any;
-  producto2: any;
+  producto2: any; */
   selectedCharacteristic1: any;
   consultaTipo: any;
   point: any;
-  startDate: any;
+/*   startDate: any;
   finishDate: any;
   rango:any;
   startOptDate: any;
   finishOptDate: any;
   totalMes:any;
   costoTotal: any;
-  variacion: any;
+  variacion: any; */
   consultaPunto: any;
   consultaFecha: any;
 
@@ -114,6 +114,7 @@ export class QueriesComponent implements OnInit {
         this.consultaTipo = value;
         this.queriesForm.get('selection0').enable();
         this.queriesForm.get('point').disable();
+        this.queriesForm.get('selection1').disable();
         this.queriesForm.get('startDate').disable();
         this.queriesForm.get('finishDate').disable();
         this.queriesForm.get('startOptDate').enable();
@@ -132,6 +133,7 @@ export class QueriesComponent implements OnInit {
         this.consultaFecha = value;
         this.queriesForm.get('selection0').disable();
         this.queriesForm.get('point').disable();
+        this.queriesForm.get('selection1').disable();
         this.queriesForm.get('startDate').enable();
         this.queriesForm.get('finishDate').enable();
         this.queriesForm.get('rango').disable();
@@ -144,7 +146,7 @@ export class QueriesComponent implements OnInit {
       this.selection0 = value;
     });
 
-    this.queriesForm.get('categoria1').valueChanges.subscribe((value)=>{
+/*     this.queriesForm.get('categoria1').valueChanges.subscribe((value)=>{
       this.categoria1 = value;
     });
 
@@ -154,13 +156,19 @@ export class QueriesComponent implements OnInit {
 
     this.queriesForm.get('producto1').valueChanges.subscribe((value)=>{
       this.producto1 = value;
-    });
+    }); */
 
     this.queriesForm.get('selection1').valueChanges.subscribe((value)=>{
       this.selection1 = value;
     });
 
-    this.queriesForm.get('categoria2').valueChanges.subscribe((value)=>{
+    this.queriesForm.get('point').valueChanges.subscribe((value)=>{
+      if(value != null){
+        this.queriesForm.get('selection1').enable();
+      }
+    })
+
+/*     this.queriesForm.get('categoria2').valueChanges.subscribe((value)=>{
       this.categoria2 = value;
     });
 
@@ -170,7 +178,7 @@ export class QueriesComponent implements OnInit {
 
     this.queriesForm.get('producto2').valueChanges.subscribe((value)=>{
       this.producto2 = value;
-    });
+    }); */
   }
 
 

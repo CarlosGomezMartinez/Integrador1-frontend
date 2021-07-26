@@ -33,7 +33,7 @@
                                 <div *ngIf= "selection0 == 'concepto'" class="form-group col-md-4">
                                     <select class="custom-select" formControlName="concepto1">
                                         <option [ngValue]="null" >Buscar {{selection0}}</option>
-                                        <option *ngFor="let concept of concepts" [ngValue]="{id_concepto:concept.id_concepto,nombre_concepto: concept.nombre_concepto}" required>{{concept.nombre_conceptto}}</option>
+                                        <option *ngFor="let concept of concepts" [ngValue]="{id_concepto:concept.id_concepto,nombre_concepto: concept.nombre_concepto}" required>{{concept.nombre_concepto}}</option>
                                     </select>
                                 </div>
                                 <div *ngIf= "selection0 == 'producto'" class="form-group col-md-4">
@@ -79,7 +79,7 @@
                                 <div *ngIf= "selection1 == 'concepto'" class="form-group col-md-4">
                                     <select class="custom-select" formControlName="concepto2">
                                         <option [ngValue]="null" >Buscar {{selection1}}</option>
-                                        <option *ngFor="let concept of concepts" [ngValue]="{id_concepto:concept.id_concepto,nombre_concepto: concept.nombre_concepto}" required>{{concept.nombre_conceptto}}</option>
+                                        <option *ngFor="let concept of concepts" [ngValue]="{id_concepto:concept.id_concepto,nombre_concepto: concept.nombre_concepto}" required>{{concept.nombre_concepto}}</option>
                                     </select>
                                 </div>
                                 <div *ngIf= "selection1 == 'producto'"class="form-group col-md-4">
@@ -153,7 +153,7 @@
                                 <i class="fas fa-arrow-left"></i> Volver
                             </button>
 
-                            <button class="btn btn-success" type="submit" style="margin:.4rem">
+                            <button class="btn btn-success" type="submit" routerLink="/report" style="margin:.4rem">
                                 Crear informe<i class="fas fa-file ml-2"></i> 
                             </button>
                         </div>
