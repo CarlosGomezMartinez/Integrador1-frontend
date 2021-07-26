@@ -24,6 +24,7 @@ export class QueriesComponent implements OnInit {
   products: any;
   points: any;
   date = new Date();
+  caracteristicas: [];
 
   conceptFiltered:any;
   productFiltered:any;
@@ -34,9 +35,16 @@ export class QueriesComponent implements OnInit {
 
   selection0: any;
   selection1: any;
-  selectionCat: any;
-  selectionCon: any;
-  selectionProd: any;
+  selectedCharacteristic: any;
+  consultaTipo: any;
+  startDate: any;
+  finishDate: any;
+  rango:any;
+  startOptDate: any;
+  finishOptDate: any;
+  totalMes:any;
+  costoTotal: any;
+  variacion: any;
 
   constructor(
     private fb:FormBuilder,
@@ -70,23 +78,19 @@ export class QueriesComponent implements OnInit {
     }
 
     this.queriesForm = this.fb.group({
-      selection0:[null, Validators.required],
-      selection1:[null, Validators.required],
-      category: [null, Validators.required],
-      concept: [{value: null, disabled:false}, Validators.required],
-      product: [{value: null, disabled:false}, Validators.required],
-      point: [null, Validators.required],
-      movementType: [null, Validators.required],
-      value: ['', Validators.required],
-      amount: ['', Validators.required],
-      date:[this.date, Validators.required],
-      consultaTipo:[],
-      consultaPunto:[],
-      consultaFecha:[],
-      startDate:[],
-      finishDate:[],
-      startOptDate:[],
-      finishOptDate:[]
+      consultaTipo:[null, Validators.required],
+      selection0:[{value:null, disabled:true}, Validators.required],
+      selectedCharacteristic: [null, Validators.required],
+      point: [{value:null, disabled:true}, Validators.required],
+      selection1:[{value:null, disabled:true}, Validators.required],
+      startDate:[{value:null, disabled:true}],
+      finishDate:[{value:null, disabled:true}],
+      rango:[null],
+      startOptDate:[{value:null, disabled:true}],
+      finishOptDate:[{value:null, disabled:true}],
+      totalMes:[null],
+      costoTotal:[null],
+      variacion:[null]
     });
 
     this.queriesForm.get('selection0').valueChanges.subscribe((value)=>{
@@ -97,35 +101,16 @@ export class QueriesComponent implements OnInit {
       this.selection1 = value;
     })
 
-    this.queriesForm.get('category').valueChanges.subscribe((value)=>{
+    this.queriesForm.get('consultaTipo').valueChanges.subscribe((value)=>{
       if(value){
-        this.selectionCat = value;
-        this.selectionCon = null;
-        this.selectionProd = null;
+        this.consultaTipo = value;
       }
     });
-    this.queriesForm.get('concept').valueChanges.subscribe((valor)=>{
-      if(valor){
-        this.selectionCat = null;
-        this.selectionCon = valor;
-        this.selectionProd = null;
-      }
-    });
-    this.queriesForm.get('product').valueChanges.subscribe((value)=>{
-      if(value){
-        this.selectionCat = null;
-        this.selectionCon = null;
-        this.selectionProd = value;
-      }
-    })
   }
 
   // closeAlert(alert:string){
-  //   if(alert == 'success'){
-  //     this.successMessage = false;
-  //   }
-  //   else{
+  //   if(alert == 'danger'){
   //     this.dangerMessage = false;
-  //     }
+  //   }
   // }
 }
