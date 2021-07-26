@@ -1,57 +1,59 @@
 <div class="row">
     <div class="col-md-12 mx-auto mt-5">
         <div class="card">
-            <div class="card-body" id="htmlData">
+            <div class="card-body">
                 <h3 class="text-center card-title">En este espacio encontrarás el informe generado</h3>
                 <br>
-                <span>Informe generado el: <b>{{actualDate}}</b></span>
+                <div id="htmlData">
+                    <span>Informe generado el: <b>{{actualDate}}</b></span>
+                    <br>
+                    <div>
+                        <h4 class ="text-center">Movimientos realizados {{listedMovements}}</h4>
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr class="table-dark">
+                                        <th scope="col" *ngFor="let title of principalTitles">
+                                            {{title}}
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let movement of movements">
+                                        <td *ngFor="let key of objectKeys(movement)">
+                                            {{movement[key]}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div *ngIf ="costoPorMes">
+                        <p>El costo por mes de los movimientos fue el siguiente:</p>
+                        <div class="table-responsive col-md-4">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr class="table-dark">
+                                        <th scope="col" *ngFor="let title of costTitles">
+                                            {{title}}
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let dataCost of dataCostPerMonth">
+                                        <td *ngFor="let key of objectKeys(dataCost)">
+                                            <label id="{{dataCost[key]}}">{{dataCost[key]}} </label>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div *ngIf='totalCost'>
+                        <span>El costo total de todos los movimientos fue de <b>{{totalCost}}</b></span>
+                    </div>
+                </div>
                 
-                <br>
-                <div>
-                    <h4 class ="text-center">{{listedMovements}}</h4>
-                    <div class="table-responsive">
-                        <table class="table table-striped">
-                            <thead>
-                                <tr class="table-dark">
-                                    <th scope="col" *ngFor="let title of principalTitles">
-                                        {{title}}
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let movement of movements">
-                                    <td *ngFor="let key of objectKeys(movement)">
-                                        <label id="{{movement[key]}}">{{movement[key]}} </label>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div>
-                    <p>El costo por mes de los movimientos fue el siguiente:</p>
-                    <div class="table-responsive col-md-4">
-                        <table class="table table-striped">
-                            <thead>
-                                <tr class="table-dark">
-                                    <th scope="col" *ngFor="let title of costTitles">
-                                        {{title}}
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let movement of movements">
-                                    <td *ngFor="let key of objectKeys(movement)">
-                                        <label id="{{movement[key]}}">{{movement[key]}} </label>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div>
-                    <span>El costo total de todos los movimientos fue de <b>{{totalCost}}</b></span>
-                </div>
                 <br>
             </div>
             <div class="mb-4">
