@@ -35,8 +35,15 @@ export class QueriesComponent implements OnInit {
 
   selection0: any;
   selection1: any;
-  selectedCharacteristic: any;
+  categoria1: any;
+  concepto1: any;
+  producto1: any;
+  categoria2: any;
+  concepto2: any;
+  producto2: any;
+  selectedCharacteristic1: any;
   consultaTipo: any;
+  point: any;
   startDate: any;
   finishDate: any;
   rango:any;
@@ -45,6 +52,8 @@ export class QueriesComponent implements OnInit {
   totalMes:any;
   costoTotal: any;
   variacion: any;
+  consultaPunto: any;
+  consultaFecha: any;
 
   constructor(
     private fb:FormBuilder,
@@ -80,9 +89,16 @@ export class QueriesComponent implements OnInit {
     this.queriesForm = this.fb.group({
       consultaTipo:[null, Validators.required],
       selection0:[{value:null, disabled:true}, Validators.required],
-      selectedCharacteristic: [null, Validators.required],
+      categoria1: [null, Validators.required],
+      concepto1: [null,Validators.required],
+      producto1: [null,Validators.required],
+      consultaPunto: [{value:null, disabled:true}, Validators.required],
       point: [{value:null, disabled:true}, Validators.required],
       selection1:[{value:null, disabled:true}, Validators.required],
+      categoria2: [null, Validators.required],
+      concepto2: [null,Validators.required],
+      producto2: [null,Validators.required],
+      consultaFecha: [{value:null, disabled:true}, Validators.required],
       startDate:[{value:null, disabled:true}],
       finishDate:[{value:null, disabled:true}],
       rango:[null],
@@ -93,20 +109,71 @@ export class QueriesComponent implements OnInit {
       variacion:[null]
     });
 
+    this.queriesForm.get('consultaTipo').valueChanges.subscribe((value)=>{
+      if(value == 'consultaTipo'){
+        this.consultaTipo = value;
+        this.queriesForm.get('selection0').enable();
+        this.queriesForm.get('point').disable();
+        this.queriesForm.get('startDate').disable();
+        this.queriesForm.get('finishDate').disable();
+        this.queriesForm.get('startOptDate').enable();
+        this.queriesForm.get('finishOptDate').enable();
+        this.queriesForm.get('rango').enable();
+      } else if (value == 'consultaPunto') {
+        this.consultaPunto = value;
+        this.queriesForm.get('point').enable();
+        this.queriesForm.get('selection0').disable();
+        this.queriesForm.get('startDate').disable();
+        this.queriesForm.get('finishDate').disable();
+        this.queriesForm.get('startOptDate').enable();
+        this.queriesForm.get('finishOptDate').enable();
+        this.queriesForm.get('rango').enable();
+      } else {
+        this.consultaFecha = value;
+        this.queriesForm.get('selection0').disable();
+        this.queriesForm.get('point').disable();
+        this.queriesForm.get('startDate').enable();
+        this.queriesForm.get('finishDate').enable();
+        this.queriesForm.get('rango').disable();
+        this.queriesForm.get('startOptDate').disable();
+        this.queriesForm.get('finishOptDate').disable();
+      }
+    });
+
     this.queriesForm.get('selection0').valueChanges.subscribe((value)=>{
       this.selection0 = value;
-    })
+    });
+
+    this.queriesForm.get('categoria1').valueChanges.subscribe((value)=>{
+      this.categoria1 = value;
+    });
+
+    this.queriesForm.get('concepto1').valueChanges.subscribe((value)=>{
+      this.concepto1 = value;
+    });
+
+    this.queriesForm.get('producto1').valueChanges.subscribe((value)=>{
+      this.producto1 = value;
+    });
 
     this.queriesForm.get('selection1').valueChanges.subscribe((value)=>{
       this.selection1 = value;
-    })
+    });
 
-    this.queriesForm.get('consultaTipo').valueChanges.subscribe((value)=>{
-      if(value){
-        this.consultaTipo = value;
-      }
+    this.queriesForm.get('categoria2').valueChanges.subscribe((value)=>{
+      this.categoria2 = value;
+    });
+
+    this.queriesForm.get('concepto2').valueChanges.subscribe((value)=>{
+      this.concepto2 = value;
+    });
+
+    this.queriesForm.get('producto2').valueChanges.subscribe((value)=>{
+      this.producto2 = value;
     });
   }
+
+
 
   // closeAlert(alert:string){
   //   if(alert == 'danger'){

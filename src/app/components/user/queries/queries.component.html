@@ -24,10 +24,22 @@
                             </div>
                             <br>
                             <div>
-                                <div class="form-group col-md-4">
-                                    <select class="custom-select" formControlName="selectedCharacteristic">
+                                <div *ngIf= "selection0 == 'categoría'" class="form-group col-md-4">
+                                    <select class="custom-select" formControlName="categoria1">
                                         <option [ngValue]="null" >Buscar {{selection0}}</option>
-                                        <option *ngFor="let caracteristica of caracteristicas" [ngValue]="{id_caracteristica:category.id_categoria,nombre_categoria: category.nombre_categoria}" required>{{category.nombre_categoria}}</option>
+                                        <option *ngFor="let category of categories" [ngValue]="{id_categoria:category.id_categoria,nombre_categoria: category.nombre_categoria}" required>{{category.nombre_categoria}}</option>
+                                    </select>
+                                </div>
+                                <div *ngIf= "selection0 == 'concepto'" class="form-group col-md-4">
+                                    <select class="custom-select" formControlName="concepto1">
+                                        <option [ngValue]="null" >Buscar {{selection0}}</option>
+                                        <option *ngFor="let concept of concepts" [ngValue]="{id_concepto:concept.id_concepto,nombre_concepto: concept.nombre_concepto}" required>{{concept.nombre_conceptto}}</option>
+                                    </select>
+                                </div>
+                                <div *ngIf= "selection0 == 'producto'" class="form-group col-md-4">
+                                    <select class="custom-select" formControlName="producto1">
+                                        <option [ngValue]="null" >Buscar {{selection0}}</option>
+                                        <option *ngFor="let product of products" [ngValue]="{id_producto_servicio:product.id_producto_servicio,nombre_producto_servicio: product.nombre_producto_servicio}" required>{{product.nombre_producto_servicio}}</option>
                                     </select>
                                 </div>
                             </div>
@@ -58,10 +70,22 @@
                             </div>
                             <br>
                             <div>
-                                <div class="form-group col-md-4">
-                                    <select class="custom-select" formControlName="selectedCharacteristic">
-                                        <option [ngValue]="null" >Buscar {{selection0}}</option>
-                                        <option *ngFor="let caracteristica of caracteristicas" [ngValue]="{id_caracteristica:category.id_categoria,nombre_categoria: category.nombre_categoria}" required>{{category.nombre_categoria}}</option>
+                                <div *ngIf= "selection1 == 'categoría'" class="form-group col-md-4">
+                                    <select class="custom-select" formControlName="categoria2">
+                                        <option [ngValue]="null" >Buscar {{selection1}}</option>
+                                        <option *ngFor="let category of categories" [ngValue]="{id_categoria:category.id_categoria,nombre_categoria: category.nombre_categoria}" required>{{category.nombre_categoria}}</option>
+                                    </select>
+                                </div>
+                                <div *ngIf= "selection1 == 'concepto'" class="form-group col-md-4">
+                                    <select class="custom-select" formControlName="concepto2">
+                                        <option [ngValue]="null" >Buscar {{selection1}}</option>
+                                        <option *ngFor="let concept of concepts" [ngValue]="{id_concepto:concept.id_concepto,nombre_concepto: concept.nombre_concepto}" required>{{concept.nombre_conceptto}}</option>
+                                    </select>
+                                </div>
+                                <div *ngIf= "selection1 == 'producto'"class="form-group col-md-4">
+                                    <select class="custom-select" formControlName="producto2">
+                                        <option [ngValue]="null" >Buscar {{selection1}}</option>
+                                        <option *ngFor="let product of products" [ngValue]="{id_producto_servicio:product.id_producto_servicio,nombre_producto_servicio: product.nombre_producto_servicio}" required>{{product.nombre_producto_servicio}}</option>
                                     </select>
                                 </div>
                             </div>
@@ -91,7 +115,7 @@
                     <div class="ml-5">
                         <div>
                             <div>
-                                <input type="checkbox" id="rango" name="rango" style="margin:.4rem">
+                                <input type="checkbox" formControlName="rango" name="rango" style="margin:.4rem">
                                 <label for="rango">El rango de las fechas entre las que desee ver los movimientos anteriormente seleccionados.</label>
                             </div>
                             <br>
