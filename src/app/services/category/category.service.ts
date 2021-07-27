@@ -5,8 +5,8 @@ import { Observable } from 'rxjs';
 @Injectable({providedIn: 'root'})
 export class CategoryService {
 
-  API = "http://localhost:4001/category";
-  //API = "https://app-integrador1-backend.herokuapp.com/category";
+  //API = "http://localhost:4001/category";
+  API = "https://app-integrador1-backend.herokuapp.com/category";
 
   constructor(private http: HttpClient) { }
 

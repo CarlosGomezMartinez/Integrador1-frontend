@@ -134,18 +134,11 @@ export class ReportComponent implements OnInit {
     localStorage.removeItem('datos');
   }
 
-  public PDFGenerate():void{
-    let DATA = window.document.getElementById('htmlData');
-    html2canvas(DATA).then(canvas => {
-      let fileWidth = 208;
-      let fileHeight = canvas.height * fileWidth / canvas.width;
-      
-      const FILEURI = canvas.toDataURL('image/png')
-      let PDF = new jsPDF();
-      let position = 0;
-      PDF.addImage(FILEURI,'PNG',0,position, fileWidth, fileHeight)
-      PDF.save('Informe '+this.actualDate+'.pdf');
-    });
+
+  public print(){
+    document.getElementById("buttons").style.display = "none"; 
+    window.print();
+    document.getElementById("buttons").style.display = 'block'; 
   }
 
   public type(data: any, infoQuery:any):void{

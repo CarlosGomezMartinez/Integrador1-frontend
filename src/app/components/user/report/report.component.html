@@ -56,11 +56,11 @@
                 
                 <br>
             </div>
-            <div class="mb-4">
-                <button class="btn btn-danger ml-5" routerLink="/queries">
+            <div class="mb-4" id="buttons">
+                <button class="btn btn-danger ml-5" id="buttonBack" routerLink="/queries">
                     <i class="fas fa-arrow-left"></i> Volver
                 </button>
-                <button class="btn btn-success ml-3 mb" (click)="PDFGenerate()">
+                <button class="btn btn-success ml-3 mb" id="buttonPrint" (click)="print()">
                     Descargar PDF <i class="far fa-save"></i>
                 </button>
             </div>
