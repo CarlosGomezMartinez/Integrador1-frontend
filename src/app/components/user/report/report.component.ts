@@ -4,8 +4,6 @@ import { AuthService } from '@app/services/auth/auth.service';
 import { QueriesService } from '@app/services/queries/queries.service';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
-import { Validators } from '@angular/forms';
-import { MovementService } from '@app/services/movement/movement.service';
 
 @Component({
   selector: 'app-report',
@@ -22,10 +20,7 @@ export class ReportComponent implements OnInit {
   costoPorMes: boolean;
   costTitles = ['Mes/Año', 'Costo Total'];
   dataCostPerMonth: any;
-
   totalCost: string;
-  
-
   @ViewChild('htmlData')htmlData:ElementRef;
   user:any;
 
@@ -68,10 +63,8 @@ export class ReportComponent implements OnInit {
                 this.costTotalize(data);
               }
               if(datos.variation){
-                console.log('con variación');
                 this.typeWithVariation(data, infoQuery);
               }else{
-                console.log('sin variación');
                 this.type(data, infoQuery);
               }
             }
@@ -143,7 +136,6 @@ export class ReportComponent implements OnInit {
 
   public PDFGenerate():void{
     let DATA = window.document.getElementById('htmlData');
-    console.log(DATA);
     html2canvas(DATA).then(canvas => {
       let fileWidth = 208;
       let fileHeight = canvas.height * fileWidth / canvas.width;
@@ -152,13 +144,12 @@ export class ReportComponent implements OnInit {
       let PDF = new jsPDF();
       let position = 0;
       PDF.addImage(FILEURI,'PNG',0,position, fileWidth, fileHeight)
-
       PDF.save('Informe '+this.actualDate+'.pdf');
     });
   }
 
   public type(data: any, infoQuery:any):void{
-    if(infoQuery.tipo === 'categoría'){
+    if(infoQuery.tipo === 'categoría' || infoQuery.tipoParaPunto ==='categoría'){
       let name = data[0].categoria;
       this.listedMovements = `para la categoría ${name}`;
       this.principalTitles = ['Fecha','Punto Adquisición', 'Concepto', 'Producto', 'Cantidad', 'Valor unitario','Costo total', 'Tipo movimiento'];
@@ -177,7 +168,7 @@ export class ReportComponent implements OnInit {
       }
       this.movements = datos;
     }
-    else if(infoQuery.tipo === 'concepto'){
+    else if(infoQuery.tipo === 'concepto' || infoQuery.tipoParaPunto ==='concepto'){
       let name = data[0].concepto;
       this.listedMovements = `para el concepto ${name}`;
       this.principalTitles = ['Fecha','Punto Adquisición', 'Producto', 'Cantidad', 'Valor unitario','Costo total', 'Tipo movimiento'];
@@ -251,7 +242,7 @@ export class ReportComponent implements OnInit {
   }
 
   public typeWithVariation(data: any, infoQuery:any):void{
-    if(infoQuery.tipo === 'categoría'){
+    if(infoQuery.tipo === 'categoría' || infoQuery.tipoParaPunto ==='categoría'){
       let name = data[0].categoria;
       this.listedMovements = `para la categoría ${name}`;
       this.principalTitles = ['Fecha','Punto Adquisición', 'Concepto', 'Producto', 'Cantidad', 'Valor unitario','Costo total', 'Tipo movimiento', '$ Variación', '% Variación'];
@@ -264,7 +255,7 @@ export class ReportComponent implements OnInit {
           porcentaje = 100-(data[i].valor*100)/datos[i-1].valorUnitario;
         }
         else{
-          valor = data[i].valor;
+          valor = 0;
           porcentaje = 0;
         }
 
@@ -283,7 +274,7 @@ export class ReportComponent implements OnInit {
       }
       this.movements = datos;
     }
-    else if(infoQuery.tipo === 'concepto'){
+    else if(infoQuery.tipo === 'concepto' || infoQuery.tipoParaPunto === 'concepto'){
       let name = data[0].concepto;
       this.listedMovements = `para el concepto ${name}`;
       this.principalTitles = ['Fecha','Punto Adquisición', 'Producto', 'Cantidad', 'Valor unitario','Costo total', 'Tipo movimiento','$ Variación', '% Variación'];

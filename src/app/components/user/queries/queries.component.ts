@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AcquisitionPointService } from '@app/services/acquisition-point/acquisition-point.service';
 import { AuthService } from '@app/services/auth/auth.service';
 import { CategoryService } from '@app/services/category/category.service';
 import { ConceptService } from '@app/services/concept/concept.service';
-import { MovementService } from '@app/services/movement/movement.service';
 import { ProductService } from '@app/services/product/product.service';
 
 @Component({
@@ -16,44 +15,16 @@ import { ProductService } from '@app/services/product/product.service';
 export class QueriesComponent implements OnInit {
 
   user:any;
-
   queriesForm:FormGroup;
-
   categories: any;
   concepts: any;
   products: any;
   points: any;
-  date = new Date();
-  caracteristicas: [];
-
-  conceptFiltered:any;
-  productFiltered:any;
-  unit:any;
-
-  successMessage: boolean = false;
   dangerMessage: boolean = false;
-
-  selection0: any;
-  selection1: any;
-/*   categoria1: any;
-  concepto1: any;
-  producto1: any;
-  categoria2: any;
-  concepto2: any;
-  producto2: any; */
-  selectedCharacteristic1: any;
-  consultaTipo: any;
-  point: any;
-/*   startDate: any;
-  finishDate: any;
-  rango:any;
-  startOptDate: any;
-  finishOptDate: any;
-  totalMes:any;
-  costoTotal: any;
-  variacion: any; */
-  consultaPunto: any;
-  consultaFecha: any;
+  selection0: string;
+  selection1: string;
+  consultaTipo: string;
+  rango:boolean;
 
   constructor(
     private fb:FormBuilder,
@@ -61,14 +32,13 @@ export class QueriesComponent implements OnInit {
     private conSvc: ConceptService,
     private proSvc: ProductService,
     private acqSvc: AcquisitionPointService,
-    private movSvc: MovementService,
     private authSvc:AuthService, 
     private router: Router
   ) { }
 
   ngOnInit(): void {
     if(!this.authSvc.userAuthenticated()){
-      this.router.navigate(['login'])
+      this.router.navigate(['login']);
     }
     else{
       this.user = JSON.parse(localStorage.getItem('user'))[0];
@@ -80,7 +50,7 @@ export class QueriesComponent implements OnInit {
             this.products = products;
             this.acqSvc.getAll(this.user.uid).subscribe((points)=>{
               this.points = points;
-            })
+            });
           });
         });
       });
@@ -92,13 +62,11 @@ export class QueriesComponent implements OnInit {
       categoria1: [null, Validators.required],
       concepto1: [null,Validators.required],
       producto1: [null,Validators.required],
-      consultaPunto: [{value:null, disabled:true}, Validators.required],
       point: [{value:null, disabled:true}, Validators.required],
       selection1:[{value:null, disabled:true}, Validators.required],
       categoria2: [null, Validators.required],
       concepto2: [null,Validators.required],
       producto2: [null,Validators.required],
-      consultaFecha: [{value:null, disabled:true}, Validators.required],
       startDate:[{value:null, disabled:true}],
       finishDate:[{value:null, disabled:true}],
       rango:[null],
@@ -111,52 +79,38 @@ export class QueriesComponent implements OnInit {
 
     this.queriesForm.get('consultaTipo').valueChanges.subscribe((value)=>{
       if(value == 'consultaTipo'){
-        this.consultaTipo = value;
+        this.consultaTipo = 'consultaTipo';
         this.queriesForm.get('selection0').enable();
         this.queriesForm.get('point').disable();
         this.queriesForm.get('selection1').disable();
         this.queriesForm.get('startDate').disable();
         this.queriesForm.get('finishDate').disable();
-        this.queriesForm.get('startOptDate').enable();
-        this.queriesForm.get('finishOptDate').enable();
         this.queriesForm.get('rango').enable();
+
       } else if (value == 'consultaPunto') {
-        this.consultaPunto = value;
+        this.consultaTipo = 'consultaPunto';
         this.queriesForm.get('point').enable();
         this.queriesForm.get('selection0').disable();
         this.queriesForm.get('startDate').disable();
         this.queriesForm.get('finishDate').disable();
-        this.queriesForm.get('startOptDate').enable();
-        this.queriesForm.get('finishOptDate').enable();
         this.queriesForm.get('rango').enable();
       } else {
-        this.consultaFecha = value;
+        this.consultaTipo = 'consultaFecha';
         this.queriesForm.get('selection0').disable();
         this.queriesForm.get('point').disable();
         this.queriesForm.get('selection1').disable();
         this.queriesForm.get('startDate').enable();
         this.queriesForm.get('finishDate').enable();
         this.queriesForm.get('rango').disable();
-        this.queriesForm.get('startOptDate').disable();
-        this.queriesForm.get('finishOptDate').disable();
+        this.onChange(false);
+        this.queriesForm.get('rango').setValue(null);
+        
       }
     });
 
     this.queriesForm.get('selection0').valueChanges.subscribe((value)=>{
       this.selection0 = value;
     });
-
-/*     this.queriesForm.get('categoria1').valueChanges.subscribe((value)=>{
-      this.categoria1 = value;
-    });
-
-    this.queriesForm.get('concepto1').valueChanges.subscribe((value)=>{
-      this.concepto1 = value;
-    });
-
-    this.queriesForm.get('producto1').valueChanges.subscribe((value)=>{
-      this.producto1 = value;
-    }); */
 
     this.queriesForm.get('selection1').valueChanges.subscribe((value)=>{
       this.selection1 = value;
@@ -167,25 +121,127 @@ export class QueriesComponent implements OnInit {
         this.queriesForm.get('selection1').enable();
       }
     })
-
-/*     this.queriesForm.get('categoria2').valueChanges.subscribe((value)=>{
-      this.categoria2 = value;
-    });
-
-    this.queriesForm.get('concepto2').valueChanges.subscribe((value)=>{
-      this.concepto2 = value;
-    });
-
-    this.queriesForm.get('producto2').valueChanges.subscribe((value)=>{
-      this.producto2 = value;
-    }); */
   }
 
+  public closeAlert(alert:string){
+     if(alert == 'danger'){
+       this.dangerMessage = false;
+     }
+  }
 
+  public onChange(isChecked: boolean):void{
+    if(isChecked){
+      this.queriesForm.get('startOptDate').enable();
+      this.queriesForm.get('finishOptDate').enable();
+    }else{
+      this.queriesForm.get('startOptDate').disable();
+      this.queriesForm.get('finishOptDate').disable();
+    }
+  };
 
-  // closeAlert(alert:string){
-  //   if(alert == 'danger'){
-  //     this.dangerMessage = false;
-  //   }
-  // }
+  public sendParameters(form: any):void{
+    if(form.consultaTipo){
+      let datos = {
+        queryType: form.consultaTipo, 
+        selectionType: null, 
+        objectSelectionType: null, 
+        selectedPoint: null, 
+        pointCharacteristicType: null, 
+        pointCharacteristicValue: null,
+        startDate: null,
+        finishDate: null,
+        range: false,
+        startOptionalDate: null,
+        finishOptionalDate: null,
+        totalPerMonth: false,
+        totalCost: false,
+        variation: false
+      }
+      switch(form.consultaTipo){
+        case 'consultaTipo':
+          if(form.selection0 && (form.categoria1 || form.concepto1 || form.producto1)){
+            datos.selectionType = form.selection0;
+            switch(form.selection0){
+              case 'categoría':
+                datos.objectSelectionType = form.categoria1.id_categoria;
+                break;
+              case 'concepto':
+                datos.objectSelectionType = form.concepto1.id_concepto;
+                break;
+              case 'producto':
+                datos.objectSelectionType = form.producto1.id_producto_servicio;
+                break;
+              default:
+                console.log('Primera selección inesperada');
+                return;
+            }
+          }else{
+            this.dangerMessage = true;
+            return;
+          }
+          break;
+
+        case 'consultaPunto':
+          if(form.point && form.selection1 && (form.categoria2 || form.concepto2 || form.producto2)){
+            datos.selectedPoint = form.point.id_punto;
+            datos.pointCharacteristicType = form.selection1;
+            switch(form.selection1){
+              case 'categoría':
+                datos.pointCharacteristicValue = form.categoria2.id_categoria;
+                break;
+              case 'concepto':
+                datos.pointCharacteristicValue = form.concepto2.id_concepto;
+                break;
+              case 'producto':
+                datos.pointCharacteristicValue = form.producto2.id_producto_servicio;
+                break;
+              default:
+                console.log('Primera selección inesperada');
+                return;
+            }
+          }else{
+            this.dangerMessage = true;
+            return;
+          }
+          break;
+
+        case 'consultaFecha':
+          if(form.startDate && form.finishDate){
+            datos.startDate = form.startDate;
+            datos.finishDate = form.finishDate;
+          }else{
+            this.dangerMessage = true;
+            return;
+          }
+          break;
+
+        default:
+          console.log('default');
+          return;
+      }
+      if(form.rango){
+        datos.range = form.rango;
+        if(form.startOptDate && form.finishOptDate){
+          datos.startOptionalDate = form.startOptDate;
+          datos.finishOptionalDate = form.finishOptDate;
+        }else{
+          this.dangerMessage = true;
+          return;
+        }
+      }
+      if(form.totalMes){
+        datos.totalPerMonth = form.totalMes;
+      }
+      if(form.costoTotal){
+        datos.totalCost = form.costoTotal;
+      }
+      if(form.variacion){
+        datos.variation = form.variacion;
+      }
+      localStorage.setItem('datos', JSON.stringify(datos));
+      this.router.navigate(['/report'])
+    }else{
+      this.dangerMessage = true;
+    }
+  }
 }
