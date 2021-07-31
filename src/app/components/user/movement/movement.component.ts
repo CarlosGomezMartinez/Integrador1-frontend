@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CategoryService } from '../../../services/category/category.service';
 import { ConceptService } from '../../../services/concept/concept.service';
 import { ProductService } from '../../../services/product/product.service';
@@ -7,6 +7,7 @@ import { AcquisitionPointService } from '../../../services/acquisition-point/acq
 import { MovementService } from '../../../services/movement/movement.service';
 import { Router } from '@angular/router';
 import { AuthService } from '@app/services/auth/auth.service';
+import { ReturnStatement } from '@angular/compiler';
 
 @Component({
   selector: 'app-movement',
@@ -28,6 +29,8 @@ export class MovementComponent implements OnInit {
   conceptFiltered:any;
   productFiltered:any;
   unit:any;
+  singleValue: number;
+  total: number;
 
   titles = ['ID','Categoría', 'Concepto', 'Producto', 'Cantidad', 'Valor unitario', 'Costo total', 'Tipo movimiento', 'Punto Adquisición', 'Fecha', 'Descartar'];
   id = 0;
@@ -69,16 +72,16 @@ export class MovementComponent implements OnInit {
     }
 
     this.movementForm = this.fb.group({
-      category: [null, Validators.required],
-      concept: [{value: null, disabled:true}, Validators.required],
-      product: [{value: null, disabled:true}, Validators.required],
-      point: [null, Validators.required],
-      movementType: [null, Validators.required],
-      value: ['', Validators.required],
-      amount: ['', Validators.required],
-      date:[this.date, Validators.required]
+      category: new FormControl(null, Validators.required),
+      concept: new FormControl({value: null, disabled:true}, Validators.required),
+      product: new FormControl({value: null, disabled:true}, Validators.required),
+      point: new FormControl(null, Validators.required),
+      amount: new FormControl(null, Validators.required),
+      movementType: new FormControl(null, Validators.required),
+      unitValue: [null, Validators.required],
+      totalValue:[null, Validators.required],
+      date: new FormControl(this.date, Validators.required)
     });
-
     this.movementForm.get('category').valueChanges.subscribe((value)=>{
       if(value){
         this.movementForm.get('concept').enable();
@@ -104,37 +107,60 @@ export class MovementComponent implements OnInit {
         this.unit = value.unidad;
       }
     })
+
+    this.movementForm.get('unitValue').valueChanges.subscribe((value)=>{
+      if(value){
+        this.movementForm.get('totalValue').disable({emitEvent: false});
+      }else{
+        this.movementForm.get('totalValue').enable({emitEvent: false});
+      }
+    })
+
+    this.movementForm.get('totalValue').valueChanges.subscribe((value)=>{
+      if(value){
+        this.movementForm.get('unitValue').disable({emitEvent: false});
+      }else{
+        this.movementForm.get('unitValue').enable({emitEvent: false});
+      }
+    })
   }
 
   addMovement(form: any){
+    if(form.unitValue){
+      this.singleValue = form.unitValue;
+      this.total = form.unitValue * form.amount;
+    }else{
+      this.singleValue = form.totalValue / form.amount;
+      this.total = form.totalValue;
+    }
     try{
       let frontElements = {
-      id: this.id,
-      category:form.category.nombre_categoria,
-      concept:form.concept.nombre_concepto,
-      product:form.product.nombre_producto,
-      amount:form.amount,
-      unitValue:form.value,
-      totalAmount:form.amount * form.value,
-      movementType:form.movementType,
-      point:form.point.nombre_punto,
-      date:form.date
-    }
-    this.id++;
-    this.movements.push(frontElements);
+        id: this.id,
+        category:form.category.nombre_categoria,
+        concept:form.concept.nombre_concepto,
+        product:form.product.nombre_producto,
+        amount:form.amount,
+        unitValue:this.singleValue,
+        totalAmount:this.total,
+        movementType:form.movementType,
+        point:form.point.nombre_punto,
+        date:form.date
+      }
+      this.id++;
+      this.movements.push(frontElements);
 
-    let backElements = {
-      id_punto:form.point.id_punto,
-      id_producto_servicio:form.product.id_producto,
-      id_concepto:form.concept.id_concepto,
-      id_categoria:form.category.id_categoria,
-      usuario: this.user.uid,
-      cantidad: form.amount,
-      valor_unitario:form.value,
-      tipo_movimiento:form.movementType,
-      fecha:form.date
-    }
-    this.backMovements.push(backElements);
+      let backElements = {
+        id_punto:form.point.id_punto,
+        id_producto_servicio:form.product.id_producto,
+        id_concepto:form.concept.id_concepto,
+        id_categoria:form.category.id_categoria,
+        usuario: this.user.uid,
+        cantidad: form.amount,
+        valor_unitario:this.singleValue,
+        tipo_movimiento:form.movementType,
+        fecha:form.date
+      }
+      this.backMovements.push(backElements);
     }catch (error){
       console.log("No fue posible agregar la información");
     }
@@ -165,6 +191,10 @@ export class MovementComponent implements OnInit {
     }
     if(iterations){
       this.noSavedElements = noSavedMovements++;
+      if(this.noSavedElements == 0){
+        this.backMovements = [];
+        this.movements = [];
+      }
     }
     else{
       this.noSavedElements = null;

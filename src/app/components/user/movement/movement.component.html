@@ -34,13 +34,11 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-md-6">
-                            <input type="number" class="form-control" formControlName="value" placeholder="Valor unitario" min="1">
-                        </div>
-                        <div class="form-group form-inline col-md-6">
-                            <input type="number" class="form-control col-md-5" formControlName="amount" placeholder="Cantidad" min="1">
-                            <p class="mt-1">{{unit}}</p>
-
+                        <div class="form-group form-inline col-md-10">
+                            <input type="number" class="form-control col-md-3" formControlName="unitValue" placeholder="Valor unitario" min="1">
+                            <input type="number" class="form-control col-md-2 ml-3" formControlName="amount" placeholder="Cantidad" min="1">
+                            <p class="mt-1 col-md-2"> {{unit}}</p>
+                            <input type="number" class="form-control" formControlName="totalValue" placeholder="Valor total" min="1" style="position:relative;left: 17px;">
                         </div>
                     </div>
                     <div class="row">
@@ -69,7 +67,7 @@
                 <div class="form-group">
                         <br>
                         <h5 class="text-center">Lista de movimientos agregados hasta ahora</h5>
-                        <table class="table table-striped table-bordered">
+                        <table class="table table-responsive table-striped table-bordered">
                             <thead>
                                 <tr>
                                     <th scope="col" *ngFor="let title of titles">
@@ -93,7 +91,7 @@
                     </div>
                 <div class="form-group">
                     <button class="btn btn-primary ml-5" routerLink="/profile">
-                        <i class="fas fa-arrow-left"></i> Descartar y volver
+                        <i class="fas fa-arrow-left"></i> Descartar o Volver
                     </button>
                     <button class="btn btn-success ml-5" (click)="saveMovements()" data-toggle="modal" data-target="#modalMovements">
                         <i class="far fa-save"></i> Guardar movimientos
@@ -121,7 +119,6 @@
                         </div>
                         <div class="modal-footer">
                         <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
                         </div>
                     </div>
                     </div>
