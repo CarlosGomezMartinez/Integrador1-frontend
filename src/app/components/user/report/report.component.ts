@@ -96,7 +96,7 @@ export class ReportComponent implements OnInit {
               let desdeFecha = datos.startDate;
               let hastaFecha = datos.finishDate;
               this.listedMovements = `desde el ${desdeFecha} hasta el ${hastaFecha}`;
-              this.principalTitles = ['Fecha','Punto Adquisición','Categoría','Concepto','Producto', 'Cantidad', 'Valor unitario','Costo total', 'Tipo movimiento'];
+              /* this.principalTitles = ['Fecha','Punto Adquisición','Categoría','Concepto','Producto', 'Cantidad', 'Valor unitario','Costo total', 'Tipo movimiento']; */
               let datosAPresentar = [];
               for(let i=0; i<data.length; i++){
                 datosAPresentar[i] = {
@@ -118,6 +118,11 @@ export class ReportComponent implements OnInit {
               }
               if(datos.totalCost){
                 this.costTotalize(data);
+              }
+              if(datos.variation){
+                this.typeWithVariation(data, infoQuery);
+              }else{
+                this.type(data, infoQuery);
               }
             }
           })
@@ -179,10 +184,25 @@ export class ReportComponent implements OnInit {
       }
       this.movements = datos;
     }
-    else{
+    else if(infoQuery.tipo === 'producto' || infoQuery.tipoParaPunto ==='producto'){
       let name = data[0].producto_servicio;
       this.listedMovements = `para el producto o servicio ${name}`;
       this.principalTitles = ['Fecha','Punto Adquisición', 'Cantidad', 'Valor unitario','Costo total', 'Tipo movimiento'];
+      let datos = [];
+      for(let i = 0; i < data.length; i++){
+        datos[i] = {
+          fecha: data[i].fecha.slice(0,10),
+          punto: data[i].punto,
+          cantidad: data[i].cantidad,
+          valorUnitario: data[i].valor,
+          costoTotal: data[i].cantidad*data[i].valor,
+          tipoMovimiento: data[i].movimiento
+        }
+      }
+      this.movements = datos;
+    }
+    else{
+      this.principalTitles = ['Fecha','Punto Adquisición','Categoría','Concepto','Producto', 'Cantidad', 'Valor unitario','Costo total', 'Tipo movimiento'];
       let datos = [];
       for(let i = 0; i < data.length; i++){
         datos[i] = {
@@ -235,21 +255,32 @@ export class ReportComponent implements OnInit {
   }
 
   public typeWithVariation(data: any, infoQuery:any):void{
+    let datos = [];
+    let valorVariacion;
+    let porcentajeVariacion;
+
+    var uniqueProducts = []; 
+    data.forEach(function(item){ 
+      var i = uniqueProducts.findIndex(x => x.id_producto == item.id_producto_servicio); 
+      if(i <= -1){ 
+        uniqueProducts.push({id_producto: item.id_producto_servicio,valor: item.valor}); 
+      } 
+    });
+    console.log(uniqueProducts)
+
     if(infoQuery.tipo === 'categoría' || infoQuery.tipoParaPunto ==='categoría'){
-      let name = data[0].categoria;
-      this.listedMovements = `para la categoría ${name}`;
+      this.listedMovements = `para la categoría ${data[0].categoria}`;
       this.principalTitles = ['Fecha','Punto Adquisición', 'Concepto', 'Producto', 'Cantidad', 'Valor unitario','Costo total', 'Tipo movimiento', '$ Variación', '% Variación'];
-      let datos = [];
-      let valor;
-      let porcentaje;
       for(let i = 0; i < data.length; i++){
         if(i != 0){
-          valor = data[i].valor-datos[i-1].valorUnitario;
-          porcentaje = 100-(data[i].valor*100)/datos[i-1].valorUnitario;
+          var index = uniqueProducts.findIndex(x => x.id_producto == data[i].id_producto_servicio);
+          valorVariacion = data[i].valor-uniqueProducts[index].valor;
+          porcentajeVariacion = ((data[i].valor-uniqueProducts[index].valor)/uniqueProducts[index].valor)*100;
+          uniqueProducts[index].valor = data[i].valor;
         }
         else{
-          valor = 0;
-          porcentaje = 0;
+          valorVariacion = 0;
+          porcentajeVariacion = 0;
         }
 
         datos[i] = {
@@ -261,27 +292,24 @@ export class ReportComponent implements OnInit {
           valorUnitario: data[i].valor,
           costoTotal: data[i].cantidad*data[i].valor,
           tipoMovimiento: data[i].movimiento,
-          variacionPesos: valor,
-          variacionPorcentaje: porcentaje.toString().slice(0,5)
+          variacionPesos: valorVariacion,
+          variacionPorcentaje: porcentajeVariacion.toFixed(2)
         }
       }
-      this.movements = datos;
     }
     else if(infoQuery.tipo === 'concepto' || infoQuery.tipoParaPunto === 'concepto'){
-      let name = data[0].concepto;
-      this.listedMovements = `para el concepto ${name}`;
+      this.listedMovements = `para el concepto ${data[0].concepto}`;
       this.principalTitles = ['Fecha','Punto Adquisición', 'Producto', 'Cantidad', 'Valor unitario','Costo total', 'Tipo movimiento','$ Variación', '% Variación'];
-      let datos = [];
-      let valor;
-      let porcentaje;
       for(let i = 0; i < data.length; i++){
         if(i != 0){
-          valor = data[i].valor-datos[i-1].valorUnitario;
-          porcentaje = 100-(data[i].valor*100)/datos[i-1].valorUnitario;
+          var index = uniqueProducts.findIndex(x => x.id_producto == data[i].id_producto_servicio);
+          valorVariacion = data[i].valor-uniqueProducts[index].valor;
+          porcentajeVariacion = ((data[i].valor-uniqueProducts[index].valor)/uniqueProducts[index].valor)*100;
+          uniqueProducts[index].valor = data[i].valor;
         }
         else{
-          valor = data[i].valor;
-          porcentaje = 0;
+          valorVariacion = data[i].valor;
+          porcentajeVariacion = 0;
         }
         datos[i] = {
           fecha: data[i].fecha.slice(0,10),
@@ -291,27 +319,24 @@ export class ReportComponent implements OnInit {
           valorUnitario: data[i].valor,
           costoTotal: data[i].cantidad*data[i].valor,
           tipoMovimiento: data[i].movimiento,
-          variacionPesos: valor,
-          variacionPorcentaje: porcentaje.toString().slice(0,5)
+          variacionPesos: valorVariacion,
+          variacionPorcentaje: porcentajeVariacion.toFixed(2)
         }
       }
-      this.movements = datos;
     }
-    else{
-      let name = data[0].producto_servicio;
-      this.listedMovements = `para el producto o servicio ${name}`;
+    else if (infoQuery.tipo === 'producto' || infoQuery.tipoParaPunto ==='producto'){
+      this.listedMovements = `para el producto o servicio ${data[0].producto_servicio}`;
       this.principalTitles = ['Fecha','Punto Adquisición', 'Cantidad', 'Valor unitario','Costo total', 'Tipo movimiento','$ Variación', '% Variación'];
-      let datos = [];
-      let valor;
-      let porcentaje;
       for(let i = 0; i < data.length; i++){
         if(i != 0){
-          valor = data[i].valor-datos[i-1].valorUnitario;
-          porcentaje = 100-(data[i].valor*100)/datos[i-1].valorUnitario;
+          var index = uniqueProducts.findIndex(x => x.id_producto == data[i].id_producto_servicio);
+          valorVariacion = data[i].valor-uniqueProducts[index].valor;
+          porcentajeVariacion = ((data[i].valor-uniqueProducts[index].valor)/uniqueProducts[index].valor)*100;
+          uniqueProducts[index].valor = data[i].valor;
         }
         else{
-          valor = data[i].valor;
-          porcentaje = 0;
+          valorVariacion = 0;
+          porcentajeVariacion = 0;
         }
         datos[i] = {
           fecha: data[i].fecha.slice(0,10),
@@ -320,11 +345,39 @@ export class ReportComponent implements OnInit {
           valorUnitario: data[i].valor,
           costoTotal: data[i].cantidad*data[i].valor,
           tipoMovimiento: data[i].movimiento,
-          variacionPesos: valor,
-          variacionPorcentaje: porcentaje.toString().slice(0,5)
+          variacionPesos: valorVariacion,
+          variacionPorcentaje: porcentajeVariacion.toFixed(2)
         }
       }
-      this.movements = datos;
     }
+    else{
+      this.principalTitles = ['Fecha','Punto Adquisición','Categoría','Concepto','Producto', 'Cantidad', 'Valor unitario','Costo total', 'Tipo movimiento', '$ Variación', '% Variación'];
+      for(let i = 0; i < data.length; i++){
+        if(i != 0){
+          var index = uniqueProducts.findIndex(x => x.id_producto == data[i].id_producto_servicio);
+          valorVariacion = data[i].valor-uniqueProducts[index].valor;
+          porcentajeVariacion = ((data[i].valor-uniqueProducts[index].valor)/uniqueProducts[index].valor)*100;
+          uniqueProducts[index].valor = data[i].valor;
+        }
+        else{
+          valorVariacion = 0;
+          porcentajeVariacion = 0;
+        }
+        datos[i] = {
+          fecha: data[i].fecha.slice(0,10),
+          punto: data[i].punto,
+          categoria: data[i].categoria,
+          concepto: data[i].concepto,
+          producto_servicio: data[i].producto_servicio,
+          cantidad: data[i].cantidad,
+          valorUnitario: data[i].valor,
+          costoTotal: data[i].cantidad*data[i].valor,
+          tipoMovimiento: data[i].movimiento,
+          variacionPesos: valorVariacion,
+          variacionPorcentaje: porcentajeVariacion.toFixed(2)
+        }
+      }
+    }
+    this.movements = datos;
   }
 }
